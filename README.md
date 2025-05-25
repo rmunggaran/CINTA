@@ -2,15 +2,15 @@
 
 # MENGATASI ERROR
 
-Warning: mysqli_connect(): (HY000/1049): Unknown database 'ppdb_dapit_1' in D:\laragon\www\CINTA-main\config\database.php on line 14
-Koneksi Database Gagal: Unknown database 'ppdb_dapit_1'
-Mengatasi:
-Ubah nama databasenya dengan ppdb_dapit_1 atau sesuaikan dengan database kalian
+- Warning: mysqli_connect(): (HY000/1049): Unknown database 'ppdb_dapit_1' in D:\laragon\www\CINTA-main\config\database.php on line 14
+  Koneksi Database Gagal: Unknown database 'ppdb_dapit_1'
+- Mengatasi:
+  Ubah nama databasenya dengan ppdb_dapit_1 atau sesuaikan dengan database kalian
 
-Warning: require(C:/xampp/htdocs/CINTA-main/config/database.php): failed to open stream: No such file or directory in D:\laragon\www\CINTA-main\user\mod_formulir\formulir.php on line 2
-Fatal error: require(): Failed opening required 'C:/xampp/htdocs/CINTA-main/config/database.php' (include_path='.;D:/laragon/etc/php/pear') in D:\laragon\www\CINTA-main\user\mod_formulir\formulir.php on line 2
-mengatasi:
-ubah "D:/laragon/www/nama_file_aplikasi/config/database.php" jadi C:/xampp/htdocs/nama_file_aplikasi/config/database.php
+- Warning: require(C:/xampp/htdocs/CINTA-main/config/database.php): failed to open stream: No such file or directory in D:\laragon\www\CINTA-main\user\mod_formulir\formulir.php on line 2
+  Fatal error: require(): Failed opening required 'C:/xampp/htdocs/CINTA-main/config/database.php' (include_path='.;D:/laragon/etc/php/pear') in D:\laragon\www\CINTA-main\user\mod_formulir\formulir.php on line 2
+- mengatasi:
+  ubah "D:/laragon/www/nama_file_aplikasi/config/database.php" jadi C:/xampp/htdocs/nama_file_aplikasi/config/database.php
 
 # HOW TO USE
 
