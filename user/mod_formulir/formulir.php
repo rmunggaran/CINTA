@@ -58,8 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $status_keluarga    = isset($_POST['status_keluarga']) ? bersihkanInput($_POST['status_keluarga'], $koneksi) : '';
     $alamat_rumah       = isset($_POST['alamat_rumah']) ? bersihkanInput($_POST['alamat_rumah'], $koneksi) : '';
     $alamat_sekarang    = isset($_POST['alamat_sekarang']) ? bersihkanInput($_POST['alamat_sekarang'], $koneksi) : '';
-    $kelas_diterima     = isset($_POST['kelas_diterima']) ? bersihkanInput($_POST['kelas_diterima'], $koneksi) : '';
-    $tanggal_diterima   = isset($_POST['tanggal_diterima']) ? bersihkanInput($_POST['tanggal_diterima'], $koneksi) : '';
     $sekolah_asal       = isset($_POST['sekolah_asal']) ? bersihkanInput($_POST['sekolah_asal'], $koneksi) : '';
     $alamat_sekolah_asal = isset($_POST['alamat_sekolah_asal']) ? bersihkanInput($_POST['alamat_sekolah_asal'], $koneksi) : '';
     $sttb_tahun         = isset($_POST['sttb_tahun']) ? bersihkanInput($_POST['sttb_tahun'], $koneksi) : '';
@@ -94,8 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'status_keluarga',
         'alamat_rumah',
         'alamat_sekarang',
-        'kelas_diterima',
-        'tanggal_diterima',
         'sekolah_asal',
         'alamat_sekolah_asal',
         'sttb_tahun',
@@ -129,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $query = "UPDATE formulir SET 
                 no_pendaftaran=?, kategori=?, nama_siswa=?, nomor_induk=?, jenis_kelamin=?, 
                 tempat_lahir=?, tanggal_lahir=?, anak_ke=?, jumlah_saudara=?, status_keluarga=?, 
-                alamat_rumah=?, alamat_sekarang=?, kelas_diterima=?, tanggal_diterima=?, 
+                alamat_rumah=?, alamat_sekarang=?, 
                 sekolah_asal=?, alamat_sekolah_asal=?, sttb_tahun=?, sttb_nomor=?, 
                 nama_ayah=?, nama_ibu=?, agama_ortu=?, alamat_ortu=?, pekerjaan_ayah=?, 
                 pekerjaan_ibu=?, pendidikan_ayah=?, pendidikan_ibu=?, penghasilan=?, 
@@ -139,12 +135,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $query = "INSERT INTO formulir (
                 no_pendaftaran, no_daftar, kategori, nama_siswa, nomor_induk, jenis_kelamin, 
                 tempat_lahir, tanggal_lahir, anak_ke, jumlah_saudara, status_keluarga, 
-                alamat_rumah, alamat_sekarang, kelas_diterima, tanggal_diterima, 
+                alamat_rumah, alamat_sekarang, 
                 sekolah_asal, alamat_sekolah_asal, sttb_tahun, sttb_nomor, 
                 nama_ayah, nama_ibu, agama_ortu, alamat_ortu, pekerjaan_ayah, 
                 pekerjaan_ibu, pendidikan_ayah, pendidikan_ibu, penghasilan, 
                 nama_wali, agama_wali, alamat_wali, pendidikan_wali, pekerjaan_wali
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         }
 
         $stmt = mysqli_prepare($koneksi, $query);
@@ -163,8 +159,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $status_keluarga,
                 $alamat_rumah,
                 $alamat_sekarang,
-                $kelas_diterima,
-                $tanggal_diterima,
                 $sekolah_asal,
                 $alamat_sekolah_asal,
                 $sttb_tahun,
@@ -186,11 +180,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ];
 
             if ($is_edit) {
-                $bindTypes = 'ssssssssss' . str_repeat('s', 22) . 's'; // Total = 34 karakter
+                $bindTypes = 'ssssssssss' . str_repeat('s', 20) . 's'; // Total = 34 karakter
                 $params[] = $no_daftar_param;
             } else {
                 array_splice($params, 1, 0, $no_daftar);
-                $bindTypes = str_repeat('s', 33);
+                $bindTypes = str_repeat('s', 31);
             }
 
             mysqli_stmt_bind_param($stmt, $bindTypes, ...$params);
@@ -398,7 +392,7 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
                 <input type="text" id="alamat_sekarang" name="alamat_sekarang" value="<?= htmlspecialchars($data['alamat_sekarang'] ?? '') ?>" required>
             </div>
             <!-- 3. Diterima di Madrasah -->
-            <div class="section-title">3. Diterima di Madrasah Ini</div>
+            <!-- <div class="section-title">3. Diterima di Madrasah Ini</div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="kelas_diterima">Di Kelas:</label>
@@ -408,9 +402,9 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
                     <label for="tanggal_diterima">Pada Tanggal:</label>
                     <input type="date" id="tanggal_diterima" name="tanggal_diterima" value="<?= htmlspecialchars($data['tanggal_diterima'] ?? '') ?>" required>
                 </div>
-            </div>
+            </div> -->
             <!-- 4. Sekolah Asal -->
-            <div class="section-title">4. Sekolah Asal</div>
+            <div class="section-title">3. Sekolah Asal</div>
             <div class="form-group">
                 <label for="sekolah_asal">Nama Sekolah/TK Asal:</label>
                 <input type="text" id="sekolah_asal" name="sekolah_asal" value="<?= htmlspecialchars($data['sekolah_asal'] ?? '') ?>" required>
@@ -430,7 +424,7 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
                 </div>
             </div>
             <!-- 5. Orang Tua -->
-            <div class="section-title">5. Orang Tua</div>
+            <div class="section-title">4. Orang Tua</div>
             <div class="form-group">
                 <label for="nama_ayah">Nama Ayah:</label>
                 <input type="text" id="nama_ayah" name="nama_ayah" value="<?= htmlspecialchars($data['nama_ayah'] ?? '') ?>" required>
@@ -536,7 +530,7 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
                 </select>
             </div>
             <!-- 6. Wali -->
-            <div class="section-title">6. Wali</div>
+            <div class="section-title">5. Wali</div>
             <div class="form-group">
                 <label for="wali_dari">Wali Dari:</label>
                 <select id="wali_dari" name="wali_dari" onchange="isiDataWali()">
