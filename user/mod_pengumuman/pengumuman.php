@@ -3,6 +3,19 @@
         <div class="card">
             <div class="card-body">
                 <div class="activities">
+                    <?php
+                    $daftar = fetch($koneksi, 'daftar', ['id_daftar' => $_SESSION['id_daftar']]);
+
+                    if ($daftar && isset($daftar['kelas']) && $daftar['kelas']) {
+                        // Ambil data kelas berdasarkan id_kelas
+                        $kelas = fetch($koneksi, 'kelas', ['id_kelas' => $daftar['kelas']]);
+                    ?>
+                        <div class="alert alert-success alert-dismissable w-100">
+                            <h4>Selamat anda telah telah di terima di MI Condong !!!</h4>
+                            Anda masuk di
+                            <span class="badge badge-danger"> <?= $kelas['nama_kelas'] ?> </span>
+                        </div>
+                    <?php } ?>
                     <?php $query = mysqli_query($koneksi, "SELECT * FROM pengumuman where jenis IN (0, 1) ORDER BY tgl DESC");
                     while ($data = mysqli_fetch_array($query)) {
                     ?>

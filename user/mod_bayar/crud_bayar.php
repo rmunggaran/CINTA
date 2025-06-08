@@ -19,8 +19,8 @@ if ($pg == 'tambah') {
     $query = "SELECT max(id_bayar) AS last FROM bayar WHERE id_bayar LIKE '$today%'";
     $hasil = mysqli_query($koneksi, $query);
     $data  = mysqli_fetch_array($hasil);
-    $lastNoTransaksi = $data['last'];
-    $lastNoUrut = substr($lastNoTransaksi, 8, 4);
+    $lastNoTransaksi = $data['last'] ?? '';;
+    $lastNoUrut =  (int) substr($lastNoTransaksi, 8, 4);
     $nextNoUrut = $lastNoUrut + 1;
     $nextNoTransaksi = $today . sprintf('%04s', $nextNoUrut);
     $ektensi = ['jpg', 'png'];

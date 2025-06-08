@@ -73,8 +73,7 @@ if (isset($_SESSION['id_daftar'])) {
                         $kelas = fetch($koneksi, 'kelas', ['id_kelas' => $daftar['kelas']]);
                     ?>
                         <div class="alert alert-success alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Selamat anda telah mendapatkan kelas !!!<br />
+                            <h4>Selamat anda telah telah di terima di MI Condong !!!</h4>
                             Anda masuk di
                             <span class="badge badge-danger"> <?= $kelas['nama_kelas'] ?> </span>
                         </div>

@@ -346,7 +346,7 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="nomor_induk">Nomor Induk:</label>
+                    <label for="nomor_induk">Nomor Induk Kependudukan (NIK):</label>
                     <input type="text" id="nomor_induk" name="nomor_induk" value="<?= htmlspecialchars($data['nomor_induk'] ?? '') ?>" required>
                 </div>
                 <div class="form-group">
