@@ -16,6 +16,16 @@ function logError($message)
     file_put_contents('error.log', date('Y-m-d H:i:s') . " - " . $message . "\n", FILE_APPEND);
 }
 
+function generateNomorPendaftaran($koneksi)
+{
+    $query = "SELECT MAX(CAST(SUBSTRING(no_pendaftaran, 5) AS UNSIGNED)) as max_nomor FROM formulir WHERE no_pendaftaran LIKE 'PSB-%'";
+    $result = mysqli_query($koneksi, $query);
+    $row = mysqli_fetch_assoc($result);
+    $nextNomor = (int)($row['max_nomor'] ?? 0) + 1;
+    return 'PSB-' . $nextNomor;
+}
+
+
 // Initialize message variables
 $success_message = '';
 $error_message = '';
@@ -45,7 +55,10 @@ if (isset($_GET['no_daftar'])) {
 // Proses data jika form disubmit
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Bersihkan semua input
-    $no_pendaftaran     = isset($_POST['no_pendaftaran']) ? bersihkanInput($_POST['no_pendaftaran'], $koneksi) : '';
+    $no_pendaftaran = isset($_POST['no_pendaftaran']) && !empty($_POST['no_pendaftaran'])
+        ? bersihkanInput($_POST['no_pendaftaran'], $koneksi)
+        : generateNomorPendaftaran($koneksi);
+
     $no_daftar          = isset($_POST['no_daftar']) ? bersihkanInput($_POST['no_daftar'], $koneksi) : '';
     $kategori           = isset($_POST['kategori']) ? bersihkanInput($_POST['kategori'], $koneksi) : '';
     $nama_siswa         = isset($_POST['nama_siswa']) ? bersihkanInput($_POST['nama_siswa'], $koneksi) : '';
@@ -318,10 +331,13 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
             <div class="section-title">1. Data Siswa</div>
             <div class="form-group">
                 <label for="no_pendaftaran">Nomor Pendaftaran:</label>
-                <input type="text" id="no_pendaftaran" name="no_pendaftaran" value="<?= htmlspecialchars($data['no_pendaftaran'] ?? '') ?>" readonly required>
+                <input type="text" id="no_pendaftaran" name="no_pendaftaran"
+                    value="<?= isset($data['no_pendaftaran']) ? htmlspecialchars($data['no_pendaftaran']) : generateNomorPendaftaran($koneksi) ?>"
+                    readonly required>
+
             </div>
             <div class="form-group">
-                <label for="kategori">Kategori Daftar Sebagai:</label>
+                <label for="kategori">Jenis Pendidikan:</label>
                 <select id="kategori" name="kategori" required>
                     <option value="">-- Pilih Kategori --</option>
                     <?php $qu = mysqli_query($koneksi, "select * from jurusan");
@@ -677,17 +693,17 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
 
 
         // Generate nomor pendaftaran
-        <?php if ($gunakan_js): ?>
-            window.onload = function() {
-                const now = new Date();
-                const nomor = 'PSB-' +
-                    now.getFullYear().toString().slice(-2) +
-                    (now.getMonth() + 1).toString().padStart(2, '0') +
-                    now.getDate().toString().padStart(2, '0') + '-' +
-                    Math.floor(1000 + Math.random() * 9000);
-                document.getElementById('no_pendaftaran').value = nomor;
-            };
-        <?php endif; ?>
+        // <?php if ($gunakan_js): ?>
+        //     window.onload = function() {
+        //         const now = new Date();
+        //         const nomor = 'PSB-' +
+        //             now.getFullYear().toString().slice(-2) +
+        //             (now.getMonth() + 1).toString().padStart(2, '0') +
+        //             now.getDate().toString().padStart(2, '0') + '-' +
+        //             Math.floor(1000 + Math.random() * 9000);
+        //         document.getElementById('no_pendaftaran').value = nomor;
+        //     };
+        // <?php endif; ?>
 
 
         // Display SweetAlert2 messages

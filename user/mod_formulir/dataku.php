@@ -108,7 +108,7 @@ if (isset($_SESSION['id_daftar'])) {
                                                 <td><?= htmlspecialchars($siswa['no_pendaftaran']) ?></td>
                                             </tr>
                                             <tr>
-                                                <td><b>Kategori</b></td>
+                                                <td><b>Jenis Pendidikan</b></td>
                                                 <?php
                                                 $jurusan = fetch($koneksi, 'jurusan', ['id_jurusan' => $siswa['kategori']]);
                                                 ?>

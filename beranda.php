@@ -233,7 +233,7 @@
                                     <?php if ($setting['jenjang'] == 1) { ?>
                                         <div class="card">
                                             <div class="card-header bg-info">
-                                                <h4>Formulir Pendaftaran</h4>
+                                                <h4>Daftar Akun</h4>
                                             </div>
                                             <form id="form-daftar">
                                                 <div class="card-body">
@@ -321,13 +321,13 @@
                                     <?php } else { ?>
                                         <div class="card">
                                             <div class="card-header bg-info">
-                                                <h4>Formulir Pendaftaran</h4>
+                                                <h4>Daftar Akun</h4>
                                             </div>
                                             <form id="form-daftar2">
                                                 <div class="card-body">
                                                     <input type="date" name="tgl_daftar" class="form-control datepicker" value="<?= $daftar['tgl_daftar'] ?>" hidden>
                                                     <div class="form-row">
-                                                        <label for="asal">JURUSAN / PROGRAM</label>
+                                                        <label for="asal">JENIS PENDIDIKAN</label>
                                                         <select class="form-control select2" style="width: 100%" name="jurusan" id="jurusan">
                                                             <option value=""></option>
                                                             <?php $qu = mysqli_query($koneksi, "select * from jurusan");
@@ -497,7 +497,7 @@
                                     <div class="col-md-12 ">
                                         <div class="card">
                                             <div class="card-header bg-info">
-                                                <h4>Formulir Pendaftaran</h4>
+                                                <h4>Daftar Akun</h4>
                                             </div>
                                             <form id="form-daftar">
                                                 <div class="card-body">
@@ -719,42 +719,42 @@
 
                     </div>
                 </section>
-
-                <table class="table table-striped table-sm" id="sortable-table">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>Foto</th>
-                            <th>Nama Guru</th>
-                            <th>Pendidikan Terakhir</th>
-                            <th>Wali Kelas</th>
-                        </tr>
-                    </thead>
-                    <tbody class="ui-sortable">
-                        <?php
-                        $no = 1;
-                        $query = mysqli_query($koneksi, "SELECT * FROM guru");
-                        if ($query) {
-                            while ($guru = mysqli_fetch_array($query)) {
-                        ?>
-                                <tr>
-                                    <td class="text-center"><?= $no++ ?></td>
-                                    <td>
-                                        <img src="assets/foto_guru/<?= $guru['foto'] ?>" alt="Foto <?= $guru['nama_guru'] ?>" width="50" height="60" style="object-fit: cover; border-radius: 5px;">
-                                    </td>
-                                    <td><?= $guru['nama_guru'] ?></td>
-                                    <td><?= $guru['pendidikan_terakhir'] ?></td>
-                                    <td><?= $guru['wali_kelas'] ? $guru['wali_kelas'] : '-' ?></td>
-                                </tr>
-                        <?php
+                <div class="container">
+                    <table class="table table-striped table-sm" id="sortable-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Foto</th>
+                                <th>Nama Guru</th>
+                                <th>Pendidikan Terakhir</th>
+                                <th>Wali Kelas</th>
+                            </tr>
+                        </thead>
+                        <tbody class="ui-sortable">
+                            <?php
+                            $no = 1;
+                            $query = mysqli_query($koneksi, "SELECT * FROM guru");
+                            if ($query) {
+                                while ($guru = mysqli_fetch_array($query)) {
+                            ?>
+                                    <tr>
+                                        <td class="text-center"><?= $no++ ?></td>
+                                        <td>
+                                            <img src="assets/foto_guru/<?= $guru['foto'] ?>" alt="Foto <?= $guru['nama_guru'] ?>" width="50" height="60" style="object-fit: cover; border-radius: 5px;">
+                                        </td>
+                                        <td><?= $guru['nama_guru'] ?></td>
+                                        <td><?= $guru['pendidikan_terakhir'] ?></td>
+                                        <td><?= $guru['wali_kelas'] ? $guru['wali_kelas'] : '-' ?></td>
+                                    </tr>
+                            <?php
+                                }
+                            } else {
+                                echo "Error: " . mysqli_error($koneksi);
                             }
-                        } else {
-                            echo "Error: " . mysqli_error($koneksi);
-                        }
-                        ?>
-                    </tbody>
-                </table>
-
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
 
 
 
