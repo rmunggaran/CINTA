@@ -152,8 +152,8 @@
 			<?php } else { ?>
 				<div class="card-footer">
 					<h5 class="text-center">MENYATAKAN</h5>
-					<p>Bahwa saya selaku orang tua/wali dari peserta didik anu kelas anu MI Condong.<br>
-						Menyatakan dengan sesuguhnya <br>
+					<p>Bahwa saya selaku orang tua/wali dari peserta didik <?= $formulir['nama_siswa'] ?> di MI Condong.<br>
+						Menyatakan dengan sesungguhnya <br>
 						1. Bersedia mebimbing dan mengawasi perserta didik tersebut di atas untuk menaati tata tertib madrasah. <br>
 						2. Tidak keberatan peserta didik diatas menerima sanksi sesuai dengan ketentuan madrasah. <br>
 

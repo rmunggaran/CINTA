@@ -16,7 +16,7 @@
 
 		mysqli_stmt_close($stmt);
 	}
-	$url_formulir = "http://localhost/CINTA/user/?pg=formulir&edit=$edit&no_daftar=$no_daftar";
+	$url_formulir = "?pg=formulir&edit=$edit&no_daftar=$no_daftar";
 	?>
 
 	<li><a class="nav-link" href="<?= $url_formulir ?>"><i class="fas fa-indent"></i> <span>Formulir</span></a></li>
