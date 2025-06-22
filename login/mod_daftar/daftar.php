@@ -197,13 +197,20 @@
                                         <!-- Button trigger modal -->
                                         <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Cetak" href="mod_daftar/print_daftar.php?id=<?= enkripsi($daftar['id_daftar']) ?>" class="btn btn-sm btn-success"><i class="fas fa-print    "></i></a>
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-edit<?= $no ?>">
-                                            <i class="fas fa-edit    "></i>
-                                        </button>
+                                        <span data-toggle="tooltip" title="Verifikasi">
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                data-toggle="modal"
+                                                data-target="#modal-edit<?= $no ?>">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </span>
+
                                         <!-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-nilai<?= $no ?>">
                                             <i class="fas fa-address-book    "></i>
                                         </button> -->
-                                        <button data-id="<?= $daftar['id_daftar'] ?>" class="hapus btn-sm btn btn-danger"><i class="fas fa-trash    "></i></button>
+                                        <span data-toggle="tooltip" title="Hapus">
+                                            <button data-id="<?= $daftar['id_daftar'] ?>" class="hapus btn-sm btn btn-danger"><i class="fas fa-trash    "></i></button>
+                                        </span>
                                         <!-- Modal -->
                                         <div class="modal fade" id="modal-edit<?= $no ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                             <div class="modal-dialog" role="document">

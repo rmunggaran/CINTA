@@ -9,12 +9,12 @@
             $id_jurusan = $dKategori['kategori'];
 
             // Hitung total: biaya umum (NULL) + biaya jurusan user
-            $query = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total FROM biaya WHERE (id_jurusan IS NULL OR id_jurusan=0 OR id_jurusan = '$id_jurusan') AND (jenis_biaya IS NULL OR jenis_biaya != 'spp') AND status=1");
+            $query = mysqli_query($koneksi, "SELECT SUM(jumlah) AS total FROM biaya WHERE (id_jurusan IS NULL OR id_jurusan=0 OR id_jurusan = '$id_jurusan') AND (jenis_biaya IS NULL OR jenis_biaya != 'ppdb') AND status=1");
             $total = mysqli_fetch_array($query);
             ?>
 
             <div class="card-header">
-                <h4>Data biaya</h4>
+                <h4>Data biaya SPP</h4>
                 <div class="card-header-action">
                     <b>Total Biaya Rp. <?= number_format($total['total'], 0, ',', '.') ?></b>
                 </div>
@@ -35,7 +35,7 @@
                         </thead>
                         <tbody>
                             <?php
-                            $query = mysqli_query($koneksi, "select * from biaya WHERE (id_jurusan IS NULL OR id_jurusan=0 OR id_jurusan = '$id_jurusan') AND (jenis_biaya IS NULL OR jenis_biaya != 'spp') AND status=1");
+                            $query = mysqli_query($koneksi, "select * from biaya WHERE (id_jurusan IS NULL OR id_jurusan=0 OR id_jurusan = '$id_jurusan') AND (jenis_biaya IS NULL OR jenis_biaya != 'ppdb') AND status=1");
                             $no = 0;
                             while ($biaya = mysqli_fetch_array($query)) {
                                 $no++;
@@ -144,7 +144,7 @@
                         </thead>
                         <tbody>
                             <?php
-                            $query = mysqli_query($koneksi, "select * from bayar a join daftar b ON a.id_daftar=b.id_daftar where a.id_daftar='$siswa[id_daftar]'AND (jenis_bayar IS NULL OR jenis_bayar != 'spp')");
+                            $query = mysqli_query($koneksi, "select * from bayar a join daftar b ON a.id_daftar=b.id_daftar where a.id_daftar='$siswa[id_daftar]'AND (jenis_bayar IS NULL OR jenis_bayar != 'ppdb')");
                             $no = 0;
                             while ($bayar = mysqli_fetch_array($query)) {
                                 $user = fetch($koneksi, 'user', ['id_user' => $bayar['id_user']]);
@@ -168,12 +168,12 @@
 
                                         <?php } ?>
                                     </td>
-                                    <td><a target="_blank" class="btn btn-primary btn-sm" href="mod_bayar/<?= $bayar['bukti'] ?>" role="button"><i class="fas fa-eye"></i> bukti</a></td>
+                                    <td><a target="_blank" class="btn btn-primary btn-sm" href="mod_bayar_spp/<?= $bayar['bukti'] ?>" role="button"><i class="fas fa-eye"></i> bukti</a></td>
                                     <td>
                                         <?php if ($bayar['verifikasi'] == 0) { ?>
                                             <button data-id="<?= $bayar['id_bayar'] ?>" class="hapus btn btn-danger btn-sm"><i class="fas fa-trash    "></i> Batal</button>
                                         <?php } else { ?>
-                                            <a target="_blank" href="mod_bayar/print_kwitansi.php?id=<?= enkripsi($bayar['id_bayar']) ?>" class="btn btn-primary btn-sm"><i class="fas fa-print    "></i> Cetak</a>
+                                            <a target="_blank" href="mod_bayar_spp/print_kwitansi_spp.php?id=<?= enkripsi($bayar['id_bayar']) ?>" class="btn btn-primary btn-sm"><i class="fas fa-print    "></i> Cetak</a>
 
                                         <?php } ?>
                                     </td>
@@ -185,10 +185,10 @@
 
                 </div>
                 <?php
-                $bayar = mysqli_fetch_array(mysqli_query($koneksi, "select sum(jumlah) as total from bayar where id_daftar='$siswa[id_daftar]'AND (jenis_bayar IS NULL OR jenis_bayar != 'spp')"));
+                $bayar = mysqli_fetch_array(mysqli_query($koneksi, "select sum(jumlah) as total from bayar where id_daftar='$siswa[id_daftar]'AND (jenis_bayar IS NULL OR jenis_bayar != 'ppdb')"));
                 $sisa = $total['total'] - $bayar['total'];
 
-                $baeu = mysqli_query($koneksi, "SELECT * FROM bayar WHERE id_daftar='$siswa[id_daftar]' AND (jenis_bayar IS NULL OR jenis_bayar != 'spp') ORDER BY id_bayar DESC LIMIT 1");
+                $baeu = mysqli_query($koneksi, "SELECT * FROM bayar WHERE id_daftar='$siswa[id_daftar]' AND (jenis_bayar IS NULL OR jenis_bayar != 'ppdb') ORDER BY id_bayar DESC LIMIT 1");
                 $data_terakhir = mysqli_fetch_assoc($baeu);
                 ?>
                 <table class="table table-sm table-striped mt-4" style="font-size:15px">
@@ -212,7 +212,6 @@
                                     <?php } ?>
                                 </td>
                             </tr>
-
                         <?php } else { ?>
                         <?php } ?>
                     </tbody>
@@ -232,7 +231,7 @@
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            url: 'mod_bayar/crud_bayar.php?pg=tambah',
+            url: 'mod_bayar_spp/crud_bayar_spp.php?pg=tambah',
             data: new FormData(this),
             processData: false,
             contentType: false,
@@ -281,7 +280,7 @@
         }).then((result) => {
             if (result) {
                 $.ajax({
-                    url: 'mod_bayar/crud_bayar.php?pg=hapus',
+                    url: 'mod_bayar_spp/crud_bayar_spp.php?pg=hapus',
                     method: "POST",
                     data: 'id_bayar=' + id,
                     success: function(data) {

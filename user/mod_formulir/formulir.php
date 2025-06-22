@@ -52,171 +52,234 @@ if (isset($_GET['no_daftar'])) {
     $stmt->close();
 }
 
+$id = $_SESSION['id_daftar'] ?? null;
+
 // Proses data jika form disubmit
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Bersihkan semua input
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // ======= PROSES FORMULIR =======
     $no_pendaftaran = isset($_POST['no_pendaftaran']) && !empty($_POST['no_pendaftaran'])
         ? bersihkanInput($_POST['no_pendaftaran'], $koneksi)
         : generateNomorPendaftaran($koneksi);
 
-    $no_daftar          = isset($_POST['no_daftar']) ? bersihkanInput($_POST['no_daftar'], $koneksi) : '';
-    $kategori           = isset($_POST['kategori']) ? bersihkanInput($_POST['kategori'], $koneksi) : '';
-    $nama_siswa         = isset($_POST['nama_siswa']) ? bersihkanInput($_POST['nama_siswa'], $koneksi) : '';
-    $nomor_induk        = isset($_POST['nomor_induk']) ? bersihkanInput($_POST['nomor_induk'], $koneksi) : '';
-    $jenis_kelamin      = isset($_POST['jenis_kelamin']) ? bersihkanInput($_POST['jenis_kelamin'], $koneksi) : '';
-    $tempat_lahir       = isset($_POST['tempat_lahir']) ? bersihkanInput($_POST['tempat_lahir'], $koneksi) : '';
-    $tanggal_lahir      = isset($_POST['tanggal_lahir']) ? bersihkanInput($_POST['tanggal_lahir'], $koneksi) : '';
-    $anak_ke            = isset($_POST['anak_ke']) ? (int)bersihkanInput($_POST['anak_ke'], $koneksi) : 0;
-    $jumlah_saudara     = isset($_POST['jumlah_saudara']) ? (int)bersihkanInput($_POST['jumlah_saudara'], $koneksi) : 0;
-    $status_keluarga    = isset($_POST['status_keluarga']) ? bersihkanInput($_POST['status_keluarga'], $koneksi) : '';
-    $alamat_rumah       = isset($_POST['alamat_rumah']) ? bersihkanInput($_POST['alamat_rumah'], $koneksi) : '';
-    $alamat_sekarang    = isset($_POST['alamat_sekarang']) ? bersihkanInput($_POST['alamat_sekarang'], $koneksi) : '';
-    $sekolah_asal       = isset($_POST['sekolah_asal']) ? bersihkanInput($_POST['sekolah_asal'], $koneksi) : '';
-    $alamat_sekolah_asal = isset($_POST['alamat_sekolah_asal']) ? bersihkanInput($_POST['alamat_sekolah_asal'], $koneksi) : '';
-    $sttb_tahun         = isset($_POST['sttb_tahun']) ? bersihkanInput($_POST['sttb_tahun'], $koneksi) : '';
-    $sttb_nomor         = isset($_POST['sttb_nomor']) ? bersihkanInput($_POST['sttb_nomor'], $koneksi) : '';
-    $nama_ayah          = isset($_POST['nama_ayah']) ? bersihkanInput($_POST['nama_ayah'], $koneksi) : '';
-    $nama_ibu           = isset($_POST['nama_ibu']) ? bersihkanInput($_POST['nama_ibu'], $koneksi) : '';
-    $agama_ortu         = isset($_POST['agama_ortu']) ? bersihkanInput($_POST['agama_ortu'], $koneksi) : '';
-    $alamat_ortu        = isset($_POST['alamat_ortu']) ? bersihkanInput($_POST['alamat_ortu'], $koneksi) : '';
-    $pekerjaan_ayah     = isset($_POST['pekerjaan_ayah']) ? bersihkanInput($_POST['pekerjaan_ayah'], $koneksi) : '';
-    $pekerjaan_ibu      = isset($_POST['pekerjaan_ibu']) ? bersihkanInput($_POST['pekerjaan_ibu'], $koneksi) : '';
-    $pendidikan_ayah    = isset($_POST['pendidikan_ayah']) ? bersihkanInput($_POST['pendidikan_ayah'], $koneksi) : '';
-    $pendidikan_ibu     = isset($_POST['pendidikan_ibu']) ? bersihkanInput($_POST['pendidikan_ibu'], $koneksi) : '';
-    $penghasilan        = isset($_POST['penghasilan']) ? bersihkanInput($_POST['penghasilan'], $koneksi) : '';
-    $nama_wali          = isset($_POST['nama_wali']) ? bersihkanInput($_POST['nama_wali'], $koneksi) : '';
-    $agama_wali         = isset($_POST['agama_wali']) ? bersihkanInput($_POST['agama_wali'], $koneksi) : '';
-    $alamat_wali        = isset($_POST['alamat_wali']) ? bersihkanInput($_POST['alamat_wali'], $koneksi) : '';
-    $pendidikan_wali    = isset($_POST['pendidikan_wali']) ? bersihkanInput($_POST['pendidikan_wali'], $koneksi) : '';
-    $pekerjaan_wali     = isset($_POST['pekerjaan_wali']) ? bersihkanInput($_POST['pekerjaan_wali'], $koneksi) : '';
+    $no_daftar          = bersihkanInput($_POST['no_daftar'], $koneksi);
+    $kategori           = bersihkanInput($_POST['kategori'], $koneksi);
+    $nama_siswa         = bersihkanInput($_POST['nama_siswa'], $koneksi);
+    $nomor_induk        = bersihkanInput($_POST['nomor_induk'], $koneksi);
+    $jenis_kelamin      = bersihkanInput($_POST['jenis_kelamin'], $koneksi);
+    $tempat_lahir       = bersihkanInput($_POST['tempat_lahir'], $koneksi);
+    $tanggal_lahir      = bersihkanInput($_POST['tanggal_lahir'], $koneksi);
+    $anak_ke            = (int)bersihkanInput($_POST['anak_ke'], $koneksi);
+    $jumlah_saudara     = (int)bersihkanInput($_POST['jumlah_saudara'], $koneksi);
+    $status_keluarga    = bersihkanInput($_POST['status_keluarga'], $koneksi);
+    $alamat_rumah       = bersihkanInput($_POST['alamat_rumah'], $koneksi);
+    $alamat_sekarang    = bersihkanInput($_POST['alamat_sekarang'], $koneksi);
+    $sekolah_asal       = bersihkanInput($_POST['sekolah_asal'], $koneksi);
+    $alamat_sekolah_asal = bersihkanInput($_POST['alamat_sekolah_asal'], $koneksi);
+    $sttb_tahun         = bersihkanInput($_POST['sttb_tahun'], $koneksi);
+    $sttb_nomor         = bersihkanInput($_POST['sttb_nomor'], $koneksi);
+    $nama_ayah          = bersihkanInput($_POST['nama_ayah'], $koneksi);
+    $nama_ibu           = bersihkanInput($_POST['nama_ibu'], $koneksi);
+    $agama_ortu         = bersihkanInput($_POST['agama_ortu'], $koneksi);
+    $alamat_ortu        = bersihkanInput($_POST['alamat_ortu'], $koneksi);
+    $pekerjaan_ayah     = bersihkanInput($_POST['pekerjaan_ayah'], $koneksi);
+    $pekerjaan_ibu      = bersihkanInput($_POST['pekerjaan_ibu'], $koneksi);
+    $pendidikan_ayah    = bersihkanInput($_POST['pendidikan_ayah'], $koneksi);
+    $pendidikan_ibu     = bersihkanInput($_POST['pendidikan_ibu'], $koneksi);
+    $penghasilan        = bersihkanInput($_POST['penghasilan'], $koneksi);
+    $nama_wali          = bersihkanInput($_POST['nama_wali'], $koneksi);
+    $agama_wali         = bersihkanInput($_POST['agama_wali'], $koneksi);
+    $alamat_wali        = bersihkanInput($_POST['alamat_wali'], $koneksi);
+    $pendidikan_wali    = bersihkanInput($_POST['pendidikan_wali'], $koneksi);
+    $pekerjaan_wali     = bersihkanInput($_POST['pekerjaan_wali'], $koneksi);
 
-    // Validasi field wajib
-    $required_fields = [
-        'no_pendaftaran',
-        'no_daftar',
-        'kategori',
-        'nama_siswa',
-        'nomor_induk',
-        'jenis_kelamin',
-        'tempat_lahir',
-        'tanggal_lahir',
-        'anak_ke',
-        'jumlah_saudara',
-        'status_keluarga',
-        'alamat_rumah',
-        'alamat_sekarang',
-        'sekolah_asal',
-        'alamat_sekolah_asal',
-        'sttb_tahun',
-        'sttb_nomor',
-        'nama_ayah',
-        'nama_ibu',
-        'agama_ortu',
-        'alamat_ortu',
-        'pekerjaan_ayah',
-        'pekerjaan_ibu',
-        'pendidikan_ayah',
-        'pendidikan_ibu',
-        'penghasilan'
+    $data_formulir = [
+        'no_pendaftaran' => $no_pendaftaran,
+        'no_daftar' => $no_daftar,
+        'kategori' => $kategori,
+        'nama_siswa' => $nama_siswa,
+        'nomor_induk' => $nomor_induk,
+        'jenis_kelamin' => $jenis_kelamin,
+        'tempat_lahir' => $tempat_lahir,
+        'tanggal_lahir' => $tanggal_lahir,
+        'anak_ke' => $anak_ke,
+        'jumlah_saudara' => $jumlah_saudara,
+        'status_keluarga' => $status_keluarga,
+        'alamat_rumah' => $alamat_rumah,
+        'alamat_sekarang' => $alamat_sekarang,
+        'sekolah_asal' => $sekolah_asal,
+        'alamat_sekolah_asal' => $alamat_sekolah_asal,
+        'sttb_tahun' => $sttb_tahun,
+        'sttb_nomor' => $sttb_nomor,
+        'nama_ayah' => $nama_ayah,
+        'nama_ibu' => $nama_ibu,
+        'agama_ortu' => $agama_ortu,
+        'alamat_ortu' => $alamat_ortu,
+        'pekerjaan_ayah' => $pekerjaan_ayah,
+        'pekerjaan_ibu' => $pekerjaan_ibu,
+        'pendidikan_ayah' => $pendidikan_ayah,
+        'pendidikan_ibu' => $pendidikan_ibu,
+        'penghasilan' => $penghasilan,
+        'nama_wali' => $nama_wali,
+        'agama_wali' => $agama_wali,
+        'alamat_wali' => $alamat_wali,
+        'pendidikan_wali' => $pendidikan_wali,
+        'pekerjaan_wali' => $pekerjaan_wali
     ];
 
-    $error = false;
-    foreach ($required_fields as $field) {
-        if (empty($$field)) {
-            $error = true;
-            logError("Field $field tidak boleh kosong");
+    $formulir_sukses = false;
+    $berkas_sukses = false;
+
+    $check = select($koneksi, 'formulir', ['no_daftar' => $no_daftar]);
+    if ($check) {
+        $exec_formulir = update($koneksi, 'formulir', $data_formulir, ['no_daftar' => $no_daftar]);
+        $formulir_sukses = true;
+    } else {
+        $exec_formulir = insert($koneksi, 'formulir', $data_formulir);
+        $formulir_sukses = true;
+    }
+
+    // ======= PROSES BERKAS =======
+    $ekstensi = ['jpg', 'jpeg', 'png'];
+    $data_berkas = [];
+
+    if (!empty($_FILES['akta']['name'])) {
+        $file = $_FILES['akta'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        if (in_array($ext, $ekstensi)) {
+            $query = mysqli_query($koneksi, "SELECT akta FROM daftar WHERE id_daftar = '$id'");
+            $lama = mysqli_fetch_assoc($query);
+            if (!empty($lama['akta'])) {
+                $file_lama = realpath(__DIR__ . '/../../' . $lama['akta']);
+                if ($file_lama && is_file($file_lama)) {
+                    unlink($file_lama);
+                }
+            }
+
+            $dir = realpath(__DIR__ . '/../../assets/upload/akta');
+            if (!$dir) {
+                mkdir(__DIR__ . '/../../assets/upload/akta', 0777, true);
+                $dir = realpath(__DIR__ . '/../../assets/upload/akta');
+            }
+
+            $dest = $dir . "/akta{$id}.{$ext}";
+            if (move_uploaded_file($file['tmp_name'], $dest)) {
+                $data_berkas['akta'] = 'assets/upload/akta/akta' . $id . '.' . $ext;
+            }
+        }
+    }
+    // --- KK ---
+    if (!empty($_FILES['kk']['name'])) {
+        $file = $_FILES['kk'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        if (in_array($ext, $ekstensi)) {
+            $query = mysqli_query($koneksi, "SELECT kk FROM daftar WHERE id_daftar = '$id'");
+            $lama = mysqli_fetch_assoc($query);
+            if (!empty($lama['kk'])) {
+                $file_lama = realpath(__DIR__ . '/../../' . $lama['kk']);
+                if ($file_lama && is_file($file_lama)) {
+                    unlink($file_lama);
+                }
+            }
+
+            $dir = realpath(__DIR__ . '/../../assets/upload/kk');
+            if (!$dir) {
+                mkdir(__DIR__ . '/../../assets/upload/kk', 0777, true);
+                $dir = realpath(__DIR__ . '/../../assets/upload/kk');
+            }
+
+            $dest = $dir . "/kk{$id}.{$ext}";
+            if (move_uploaded_file($file['tmp_name'], $dest)) {
+                $data_berkas['kk'] = 'assets/upload/kk/kk' . $id . '.' . $ext;
+            }
         }
     }
 
-    if ($error) {
-        $error_message = 'Ada field yang wajib diisi tetapi kosong. Silakan cek kembali.';
+    // --- KTP ORTU ---
+    if (!empty($_FILES['ktp_ortu']['name'])) {
+        $file = $_FILES['ktp_ortu'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        if (in_array($ext, $ekstensi)) {
+            $query = mysqli_query($koneksi, "SELECT ktp_ortu FROM daftar WHERE id_daftar = '$id'");
+            $lama = mysqli_fetch_assoc($query);
+
+            if (!empty($lama['ktp_ortu'])) {
+                $file_lama = realpath(__DIR__ . '/../../' . $lama['ktp_ortu']);
+                if ($file_lama && is_file($file_lama)) {
+                    unlink($file_lama);
+                }
+            }
+
+            $dir = realpath(__DIR__ . '/../../assets/upload/ktp_ortu');
+            if (!$dir) {
+                mkdir(__DIR__ . '/../../assets/upload/ktp_ortu', 0777, true);
+                $dir = realpath(__DIR__ . '/../../assets/upload/ktp_ortu');
+            }
+
+            $dest = $dir . "/ktp_ortu{$id}.{$ext}";
+            if (move_uploaded_file($file['tmp_name'], $dest)) {
+                $data_berkas['ktp_ortu'] = 'assets/upload/ktp_ortu/ktp_ortu' . $id . '.' . $ext;
+            }
+        }
+    }
+
+    // --- KPS/PKH ---
+    if (!empty($_FILES['kps_pkh']['name'])) {
+        $file = $_FILES['kps_pkh'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        if (in_array($ext, $ekstensi)) {
+            $query = mysqli_query($koneksi, "SELECT kps_pkh FROM daftar WHERE id_daftar = '$id'");
+            $lama = mysqli_fetch_assoc($query);
+
+            if (!empty($lama['kps_pkh'])) {
+                $file_lama = realpath(__DIR__ . '/../../' . $lama['kps_pkh']);
+                if ($file_lama && is_file($file_lama)) {
+                    unlink($file_lama);
+                }
+            }
+
+            $dir = realpath(__DIR__ . '/../../assets/upload/kps_pkh');
+            if (!$dir) {
+                mkdir(__DIR__ . '/../../assets/upload/kps_pkh', 0777, true);
+                $dir = realpath(__DIR__ . '/../../assets/upload/kps_pkh');
+            }
+
+            $dest = $dir . "/kps_pkh{$id}.{$ext}";
+            if (move_uploaded_file($file['tmp_name'], $dest)) {
+                $data_berkas['kps_pkh'] = 'assets/upload/kps_pkh/kps_pkh' . $id . '.' . $ext;
+            }
+        }
+    }
+
+    if (!empty($data_berkas)) {
+        $exec_berkas = update($koneksi, 'daftar', $data_berkas, ['id_daftar' => $id]);
+        if ($exec_berkas) {
+            $berkas_sukses = true;
+        }
+    }
+
+    if ($formulir_sukses && $berkas_sukses) {
+        $_SESSION['flash'][] = [
+            'status' => 'success',
+            'message' => 'Formulir dan berkas berhasil disimpan.'
+        ];
+    } elseif ($formulir_sukses) {
+        $_SESSION['flash'][] = [
+            'status' => 'success',
+            'message' => 'Formulir berhasil disimpan.'
+        ];
+    } elseif ($berkas_sukses) {
+        $_SESSION['flash'][] = [
+            'status' => 'success',
+            'message' => 'Berkas berhasil diunggah.'
+        ];
     } else {
-        $is_edit = isset($_GET['edit']) && $_GET['edit'] === 'true' && isset($_GET['no_daftar']);
-
-        if ($is_edit) {
-            $no_daftar_param = bersihkanInput($_GET['no_daftar'], $koneksi);
-            $query = "UPDATE formulir SET 
-                no_pendaftaran=?, kategori=?, nama_siswa=?, nomor_induk=?, jenis_kelamin=?, 
-                tempat_lahir=?, tanggal_lahir=?, anak_ke=?, jumlah_saudara=?, status_keluarga=?, 
-                alamat_rumah=?, alamat_sekarang=?, 
-                sekolah_asal=?, alamat_sekolah_asal=?, sttb_tahun=?, sttb_nomor=?, 
-                nama_ayah=?, nama_ibu=?, agama_ortu=?, alamat_ortu=?, pekerjaan_ayah=?, 
-                pekerjaan_ibu=?, pendidikan_ayah=?, pendidikan_ibu=?, penghasilan=?, 
-                nama_wali=?, agama_wali=?, alamat_wali=?, pendidikan_wali=?, pekerjaan_wali=?
-                WHERE no_daftar=?";
-        } else {
-            $query = "INSERT INTO formulir (
-                no_pendaftaran, no_daftar, kategori, nama_siswa, nomor_induk, jenis_kelamin, 
-                tempat_lahir, tanggal_lahir, anak_ke, jumlah_saudara, status_keluarga, 
-                alamat_rumah, alamat_sekarang, 
-                sekolah_asal, alamat_sekolah_asal, sttb_tahun, sttb_nomor, 
-                nama_ayah, nama_ibu, agama_ortu, alamat_ortu, pekerjaan_ayah, 
-                pekerjaan_ibu, pendidikan_ayah, pendidikan_ibu, penghasilan, 
-                nama_wali, agama_wali, alamat_wali, pendidikan_wali, pekerjaan_wali
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        }
-
-        $stmt = mysqli_prepare($koneksi, $query);
-
-        if ($stmt) {
-            $params = [
-                $no_pendaftaran,
-                $kategori,
-                $nama_siswa,
-                $nomor_induk,
-                $jenis_kelamin,
-                $tempat_lahir,
-                $tanggal_lahir,
-                $anak_ke,
-                $jumlah_saudara,
-                $status_keluarga,
-                $alamat_rumah,
-                $alamat_sekarang,
-                $sekolah_asal,
-                $alamat_sekolah_asal,
-                $sttb_tahun,
-                $sttb_nomor,
-                $nama_ayah,
-                $nama_ibu,
-                $agama_ortu,
-                $alamat_ortu,
-                $pekerjaan_ayah,
-                $pekerjaan_ibu,
-                $pendidikan_ayah,
-                $pendidikan_ibu,
-                $penghasilan,
-                $nama_wali,
-                $agama_wali,
-                $alamat_wali,
-                $pendidikan_wali,
-                $pekerjaan_wali
-            ];
-
-            if ($is_edit) {
-                $bindTypes = 'ssssssssss' . str_repeat('s', 20) . 's'; // Total = 34 karakter
-                $params[] = $no_daftar_param;
-            } else {
-                array_splice($params, 1, 0, $no_daftar);
-                $bindTypes = str_repeat('s', 31);
-            }
-
-            mysqli_stmt_bind_param($stmt, $bindTypes, ...$params);
-
-            if (mysqli_stmt_execute($stmt)) {
-                $_SESSION['no_pendaftaran'] = $no_pendaftaran;
-                $success_message = $is_edit ? 'Data berhasil diperbarui!' : 'Data berhasil disimpan!';
-            } else {
-                logError("Gagal menyimpan data: " . mysqli_error($koneksi));
-                $error_message = 'Gagal menyimpan data. Silakan coba lagi atau hubungi administrator.';
-            }
-
-            mysqli_stmt_close($stmt);
-        } else {
-            logError("Gagal mempersiapkan statement: " . mysqli_error($koneksi));
-            $error_message = 'Terjadi kesalahan sistem. Silakan coba lagi atau hubungi administrator.';
-        }
+        $_SESSION['flash'][] = [
+            'status' => 'warning',
+            'message' => 'Tidak ada data yang disimpan.'
+        ];
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -323,9 +386,23 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
 ?>
 
 <body>
+    <?php if (isset($_SESSION['flash'])): ?>
+        <script>
+            <?php foreach ($_SESSION['flash'] as $item): ?>
+                iziToast.<?= $item['status'] ?>({
+                    title: '<?= ucfirst($item['status']) ?>',
+                    message: '<?= $item['message'] ?>',
+                    position: 'topRight'
+                });
+            <?php endforeach; ?>
+        </script>
+        <?php unset($_SESSION['flash']); ?>
+    <?php endif; ?>
+
+
     <div class="container">
         <h2>DATA KELENGKAPAN ADMINISTRASI SISWA BARU</h2>
-        <form action="" method="POST" id="formulir">
+        <form action="" method="POST" id="formulir" enctype="multipart/form-data">
             <input type="hidden" id="no_daftar" name="no_daftar" value="<?= htmlspecialchars($no_daftarr) ?>" readonly required>
             <!-- 1. Data Siswa -->
             <div class="section-title">1. Data Siswa</div>
@@ -611,7 +688,49 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn-submit">Simpan</button>
+            <?php
+            // Ambil data berkas dari database
+            $id = $_SESSION['id_daftar'];
+            $berkas = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM daftar WHERE id_daftar = '$id'"));
+            ?>
+            <div class="section-title">6.Upload Berkas</div>
+            <!-- Akta -->
+            <div class="form-group mb-3">
+                <label for="akta" class="form-label">Akte Kelahiran</label>
+                <input class="form-control" type="file" name="akta" id="akta" accept=".jpg, .jpeg, .png">
+                <?php if (!empty($berkas['akta'])): ?>
+                    <p>File lama: <a href="../<?= $berkas['akta'] ?>?ts=<?= time() ?>" target="_blank">Lihat Akta</a></p>
+                <?php endif; ?>
+            </div>
+
+            <!-- KK -->
+            <div class="form-group mb-3">
+                <label for="kk" class="form-label">Kartu Keluarga</label>
+                <input class="form-control" type="file" name="kk" id="kk" accept=".jpg, .jpeg, .png">
+                <?php if (!empty($berkas['kk'])): ?>
+                    <p>File lama: <a href="../<?= $berkas['kk'] ?>?ts=<?= time() ?>" target="_blank">Lihat KK</a></p>
+                <?php endif; ?>
+            </div>
+
+            <!-- KTP Ortu -->
+            <div class="form-group mb-3">
+                <label for="ktp_ortu" class="form-label">KTP Orang Tua</label>
+                <input class="form-control" type="file" name="ktp_ortu" id="ktp_ortu" accept=".jpg, .jpeg, .png">
+                <?php if (!empty($berkas['ktp_ortu'])): ?>
+                    <p>File lama: <a href="../<?= $berkas['ktp_ortu'] ?>?ts=<?= time() ?>" target="_blank">Lihat KTP Ortu</a></p>
+
+                <?php endif; ?>
+            </div>
+
+            <!-- KPS/PKH -->
+            <div class="form-group mb-3">
+                <label for="kps_pkh" class="form-label">KPS/PKH (jika ada)</label>
+                <input class="form-control" type="file" name="kps_pkh" id="kps_pkh" accept=".jpg, .jpeg, .png">
+                <?php if (!empty($berkas['kps_pkh'])): ?>
+                    <p>File lama: <a href="../<?= $berkas['kps_pkh'] ?>?ts=<?= time() ?>" target="_blank">Lihat KPS/PKH</a></p>
+                <?php endif; ?>
+            </div>
+            <button type="submit" class="btn-submit" id="submit-all">Simpan</button>
         </form>
     </div>
 

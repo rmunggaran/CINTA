@@ -2,7 +2,7 @@
 require("../../config/database.php");
 // Skrip berikut ini adalah skrip yang bertugas untuk meng-export data tadi ke excell
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=datasemua_pembayaran.xls");
+header("Content-Disposition: attachment; filename=datasemua_pembayaran_SPP.xls");
 ?>
 
 <table style="font-size: 12px" class="table table-striped table-sm" id="table-1">
@@ -24,7 +24,7 @@ header("Content-Disposition: attachment; filename=datasemua_pembayaran.xls");
         $query = mysqli_query($koneksi, "SELECT * 
 FROM bayar a 
 JOIN daftar b ON a.id_daftar = b.id_daftar 
-WHERE a.jenis_bayar IS NULL OR a.jenis_bayar != 'spp'
+WHERE a.jenis_bayar IS NULL OR a.jenis_bayar != 'ppdb'
 ORDER BY a.id_daftar
 ");
         $no = 0;

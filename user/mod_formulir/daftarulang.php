@@ -405,7 +405,7 @@
 							position: 'topRight'
 						});
 						setTimeout(function() {
-							window.location.reload();
+							window.location.href = '?pg=bayar';
 						}, 1000);
 					}
 				});

@@ -9,29 +9,55 @@ if (!isset($_SESSION['id_user'])) {
 
 if ($pg == 'ubah') {
     $status = (isset($_POST['status'])) ? 1 : 0;
-    $id_jurusan = !empty($_POST['id_jurusan']) ? $_POST['id_jurusan'] : NULL;
+    $id_jurusan = isset($_POST['id_jurusan']) && $_POST['id_jurusan'] !== '' ? $_POST['id_jurusan'] : 0;
     $data = [
         'nama_biaya' => $_POST['nama'],
         'jumlah'       => $_POST['jumlah'],
         'status' => $status,
-        'id_jurusan' => $id_jurusan
+        'id_jurusan' => $id_jurusan,
+    ];
+    $id_biaya = $_POST['id_biaya'];
+    update($koneksi, 'biaya', $data, ['id_biaya' => $id_biaya]);
+}
+if ($pg == 'ubah-spp') {
+    $status = (isset($_POST['status'])) ? 1 : 0;
+    $data = [
+        'nama_biaya' => $_POST['nama'],
+        'jumlah'       => $_POST['jumlah'],
+        'status' => $status,
+        'id_jurusan' => 1,
+        'jenis_biaya'  => 'spp',
     ];
     $id_biaya = $_POST['id_biaya'];
     update($koneksi, 'biaya', $data, ['id_biaya' => $id_biaya]);
 }
 
 if ($pg == 'tambah') {
-    $id_jurusan = !empty($_POST['id_jurusan']) ? $_POST['id_jurusan'] : NULL;
+    $id_jurusan = isset($_POST['id_jurusan']) && $_POST['id_jurusan'] !== '' ? $_POST['id_jurusan'] : 0;
+
     $data = [
         'id_biaya'     => $_POST['id_biaya'],
         'nama_biaya'   => $_POST['nama'],
         'jumlah'       => $_POST['jumlah'],
         'status'         => 1,
-        'id_jurusan' => $id_jurusan
+        'id_jurusan' => $id_jurusan,
     ];
     $exec = insert($koneksi, 'biaya', $data);
     echo $exec;
 }
+if ($pg == 'tambahspp') {
+    $data = [
+        'id_biaya'     => $_POST['id_biaya'],
+        'nama_biaya'   => $_POST['nama'],
+        'jumlah'       => $_POST['jumlah'],
+        'status'         => 1,
+        'id_jurusan'   => 1,
+        'jenis_biaya'  => 'spp',
+    ];
+    $exec = insert($koneksi, 'biaya', $data);
+    echo $exec;
+}
+
 if ($pg == 'hapus') {
     $id_biaya = $_POST['id_biaya'];
     delete($koneksi, 'biaya', ['id_biaya' => $id_biaya]);

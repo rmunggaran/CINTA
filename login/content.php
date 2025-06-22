@@ -103,6 +103,9 @@ switch ($pg) {
     case 'bayar':
         include "mod_bayar/bayar.php";
         break;
+    case 'bayar_spp':
+        include "mod_bayar_spp/bayar_spp.php";
+        break;
     case 'user-profile':
         include "mod_user/user-profile.php";
         break;
@@ -124,6 +127,9 @@ switch ($pg) {
         break;
     case 's_ppdb':
         include "mod_setting/s_ppdb.php";
+        break;
+    case 's_spp':
+        include "mod_setting/s_spp.php";
         break;
     case 'kontak':
         cek_login_admin();

@@ -27,7 +27,8 @@
              <li><a class="nav-link text-success" href="?pg=diterima">Data Diterima</a></li>
              <li><a class="nav-link text-warning" href="?pg=df_ulang">Siswa Daftar Ulang</a></li>
              <li><a class="nav-link text-danger" href="?pg=ditolak">Ditolak / Cadangan</a></li>
-             <li><a class="nav-link" href="?pg=bayar">Pembayaran</a></li>
+             <li><a class="nav-link" href="?pg=bayar">Pembayaran PPBD</a></li>
+             <li><a class="nav-link" href="?pg=bayar_spp">Pembayaran SPP</a></li>
          </ul>
      </li>
      <?php if ($user['level'] == 'admin') { ?>

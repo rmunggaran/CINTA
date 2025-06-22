@@ -4,11 +4,11 @@
         <div class="section-header-back">
             <a href="?pg=setting" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
         </div>
-        <h1>PPDB Online</h1>
+        <h1>SPP setting</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href='.'>Dashboard</a></div>
             <div class="breadcrumb-item active"><a href="?pg=setting">Settings</a></div>
-            <div class="breadcrumb-item">PPDB Online</div>
+            <div class="breadcrumb-item">SPP setting</div>
         </div>
     </div>
 
@@ -32,11 +32,7 @@
                     <ul class="nav nav-tabs" id="myTab5" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab5" data-toggle="tab" href="#home5" role="tab" aria-controls="home" aria-selected="true">
-                                <i class="fas fa-home"></i> Jenis Pembayaran PPBD</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="spp-tab5" data-toggle="tab" href="#spp" role="tab" aria-controls="spp" aria-selected="true">
-                                <i class="fas fa-home"></i>Pembayaran SPP</a>
+                                <i class="fas fa-home"></i> Jenis Pembayaran</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="profile-tab5" data-toggle="tab" href="#profile5" role="tab" aria-controls="profile" aria-selected="false">
@@ -50,6 +46,9 @@
                     </ul>
                     <div class="tab-content" id="myTabContent5">
                         <div class="tab-pane fade show active" id="home5" role="tabpanel" aria-labelledby="home-tab5">
+
+
+
 
                             <!-- Modal -->
                             <div class="modal fade" id="tambahdata" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -78,13 +77,21 @@
                                                 <div class="form-group">
                                                     <label>Jurusan</label>
                                                     <select name="id_jurusan" id="id_jurusan" class="form-control">
-                                                        <option value="0">Umum (Semua Jurusan)</option>
+                                                        <option value="">Umum (Semua Jurusan)</option>
                                                         <?php
                                                         $q = mysqli_query($koneksi, "SELECT * FROM jurusan");
                                                         while ($jur = mysqli_fetch_array($q)) {
                                                             echo "<option value='{$jur['id_jurusan']}'>{$jur['nama_jurusan']}</option>";
                                                         }
                                                         ?>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group" id="jenis_biaya_group" style="display: none;">
+                                                    <label>Jenis Biaya</label>
+                                                    <select name="jenis_biaya" class="form-control">
+                                                        <option value="spp">Biaya SPP</option>
+                                                        <option value="ppdb">Biaya PPDB</option>
                                                     </select>
                                                 </div>
 
@@ -98,7 +105,21 @@
                                     </div>
                                 </div>
                             </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#id_jurusan').on('change', function() {
+                                        var jurusanVal = $(this).val();
+                                        if (jurusanVal === '1') {
+                                            $('#jenis_biaya_group').show();
+                                        } else {
+                                            $('#jenis_biaya_group').hide();
+                                        }
+                                    });
 
+                                    // Jalankan juga saat pertama kali halaman/modal muncul (opsional)
+                                    $('#id_jurusan').trigger('change');
+                                });
+                            </script>
 
 
                             <div class="row">
@@ -163,7 +184,8 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $query = mysqli_query($koneksi, "SELECT b.*, j.nama_jurusan FROM biaya b LEFT JOIN jurusan j ON b.id_jurusan = j.id_jurusan where jenis_biaya='ppdb'");
+                                                        $query = mysqli_query($koneksi, "SELECT b.*, j.nama_jurusan FROM biaya b 
+    LEFT JOIN jurusan j ON b.id_jurusan = j.id_jurusan");
                                                         $no = 0;
                                                         while ($biaya = mysqli_fetch_array($query)) {
                                                             $no++;
@@ -223,6 +245,14 @@
                                                                                                 ?>
                                                                                             </select>
                                                                                         </div>
+                                                                                        <div class="form-group" id="jenis_biaya_group<?= $no ?>" style="display: none;">
+                                                                                            <label>Jenis Biaya</label>
+                                                                                            <select name="jenis_biaya" class="form-control">
+                                                                                                <option value="spp" <?= ($biaya['jenis_biaya'] == 'spp') ? 'selected' : '' ?>>Biaya SPP</option>
+                                                                                                <option value="ppdb" <?= ($biaya['jenis_biaya'] == 'ppdb') ? 'selected' : '' ?>>Biaya PPDB</option>
+                                                                                            </select>
+
+                                                                                        </div>
                                                                                         <div class="form-group">
                                                                                             <div class="control-label">Status biaya</div>
                                                                                             <label class="custom-switch mt-2">
@@ -244,6 +274,20 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
+                                                            <script>
+                                                                $(document).ready(function() {
+                                                                    $('#id_jurusan<?= $no ?>').on('change', function() {
+                                                                        var jurusanVal = $(this).val();
+                                                                        if (jurusanVal === '1') {
+                                                                            $('#jenis_biaya_group<?= $no ?>').show();
+                                                                        } else {
+                                                                            $('#jenis_biaya_group<?= $no ?>').hide();
+                                                                        }
+                                                                    });
+                                                                    $('#id_jurusan<?= $no ?>').trigger('change');
+
+                                                                });
+                                                            </script>
                                                             <script>
                                                                 $('#form-edit<?= $no ?>').submit(function(e) {
                                                                     e.preventDefault();
@@ -304,255 +348,6 @@
                                 });
 
                                 $('#table-1').on('click', '.hapus', function() {
-                                    var id = $(this).data('id');
-                                    console.log(id);
-                                    swal({
-                                        title: 'Are you sure?',
-                                        text: 'Akan menghapus data ini!',
-                                        icon: 'warning',
-                                        buttons: true,
-                                        dangerMode: true,
-                                    }).then((result) => {
-                                        if (result) {
-                                            $.ajax({
-                                                url: 'mod_biaya/crud_biaya.php?pg=hapus',
-                                                method: "POST",
-                                                data: 'id_biaya=' + id,
-                                                success: function(data) {
-                                                    iziToast.error({
-                                                        title: 'Horee!',
-                                                        message: 'Data Berhasil dihapus',
-                                                        position: 'topRight'
-                                                    });
-                                                    setTimeout(function() {
-                                                        window.location.reload();
-                                                    }, 2000);
-                                                }
-                                            });
-                                        }
-                                    })
-
-                                });
-                            </script>
-                        </div>
-                        <div class="tab-pane fade show" id="spp" role="tabpanel" aria-labelledby="spp-tab5">
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="tambahdataspp" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <form id="form-tambah-spp">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Tambah Data Biaya SPP</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label>Kode Biaya</label>
-                                                    <input type="text" name="id_biaya" class="form-control" required="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Nama Biaya</label>
-                                                    <input type="text" name="nama" class="form-control" required="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Jumlah Rp</label>
-                                                    <input type="text" name="jumlah" class="form-control" required="">
-                                                </div>
-
-
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h4><button type="button" class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahdataspp">
-                                                    <i class="far fa-edit"></i> Tambah Data
-                                                </button></h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped" id="table-2">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-center">
-                                                                #
-                                                            </th>
-                                                            <th>Kode Biaya</th>
-                                                            <th>Nama Biaya</th>
-                                                            <th>Jumlah Biaya</th>
-                                                            <th>Jurusan</th>
-                                                            <th>Jenis Biaya</th>
-                                                            <th>status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        $query = mysqli_query($koneksi, "SELECT b.*, j.nama_jurusan FROM biaya b LEFT JOIN jurusan j ON b.id_jurusan = j.id_jurusan where jenis_biaya='spp'");
-                                                        $no = 0;
-                                                        while ($biaya = mysqli_fetch_array($query)) {
-                                                            $no++;
-                                                        ?>
-                                                            <tr>
-                                                                <td><?= $no; ?></td>
-                                                                <td><?= $biaya['id_biaya'] ?></td>
-                                                                <td><?= $biaya['nama_biaya'] ?></td>
-                                                                <td><?= "Rp " . number_format($biaya['jumlah'], 0, ",", ".") ?></td>
-                                                                <td><?= $biaya['nama_jurusan'] ? $biaya['nama_jurusan'] : 'Umum'; ?></td>
-                                                                <td><?= $biaya['jenis_biaya'] ?></td>
-                                                                <td>
-                                                                    <?php if ($biaya['status'] == 1) { ?>
-                                                                        <span class="badge badge-success">Aktif</span>
-                                                                    <?php } else { ?>
-                                                                        <span class="badge badge-danger">Non Aktif</span>
-                                                                    <?php } ?>
-                                                                </td>
-                                                                <td>
-                                                                    <button data-id="<?= $biaya['id_biaya'] ?>" class="hapus btn btn-danger">Hapus</button>
-                                                                    <!-- Button trigger modal -->
-                                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-editbiayaspp<?= $no ?>">
-                                                                        Edit
-                                                                    </button>
-
-                                                                    <!-- Modal -->
-                                                                    <div class="modal fade" id="modal-editbiayaspp<?= $no ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                                                                        <div class="modal-dialog" role="document">
-                                                                            <div class="modal-content">
-                                                                                <form id="form-edit-spp<?= $no ?>">
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title">Edit Data</h5>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <input type="hidden" value="<?= $biaya['id_biaya'] ?>" name="id_biaya" class="form-control" required="">
-                                                                                        <div class="form-group">
-                                                                                            <label>Nama Biaya</label>
-                                                                                            <input type="text" name="nama" value="<?= $biaya['nama_biaya'] ?>" class="form-control" required="">
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label>Jumlah Biaya Rp.</label>
-                                                                                            <input type="text" name="jumlah" value="<?= $biaya['jumlah'] ?>" class="form-control" required="">
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <div class="control-label">Status biaya</div>
-                                                                                            <label class="custom-switch mt-2">
-                                                                                                <input type="checkbox" name="status" class="custom-switch-input" value='1' <?php if ($biaya['status'] == 1) {
-                                                                                                                                                                                echo "checked";
-                                                                                                                                                                            } ?>>
-                                                                                                <span class="custom-switch-indicator"></span>
-                                                                                                <span class="custom-switch-description"> Pilih Status</span>
-                                                                                            </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                        <button type="submit" class="btn btn-primary">Save</button>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <script>
-                                                                $('#form-edit-spp<?= $no ?>').submit(function(e) {
-                                                                    e.preventDefault();
-                                                                    $.ajax({
-                                                                        type: 'POST',
-                                                                        url: 'mod_biaya/crud_biaya.php?pg=ubah-spp',
-                                                                        data: $(this).serialize(),
-                                                                        success: function(data) {
-
-                                                                            iziToast.success({
-                                                                                title: 'OKee!',
-                                                                                message: 'Data Berhasil diubah',
-                                                                                position: 'topRight'
-                                                                            });
-                                                                            setTimeout(function() {
-                                                                                window.location.reload();
-                                                                            }, 2000);
-                                                                            $('#modal-edit<?= $no ?>').modal('hide');
-                                                                            //$('#bodyreset').load(location.href + ' #bodyreset');
-                                                                        }
-                                                                    });
-                                                                    return false;
-                                                                });
-                                                            </script>
-                                                        <?php }
-                                                        ?>
-
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <script>
-                                $('#form-tambah').submit(function(e) {
-                                    e.preventDefault();
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: 'mod_biaya/crud_biaya.php?pg=tambah',
-                                        data: $(this).serialize(),
-                                        success: function(data) {
-
-                                            iziToast.success({
-                                                title: 'Mantap!',
-                                                message: 'Data Berhasil ditambahkan',
-                                                position: 'topRight'
-                                            });
-                                            setTimeout(function() {
-                                                window.location.reload();
-                                            }, 2000);
-                                            $('#tambahdata').modal('hide');
-                                            //$('#bodyreset').load(location.href + ' #bodyreset');
-                                        }
-                                    });
-                                    return false;
-                                });
-                                $('#form-tambah-spp').submit(function(e) {
-                                    e.preventDefault();
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: 'mod_biaya/crud_biaya.php?pg=tambahspp',
-                                        data: $(this).serialize(),
-                                        success: function(data) {
-
-                                            iziToast.success({
-                                                title: 'Mantap!',
-                                                message: 'Data Berhasil ditambahkan',
-                                                position: 'topRight'
-                                            });
-                                            setTimeout(function() {
-                                                window.location.reload();
-                                            }, 2000);
-                                            $('#tambahdata').modal('hide');
-                                            //$('#bodyreset').load(location.href + ' #bodyreset');
-                                        }
-                                    });
-                                    return false;
-                                });
-
-                                $('#table-2').on('click', '.hapus', function() {
                                     var id = $(this).data('id');
                                     console.log(id);
                                     swal({

@@ -26,6 +26,8 @@ if ($pg == '') {
     include "mod_formulir/detail.php";  //Modul Detail Pendaftaran
 } elseif ($pg == 'bayar') {
     include "mod_bayar/bayar.php";
+} elseif ($pg == 'bayar_spp') {
+    include "mod_bayar_spp/bayar_spp.php";
 } elseif ($pg == 'pengumuman') {
     include "mod_pengumuman/pengumuman.php";
 } elseif ($pg == 'user') {

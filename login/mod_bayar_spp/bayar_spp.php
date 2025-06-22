@@ -31,9 +31,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Data PPBD Belum Verifikasi</h4>
+                        <h4>Data SPP Belum Verifikasi</h4>
                         <div class="card-header-action">
-                            <a class="btn btn-primary" href="mod_bayar/export_bayar.php" role="button"> Download Excel</a>
+                            <a class="btn btn-primary" href="mod_bayar_spp/export_bayar_spp.php" role="button"> Download Excel</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -56,7 +56,7 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $query = mysqli_query($koneksi, "select * from bayar a join daftar b ON a.id_daftar=b.id_daftar where a.verifikasi='0' AND (jenis_bayar IS NULL OR jenis_bayar != 'spp')");
+                                    $query = mysqli_query($koneksi, "select * from bayar a join daftar b ON a.id_daftar=b.id_daftar where a.verifikasi='0' AND (jenis_bayar IS NULL OR jenis_bayar != 'ppdb')");
                                     $no = 0;
                                     while ($bayar = mysqli_fetch_array($query)) {
                                         $user = fetch($koneksi, 'user', ['id_user' => $bayar['id_user']]);
@@ -84,7 +84,7 @@
                                             </td>
                                             <td>
                                                 <?php if ($bayar['bukti'] <> null) { ?>
-                                                    <a target="_blank" href="../user/mod_bayar/<?= $bayar['bukti'] ?>" class="badge badge-primary"><i class="fas fa-eye"></i></a>
+                                                    <a target="_blank" href="../user/mod_bayar_spp/<?= $bayar['bukti'] ?>" class="badge badge-primary"><i class="fas fa-eye"></i></a>
                                                 <?php }  ?>
                                             </td>
                                             <td>
@@ -106,7 +106,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Data PPBD Sudah Verifikasi</h4>
+                        <h4>Data SPP Sudah Verifikasi</h4>
                         <!-- <div class="card-header-action">
                         <a class="btn btn-primary" href="mod_bayar/export_bayar.php" role="button"> Download Excel</a>
                     </div> -->
@@ -130,7 +130,7 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $query = mysqli_query($koneksi, "select * from bayar a join daftar b ON a.id_daftar=b.id_daftar where a.verifikasi='1' AND (jenis_bayar IS NULL OR jenis_bayar != 'spp')");
+                                    $query = mysqli_query($koneksi, "select * from bayar a join daftar b ON a.id_daftar=b.id_daftar where a.verifikasi='1' AND (jenis_bayar IS NULL OR jenis_bayar != 'ppdb')");
                                     $no = 0;
                                     while ($bayar = mysqli_fetch_array($query)) {
                                         $user = fetch($koneksi, 'user', ['id_user' => $bayar['id_user']]);
@@ -158,7 +158,7 @@
                                             </td>
                                             <td>
                                                 <button data-id="<?= $bayar['id_bayar'] ?>" class="batal btn btn-danger btn-sm"><i class="fas fa-times-circle    "></i></button>
-                                                <a target="_blank" href="mod_bayar/print_kwitansi.php?id=<?= enkripsi($bayar['id_bayar']) ?>" class="btn btn-primary btn-sm"><i class="fas fa-print    "></i></a>
+                                                <a target="_blank" href="mod_bayar_spp/print_kwitansi_spp.php?id=<?= enkripsi($bayar['id_bayar']) ?>" class="btn btn-primary btn-sm"><i class="fas fa-print    "></i></a>
                                                 <button data-id="<?= $bayar['id_bayar'] ?>" class="hapus btn btn-danger btn-sm"><i class="fas fa-trash-alt    "></i></button>
                                             </td>
                                         </tr>
@@ -238,7 +238,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $query = mysqli_query($koneksi, "select * from bayar a join daftar b ON a.id_daftar=b.id_daftar where a.id_daftar='$siswa[id_daftar]' AND (jenis_bayar IS NULL OR jenis_bayar != 'spp')");
+                                $query = mysqli_query($koneksi, "select * from bayar a join daftar b ON a.id_daftar=b.id_daftar where a.id_daftar='$siswa[id_daftar]' AND (jenis_bayar IS NULL OR jenis_bayar != 'ppdb')");
                                 $no = 0;
                                 while ($bayar = mysqli_fetch_array($query)) {
                                     $user = fetch($koneksi, 'user', ['id_user' => $bayar['id_user']]);

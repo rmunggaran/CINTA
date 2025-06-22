@@ -15,12 +15,22 @@
 		}
 
 		mysqli_stmt_close($stmt);
+
+		$kategori = null;
+
+		if (!empty($no_daftar)) {
+			$fullday = mysqli_query($koneksi, "SELECT kategori FROM formulir WHERE no_daftar = '$no_daftar'");
+			if ($fullday && mysqli_num_rows($fullday) > 0) {
+				$data = mysqli_fetch_assoc($fullday);
+				$kategori = $data['kategori'];
+			}
+		}
 	}
 	$url_formulir = "?pg=formulir&edit=$edit&no_daftar=$no_daftar";
 	?>
 
 	<li><a class="nav-link" href="<?= $url_formulir ?>"><i class="fas fa-indent"></i> <span>Formulir</span></a></li>
-	<li><a class="nav-link" href="?pg=berkas"><i class="fas fa-upload    "></i> <span>Upload Berkas</span></a></li>
+	<!-- <li><a class="nav-link" href="?pg=berkas"><i class="fas fa-upload    "></i> <span>Upload Berkas</span></a></li> -->
 	<!-- <li><a class="nav-link" href="?pg=cetakkartu"><i class="fas fa-print"></i> <span>Cetak Kartu Pendaftaran</span></a></li> -->
 	<?php if ($siswa['status'] == 1) { ?>
 		<li><a class="nav-link" href="?pg=df_ulang"><i class="fas fa-address-card   "></i> <span>Daftar Ulang</span><small class="label pull-right badge badge-danger">wajib</small></a></li>
@@ -29,7 +39,12 @@
 	<?php } ?>
 
 	<?php if ($siswa['status'] == 1) { ?>
-		<li><a class="nav-link" href="?pg=bayar"><i class="fas fa-funnel-dollar fa-fw"></i> <span>Pembayaran</span></a></li>
+		<li><a class="nav-link" href="?pg=bayar"><i class="fas fa-funnel-dollar fa-fw"></i> <span>Pembayaran PPDB</span></a></li>
+	<?php } else { ?>
+
+	<?php } ?>
+	<?php if ($kategori == 1 && $siswa['status'] == 1) { ?>
+		<li><a class="nav-link" href="?pg=bayar_spp"><i class="fas fa-money-bill fa-fw"></i> <span>Pembayaran SPP</span></a></li>
 	<?php } else { ?>
 
 	<?php } ?>
