@@ -21,12 +21,13 @@ if ($pg == 'ubah') {
 }
 if ($pg == 'ubah-spp') {
     $status = (isset($_POST['status'])) ? 1 : 0;
+    $jenis_spp = isset($_POST['jenis_spp']) && $_POST['jenis_spp'] !== '' ? $_POST['jenis_spp'] : 0;
     $data = [
         'nama_biaya' => $_POST['nama'],
         'jumlah'       => $_POST['jumlah'],
         'status' => $status,
         'id_jurusan' => 1,
-        'jenis_biaya'  => 'spp',
+        'jenis_biaya'  => $jenis_spp,
     ];
     $id_biaya = $_POST['id_biaya'];
     update($koneksi, 'biaya', $data, ['id_biaya' => $id_biaya]);
@@ -41,18 +42,20 @@ if ($pg == 'tambah') {
         'jumlah'       => $_POST['jumlah'],
         'status'         => 1,
         'id_jurusan' => $id_jurusan,
+        'jenis_biaya'  => 'ppdb',
     ];
     $exec = insert($koneksi, 'biaya', $data);
     echo $exec;
 }
 if ($pg == 'tambahspp') {
+    $jenis_spp = isset($_POST['jenis_spp']) && $_POST['jenis_spp'] !== '' ? $_POST['jenis_spp'] : 0;
     $data = [
         'id_biaya'     => $_POST['id_biaya'],
         'nama_biaya'   => $_POST['nama'],
         'jumlah'       => $_POST['jumlah'],
         'status'         => 1,
         'id_jurusan'   => 1,
-        'jenis_biaya'  => 'spp',
+        'jenis_biaya'  => $jenis_spp,
     ];
     $exec = insert($koneksi, 'biaya', $data);
     echo $exec;

@@ -25,11 +25,11 @@ CREATE TABLE IF NOT EXISTS `bayar` (
   `bukti` varchar(50) DEFAULT NULL,
   `verifikasi` int NOT NULL DEFAULT '0',
   `hapus` int DEFAULT NULL,
-  `jenis_bayar` enum('spp','ppdb') NOT NULL DEFAULT 'ppdb',
+  `jenis_bayar` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_bayar`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ppdb_dapit_1.bayar: ~12 rows (approximately)
+-- Dumping data for table ppdb_dapit_1.bayar: ~14 rows (approximately)
 INSERT INTO `bayar` (`id_bayar`, `id_user`, `id_daftar`, `jumlah`, `tgl_bayar`, `keterangan`, `bukti`, `verifikasi`, `hapus`, `jenis_bayar`) VALUES
 	('202305250001', 0, 301, 150000, '2023-05-25', NULL, 'bukti_transaksi/bukti_202305250001.png', 1, NULL, 'ppdb'),
 	('202505230001', 0, 316, 600000, '2025-05-23', NULL, 'bukti_transaksi/bukti_202505230001.png', 1, NULL, 'ppdb'),
@@ -38,12 +38,13 @@ INSERT INTO `bayar` (`id_bayar`, `id_user`, `id_daftar`, `jumlah`, `tgl_bayar`, 
 	('202505250001', 0, 320, 500000, '2025-05-25', NULL, 'bukti_transaksi/bukti_202505250001.png', 1, NULL, 'ppdb'),
 	('202505250002', 0, 320, 650000, '2025-05-25', NULL, 'bukti_transaksi/bukti_202505250002.png', 1, NULL, 'ppdb'),
 	('202505260001', 0, 321, 500000, '2025-05-26', NULL, 'bukti_transaksi/bukti_202505260001.jpg', 1, NULL, 'ppdb'),
-	('202506210001', 0, 316, 100000, '2025-06-21', NULL, 'bukti_transaksi_spp/bukti_202506210001.jpg', 1, NULL, 'spp'),
+	('202506210001', 0, 316, 100000, '2025-06-21', NULL, 'bukti_transaksi_spp/bukti_202506210001.jpg', 1, NULL, 'spp_bulanan'),
 	('202506210002', 0, 316, 200000, '2025-06-21', NULL, 'bukti_transaksi/bukti_202506210002.jpg', 1, NULL, 'ppdb'),
 	('202506220001', 0, 325, 1000000, '2025-06-22', NULL, 'bukti_transaksi/bukti_202506220001.jpg', 1, NULL, 'ppdb'),
-	('202506220002', 0, 325, 100000, '2025-06-22', NULL, 'bukti_transaksi_spp/bukti_202506220002.jpg', 1, NULL, 'spp'),
 	('202506220003', 0, 326, 1100000, '2025-06-22', NULL, 'bukti_transaksi/bukti_202506220003.png', 1, NULL, 'ppdb'),
-	('202506220004', 0, 326, 200000, '2025-06-22', NULL, 'bukti_transaksi_spp/bukti_202506220004.png', 1, NULL, 'spp');
+	('202506220004', 0, 326, 200000, '2025-06-22', NULL, 'bukti_transaksi_spp/bukti_202506220004.png', 1, NULL, 'spp_bulanan'),
+	('202506230001', 0, 316, 100000, '2025-06-23', NULL, 'bukti_transaksi_spp/bukti_202506230001.png', 0, NULL, 'spp_bulanan'),
+	('202506230002', 0, 325, 1000000, '2025-06-23', NULL, 'bukti_transaksi_spp/bukti_202506230002.png', 1, NULL, 'spp_tahunan');
 
 -- Dumping structure for table ppdb_dapit_1.biaya
 CREATE TABLE IF NOT EXISTS `biaya` (
@@ -52,19 +53,22 @@ CREATE TABLE IF NOT EXISTS `biaya` (
   `jumlah` int NOT NULL,
   `status` varchar(200) NOT NULL,
   `id_jurusan` int DEFAULT NULL,
-  `jenis_biaya` enum('spp','ppdb') NOT NULL DEFAULT 'ppdb',
+  `jenis_biaya` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_biaya`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ppdb_dapit_1.biaya: ~7 rows (approximately)
+-- Dumping data for table ppdb_dapit_1.biaya: ~9 rows (approximately)
 INSERT INTO `biaya` (`id_biaya`, `nama_biaya`, `jumlah`, `status`, `id_jurusan`, `jenis_biaya`) VALUES
+	('ATK', 'ATK', 200000, '1', 0, 'ppdb'),
+	('BP', 'Buku Paket', 1203000, '1', 0, 'ppdb'),
 	('FD2025', 'Biaya full day', 500000, '1', 1, 'ppdb'),
-	('FDS', 'Uang gedung', 500000, '1', NULL, 'ppdb'),
-	('PPDB2023', 'Pendaftaran', 150000, '1', 0, 'ppdb'),
-	('RE2025', 'Biaya Reguler', 100000, '1', 2, 'ppdb'),
-	('SPP62028', 'SPP Bulan Juli', 100000, '1', 1, 'spp'),
-	('SPP72028', 'SPP Bulan Juli', 100000, '1', 1, 'spp'),
-	('spp92923', 'SPP Bulan agustus', 100000, '1', 1, 'spp');
+	('FDS', 'Uang gedung', 1200000, '1', 0, 'ppdb'),
+	('PS', 'Pembangunan sarana', 2100000, '1', 0, 'ppdb'),
+	('RE2025', 'Biaya Reguler', 200000, '1', 2, 'ppdb'),
+	('SPP62028', 'SPP Bulan Juli', 100000, '1', 1, 'spp_bulanan'),
+	('SR', 'Sampul Rapot', 100000, '1', 0, 'ppdb'),
+	('SRG', 'Seragam (Batik Biri, Baju Hijau)', 600000, '1', 0, 'ppdb'),
+	('TH2025/2026', 'SPP Tahun 2025/2026', 1200000, '1', 1, 'spp_tahunan');
 
 -- Dumping structure for table ppdb_dapit_1.daftar
 CREATE TABLE IF NOT EXISTS `daftar` (
@@ -174,12 +178,12 @@ CREATE TABLE IF NOT EXISTS `daftar` (
   PRIMARY KEY (`id_daftar`)
 ) ENGINE=InnoDB AUTO_INCREMENT=327 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ppdb_dapit_1.daftar: ~7 rows (approximately)
+-- Dumping data for table ppdb_dapit_1.daftar: ~13 rows (approximately)
 INSERT INTO `daftar` (`id_daftar`, `no_daftar`, `id_siswa`, `jenis`, `nis`, `nik`, `no_kk`, `nisn`, `nama`, `warga_siswa`, `foto`, `jenkel`, `tempat_lahir`, `tgl_lahir`, `asal_sekolah`, `npsn_asal`, `kelas`, `jurusan`, `jenjang`, `agama`, `status_tinggal`, `alamat`, `rt`, `rw`, `desa`, `kecamatan`, `kota`, `provinsi`, `kode_pos`, `koordinat`, `transportasi`, `no_hp`, `email`, `anak_ke`, `saudara`, `biaya_sekolah`, `paud`, `tk`, `hepatitis`, `polio`, `bcg`, `campak`, `dpt`, `covid`, `citacita`, `hobi`, `status_keluarga`, `tinggal`, `jarak`, `waktu`, `nik_ayah`, `nama_ayah`, `tempat_lahir_ayah`, `tahun_ayah`, `status_ayah`, `pendidikan_ayah`, `pekerjaan_ayah`, `penghasilan_ayah`, `no_hp_ayah`, `nik_ibu`, `nama_ibu`, `tempat_lahir_ibu`, `tahun_ibu`, `status_ibu`, `pendidikan_ibu`, `pekerjaan_ibu`, `penghasilan_ibu`, `no_hp_ibu`, `nik_wali`, `nama_wali`, `tempat_lahir_wali`, `tahun_wali`, `pendidikan_wali`, `pekerjaan_wali`, `penghasilan_wali`, `no_hp_wali`, `no_ijazah`, `no_shun`, `no_ujian`, `no_kip`, `kip`, `kk`, `kepala_keluarga`, `ijazah`, `akta`, `file_shun`, `tgl_keluar`, `alasan_keluar`, `surat_keluar`, `level`, `aktif`, `status`, `sekolah_tujuan`, `npsn_sekolah_tujuan`, `tgl_daftar`, `tgl_konfirmasi`, `konfirmasi`, `bayar`, `online`, `password`, `jumlah`, `ktp_ortu`, `kps_pkh`) VALUES
 	(294, 'PPDB2021001', 0, 1, '', '123456789123456', '123456789123456', '1234567899', 'SISWA 1', 'WNI', 'assets/upload/foto_siswa/siswa977.jpg', 'L', 'WONOGIRI', '2021-12-23', '', '', NULL, 'BS', NULL, 'Islam', 'Tinggal dengan Orangtua/Wali', 'JL TANDON', '02', '02', 'GIRIWONO', 'WONOGIRI', 'WONOGIRI', 'JAWA TENGAH', '57613', '-7.7921380, 110.9078180', 'Antar Jemput Sekolah', '081228603030', 'PREKETEK@GMAIL.COM', 1, 1, 'Orang Tua', 'Ya', 'Ya', 'Ya', 'Ya', 'Ya', 'Ya', 'Ya', 'Ya', 'Dokter', 'Membaca', '', '', 'Kurang dari 5 km', '10-19 menit', '33112212121212', 'KATEMIN', 'WONOGIRI', '1988-12-12', 'Masih Hidup', 'SMP/Sederajat', 'Seniman/Pelukis/Artis/Sejenis', '3.000.001 - 5.000.000', '087838553345', '1234567897898787', 'KATMI', 'WONOGIRI', '1988-12-12', 'Meninggal Dunia', 'S3', 'Politikus', 'Lebih dari 5.000.000', '087838553345', '', '', NULL, '0000-00-00', '', '', '', '', NULL, NULL, NULL, '', 'assets/upload/kip/kip773.jpg', 'assets/upload/kk/kk979.jpg', 'KASNO DIMEJO', 'assets/upload/ijazah/ijazah31.jpg', 'assets/upload/akta/akta266.jpg', NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, '2022-01-10', 1, NULL, 1, '123456', '200', NULL, NULL),
 	(310, 'PPDB2025013', 0, 1, NULL, NULL, NULL, '12221274', 'Ranti', NULL, 'default.png', NULL, 'Tasikmalaya', '2025-05-06', NULL, NULL, NULL, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0987655679', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, '12221274', NULL, NULL, NULL),
 	(311, 'PPDB2025014', 0, 1, NULL, NULL, NULL, '12221275', 'FERLA', NULL, 'default.png', NULL, 'Tasikmalaya', '2025-05-06', '', '', NULL, '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '123456789', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1, '12221275', NULL, NULL, NULL),
-	(316, 'PPDB2025019', 0, 1, NULL, NULL, NULL, '12345', 'Joni', NULL, 'default.png', NULL, NULL, NULL, 'SD N KERDONMIRI II', '69977331', 'KLS6831a4ce925b8', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '082268231871', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/upload/kk/kk316.png', NULL, NULL, 'assets/upload/akta/akta316.png', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, '2025-06-21', 1, NULL, 1, '12345', NULL, 'assets/upload/ktp_ortu/ktp_ortu316.png', 'assets/upload/kps_pkh/kps_pkh316.png'),
+	(316, 'PPDB2025019', 0, 1, NULL, NULL, NULL, '12345', 'Joni', NULL, 'default.png', NULL, NULL, NULL, 'SD N KERDONMIRI II', '69977331', 'KLS6831a4ce925b8', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '082268231871', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/upload/kk/kk316.png', NULL, NULL, 'assets/upload/akta/akta316.png', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, '2025-06-21', 1, 'spp_bulanan', 1, '12345', NULL, 'assets/upload/ktp_ortu/ktp_ortu316.png', 'assets/upload/kps_pkh/kps_pkh316.png'),
 	(317, 'PPDB2025020', NULL, 1, NULL, NULL, NULL, '1234566666', 'UJANG', NULL, 'default.png', NULL, 'Tokyo', '2025-05-23', '', '', NULL, '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '832937483433', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/upload/kk/kk317.png', NULL, NULL, 'assets/upload/akta/akta317.jpg', NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'ujang123', NULL, 'assets/upload/ktp_ortu/ktp_ortu317.png', 'assets/upload/kps_pkh/kps_pkh317.png'),
 	(318, 'PPDB2025021', NULL, 1, NULL, NULL, NULL, '12738323923', 'RISA HIMAWARI', NULL, 'default.png', NULL, 'Tokyo', '2025-05-24', '', '', 'KLS6831a9c408ea2', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8377326372', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/upload/kk/kk318.png', NULL, NULL, 'assets/upload/akta/akta318.png', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, '2025-05-24', 1, NULL, 1, 'risa123', NULL, 'assets/upload/ktp_ortu/ktp_ortu318.png', 'assets/upload/kps_pkh/kps_pkh318.png'),
 	(320, 'PPDB2025022', NULL, 1, NULL, NULL, NULL, '12938494394', 'MAMAN MACAN', NULL, 'default.png', NULL, 'Tokyo', '2031-03-31', '', '', 'KLS6831a4ce925b8', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8273823728', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/upload/kk/kk320.png', NULL, NULL, 'assets/upload/akta/akta320.png', NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, '2025-05-25', 1, NULL, 1, 'maman123', NULL, 'assets/upload/ktp_ortu/ktp_ortu320.png', 'assets/upload/kps_pkh/kps_pkh320.png'),
@@ -187,7 +191,7 @@ INSERT INTO `daftar` (`id_daftar`, `no_daftar`, `id_siswa`, `jenis`, `nis`, `nik
 	(322, 'PPDB2025024', NULL, 1, NULL, NULL, NULL, 'rmunggaran', 'RIKSA MUNGGARAN', NULL, 'default.png', NULL, 'Tasikmalaya', '2025-06-08', '', '', NULL, '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '85382970367', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, '2025-06-08', 1, NULL, 1, '12345', NULL, NULL, NULL),
 	(323, 'PPDB2025025', NULL, 1, NULL, NULL, NULL, 'jajang', 'Jajang Ganteng', NULL, 'default.png', NULL, 'Bandung', '2025-06-08', NULL, NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '829389232', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, '12345', NULL, NULL, NULL),
 	(324, 'PPDB2025026', NULL, 1, NULL, NULL, NULL, 'anu', 'Anu', NULL, 'default.png', NULL, 'Tokyo', '2025-06-13', NULL, NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '082937239', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, '12345', NULL, NULL, NULL),
-	(325, 'PPDB2025027', NULL, 1, NULL, NULL, NULL, 'Anu123', 'ANU PISAN', NULL, 'default.png', NULL, 'Tokyo', '2025-06-22', '', '', NULL, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8934783434', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/upload/kk/kk325.jpg', NULL, NULL, 'assets/upload/akta/akta325.jpg', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, '2025-06-22', 1, NULL, 1, '12345', NULL, 'assets/upload/ktp_ortu/ktp_ortu325.jpg', 'assets/upload/kps_pkh/kps_pkh325.jpg'),
+	(325, 'PPDB2025027', NULL, 1, NULL, NULL, NULL, 'Anu123', 'ANU PISAN', NULL, 'default.png', NULL, 'Tokyo', '2025-06-22', '', '', NULL, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8934783434', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/upload/kk/kk325.jpg', NULL, NULL, 'assets/upload/akta/akta325.jpg', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, '2025-06-22', 1, 'spp_tahunan', 1, '12345', NULL, 'assets/upload/ktp_ortu/ktp_ortu325.jpg', 'assets/upload/kps_pkh/kps_pkh325.jpg'),
 	(326, 'PPDB2025028', NULL, 1, NULL, NULL, NULL, 'jojon123', 'JOJON SUSI', NULL, 'default.png', NULL, 'Tasikmalaya', '2025-06-22', '', '', NULL, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '08932783232', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/upload/kk/kk326.png', NULL, NULL, 'assets/upload/akta/akta326.png', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, '2025-06-22', 1, NULL, 1, '12345', NULL, 'assets/upload/ktp_ortu/ktp_ortu326.png', 'assets/upload/kps_pkh/kps_pkh326.png');
 
 -- Dumping structure for table ppdb_dapit_1.formulir
@@ -229,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `formulir` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table ppdb_dapit_1.formulir: ~8 rows (approximately)
+-- Dumping data for table ppdb_dapit_1.formulir: ~9 rows (approximately)
 INSERT INTO `formulir` (`id`, `no_pendaftaran`, `no_daftar`, `kategori`, `nama_siswa`, `nomor_induk`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `anak_ke`, `jumlah_saudara`, `status_keluarga`, `alamat_rumah`, `alamat_sekarang`, `kelas_diterima`, `tanggal_diterima`, `sekolah_asal`, `alamat_sekolah_asal`, `sttb_tahun`, `sttb_nomor`, `nama_ayah`, `nama_ibu`, `agama_ortu`, `alamat_ortu`, `pekerjaan_ayah`, `pekerjaan_ibu`, `pendidikan_ayah`, `pendidikan_ibu`, `penghasilan`, `nama_wali`, `agama_wali`, `alamat_wali`, `pendidikan_wali`, `pekerjaan_wali`) VALUES
 	(18, 'PSB-1', '316', '1', 'Joni', '12823823232', 'Laki-laki', 'Tokyo', '2002-02-02', 3, 3, 'ANAK', 'kadksad dksakdksa', 'kadksad dksakdksa', '1', '2025-05-22', 'ksadksakd', 'dkskkdsa', 'skadkas', 'ksakdksa', 'kadksakd', 'ksadmksa', 'ksakd', 'kadksad dksakdksa', 'Politikus', 'Pegawai Swasta', 'Diploma I/II', 'S1 (Sarjana)', 'Kurang dari Rp.500.000', 'adsajdjsad', 'sakdksakdsa', 'skdksakd', 'SMP/MTs/Paket B', 'Dokter'),
 	(19, 'PSB-2', '317', '1', 'Ujang ganteng', '12823823233', 'Laki-laki', 'Tokyo', '2222-02-22', 3, 3, 'anak', 'manonjaya', 'manonjaya', '1', '2223-02-22', 'ksadksakd', 'dkskkdsa', 'skadkas', 'ksakdksa', 'Dedi kusnandar', 'ksadmksa', 'Islam', 'manonjaya', 'Buruh', 'Petani/Peternak', 'SMA/MA/SMK/Paket C', 'Diploma I/II', 'Rp.3.000.001 s/d Rp.5.000.000', 'Dedi kusnandar', 'Islam', 'manonjaya', 'SMA/MA/SMK/Paket C', 'Buruh'),
@@ -408,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `setting` (
 
 -- Dumping data for table ppdb_dapit_1.setting: ~1 rows (approximately)
 INSERT INTO `setting` (`id_setting`, `nama_sekolah`, `jenjang`, `nsm`, `npsn`, `status`, `alamat`, `kota`, `provinsi`, `logo`, `favicon`, `email`, `no_telp`, `klikchat`, `livechat`, `nolivechat`, `infobayar`, `syarat`, `kab`, `kec`, `web`, `kepala`, `nip`, `ppdb`, `kop`, `logo_ppdb`, `tgl_pengumuman`, `tgl_tutup`) VALUES
-	(1, 'MI CONDONG', 0, '-', '20402448', 'Swasta', 'Komplek Pst. Condong, Setianagara, Cibeureum', 'Tasikmalaya', 'Jawa Barat', 'assets/img/logo/logo518.png', NULL, 'micondong@gmail.com', '-', 'Assalamu Alaikum\r\n\r\nMohon informasi PPDB', 'Assalamu Alaikum\r\n\r\nMohon informasi PPDB', '087828116091', '<p>Pembayaran Pendaftaran bisa di transfer melalui :</p><p>BRI - 12353435 - MI Condong</p><p>BCA - 123513 - MI Condong</p>', '<p><br></p><ol><li>Surat Keterangan Lulus</li><li>Akta Kelahiran</li><li>Kartu Keluarga</li></ol>', '', '', '-', 'Cece Insan Kamil S.Ag', '-', '1', 'assets/img/kop/kop458.png', 'assets/img/logo/logo_ppdb430.png', '2025-04-29', '2021-05-20');
+	(1, 'MI CONDONG', 0, '-', '20402448', 'Swasta', 'Komplek Pst. Condong, Setianagara, Cibeureum', 'Tasikmalaya', 'Jawa Barat', 'assets/img/logo/logo518.png', NULL, 'micondong@gmail.com', '-', 'Assalamu Alaikum\r\n\r\nMohon informasi PPDB', 'Assalamu Alaikum\r\n\r\nMohon informasi PPDB', '087828116091', '<h5><b>Pembayaran bisa di transfer melalui :</b></h5><ul><li>BRI - 12353435 - MI Condong</li><li>BCA - 123513 - MI Condong</li></ul>', '<p><br></p><ol><li>Surat Keterangan Lulus</li><li>Akta Kelahiran</li><li>Kartu Keluarga</li></ol>', '', '', '-', 'Cece Insan Kamil S.Ag', '-', '1', 'assets/img/kop/kop458.png', 'assets/img/logo/logo_ppdb430.png', '2025-04-29', '2021-05-20');
 
 -- Dumping structure for table ppdb_dapit_1.siswa
 CREATE TABLE IF NOT EXISTS `siswa` (

@@ -34,6 +34,7 @@ if ($pg == 'tambah') {
             $dest = 'bukti_transaksi_spp/bukti_' . $nextNoTransaksi . '.' . $ext;
             $upload = move_uploaded_file($temp,  $dest);
             if ($upload) {
+                $jenis_spp = isset($_POST['bayar']) && $_POST['bayar'] !== '' ? $_POST['bayar'] : 0;
                 $data = [
                     'id_bayar'      => $nextNoTransaksi,
                     'id_daftar'     => $_POST['id'],
@@ -41,7 +42,7 @@ if ($pg == 'tambah') {
                     'tgl_bayar'     => $_POST['tgl'],
                     'id_user'       => 0,
                     'bukti'         => $dest,
-                    'jenis_bayar'   => 'spp'
+                    'jenis_bayar'   => $jenis_spp
                 ];
                 $exec = insert($koneksi, 'bayar', $data);
                 if ($exec) {

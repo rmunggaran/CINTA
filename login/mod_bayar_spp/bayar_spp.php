@@ -2,7 +2,7 @@
 
 <div class="section-header">
     <form style="width: 80%">
-        <input type="hidden" name="pg" value="bayar">
+        <input type="hidden" name="pg" value="bayar_spp">
         <div class="form-row">
             <div class="col-md-6 col-xs-6">
                 <div class="form-group">
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                &nbsp;<button type="submit" class="btn btn-primary btn-lg p-l-10"><i class="fas fa-search    "></i> Cari</button>
+                &nbsp;<button type="submit" class="btn btn-primary btn-lg p-l-10"><i class="fas fa-search"></i> Cari</button>
             </div>
         </div>
     </form>
@@ -48,7 +48,7 @@
                                         <th>Nama Siswa</th>
                                         <th>Jumlah Bayar</th>
                                         <th>Tgl Bayar</th>
-                                        <th>Penerima</th>
+                                        <th>Jenis Bayar</th>
                                         <th>verifikasi</th>
                                         <th>Bukti</th>
                                         <th>Action</th>
@@ -68,12 +68,13 @@
                                             <td><?= $bayar['nama'] ?></td>
                                             <td><?= "Rp " . number_format($bayar['3'], 0, ",", ".") ?></td>
                                             <td><?= $bayar['tgl_bayar'] ?></td>
-                                            <td><?php if ($user) {
-                                                    echo $user['nama_user'];
-                                                } else {
-                                                    echo "Online";
-                                                } ?>
-                                            </td>
+                                            <td><?= $bayar['jenis_bayar'] ?></td>
+                                            <!-- <td><?php if ($user) {
+                                                            echo $user['nama_user'];
+                                                        } else {
+                                                            echo "Online";
+                                                        } ?>
+                                            </td> -->
 
                                             <td>
                                                 <?php if ($bayar['verifikasi'] == 1) { ?>
@@ -123,7 +124,7 @@
                                         <th>Nama Siswa</th>
                                         <th>Jumlah Bayar</th>
                                         <th>Tgl Bayar</th>
-                                        <th>Penerima</th>
+                                        <th>Jenis Bayar</th>
                                         <th>verifikasi</th>
                                         <th>Action</th>
                                     </tr>
@@ -142,12 +143,13 @@
                                             <td><?= $bayar['nama'] ?></td>
                                             <td><?= "Rp " . number_format($bayar['3'], 0, ",", ".") ?></td>
                                             <td><?= $bayar['tgl_bayar'] ?></td>
-                                            <td><?php if ($user) {
-                                                    echo $user['nama_user'];
-                                                } else {
-                                                    echo "Online";
-                                                } ?>
-                                            </td>
+                                            <td><?= $bayar['jenis_bayar'] ?></td>
+                                            <!-- <td><?php if ($user) {
+                                                            echo $user['nama_user'];
+                                                        } else {
+                                                            echo "Online";
+                                                        } ?>
+                                            </td> -->
 
                                             <td>
                                                 <?php if ($bayar['verifikasi'] == 1) { ?>
@@ -231,7 +233,7 @@
                                     <th>Nama Siswa</th>
                                     <th>Jumlah Bayar</th>
                                     <th>Tgl Bayar</th>
-                                    <th>Petugas</th>
+                                    <th>Jenis Bayar</th>
                                     <th>verifikasi</th>
                                     <th>Action</th>
                                 </tr>
@@ -250,11 +252,12 @@
                                         <td><?= $bayar['nama'] ?></td>
                                         <td><?= "Rp " . number_format($bayar['3'], 0, ",", ".") ?></td>
                                         <td><?= $bayar['tgl_bayar'] ?></td>
-                                        <td><?php if ($user) {
-                                                echo $user['nama_user'];
-                                            } else {
-                                                echo "Online";
-                                            } ?></td>
+                                        <td><?= $bayar['jenis_bayar'] ?></td>
+                                        <!-- <td><?php if ($user) {
+                                                        echo $user['nama_user'];
+                                                    } else {
+                                                        echo "Online";
+                                                    } ?></td> -->
                                         <td>
                                             <?php if ($bayar['verifikasi'] == 1) { ?>
                                                 <span class="badge badge-success">Sudah Dicek</span>

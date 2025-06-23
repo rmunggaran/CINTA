@@ -15,6 +15,7 @@ header("Content-Disposition: attachment; filename=datasemua_pembayaran_SPP.xls")
             <th>Nama Pendaftar</th>
             <th>Jumlah Bayar</th>
             <th>Tgl Bayar</th>
+            <th>Jenis Bayar</th>
             <th>Status</th>
 
         </tr>
@@ -37,6 +38,7 @@ ORDER BY a.id_daftar
                 <td><?= $daftar['nama'] ?></td>
                 <td><?= $daftar['3'] ?></td>
                 <td><?= $daftar['tgl_bayar'] ?></td>
+                <td><?= $daftar['jenis_bayar'] ?></td>
                 <td>
                     <?php if ($daftar['verifikasi'] == 1) { ?>
                         <span class="badge badge-success">sudah dicek</span>

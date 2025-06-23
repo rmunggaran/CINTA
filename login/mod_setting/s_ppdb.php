@@ -99,8 +99,6 @@
                                 </div>
                             </div>
 
-
-
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card">
@@ -361,7 +359,14 @@
                                                     <label>Jumlah Rp</label>
                                                     <input type="text" name="jumlah" class="form-control" required="">
                                                 </div>
-
+                                                <div class="form-group">
+                                                    <label>Jenis SPP</label>
+                                                    <select name="jenis_spp" id="jenis_spp" class="form-control">
+                                                        <option value="0">Pilih Jenis SPP</option>
+                                                        <option value='spp_bulanan'>SPP Bulanan</option>
+                                                        <option value='spp_tahunan'>SPP Tahunan</option>
+                                                    </select>
+                                                </div>
 
 
                                             </div>
@@ -386,6 +391,22 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="table-responsive">
+                                                <h4>Daftar SPP Bulanan</h4>
+                                                <!-- <form method="get" class="mb-3">
+                                                    <input type="hidden" name="pg" value="<?= isset($_GET['pg']) ? $_GET['pg'] : '' ?>">
+                                                    <div class="form-group row">
+                                                        <label for="filter_jenis" class="col-sm-2 col-form-label">Filter Jenis SPP</label>
+                                                        <div class="col-sm-4">
+                                                            <select name="jenis" id="filter_jenis" class="form-control" onchange="this.form.submit()">
+                                                                <option value="">-- Semua Jenis --</option>
+                                                                <option value="spp_bulanan" <?= (isset($_GET['jenis']) && $_GET['jenis'] == 'spp_bulanan') ? 'selected' : '' ?>>SPP Bulanan</option>
+                                                                <option value="spp_tahunan" <?= (isset($_GET['jenis']) && $_GET['jenis'] == 'spp_tahunan') ? 'selected' : '' ?>>SPP Tahunan</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </form> -->
+
+
                                                 <table class="table table-striped" id="table-2">
                                                     <thead>
                                                         <tr>
@@ -403,7 +424,19 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $query = mysqli_query($koneksi, "SELECT b.*, j.nama_jurusan FROM biaya b LEFT JOIN jurusan j ON b.id_jurusan = j.id_jurusan where jenis_biaya='spp'");
+                                                        $jenis = isset($_GET['jenis']) ? $_GET['jenis'] : '';
+
+                                                        $where = "";
+                                                        if (!empty($jenis)) {
+                                                            $where = "WHERE b.jenis_biaya = '$jenis'";
+                                                        } else {
+                                                            $where = "WHERE b.jenis_biaya IN ('spp_bulanan', 'spp_tahunan')";
+                                                        }
+
+                                                        $query = mysqli_query($koneksi, "SELECT b.*, j.nama_jurusan FROM biaya b 
+                                                            LEFT JOIN jurusan j ON b.id_jurusan = j.id_jurusan 
+                                                            $where");
+
                                                         $no = 0;
                                                         while ($biaya = mysqli_fetch_array($query)) {
                                                             $no++;
@@ -449,6 +482,14 @@
                                                                                         <div class="form-group">
                                                                                             <label>Jumlah Biaya Rp.</label>
                                                                                             <input type="text" name="jumlah" value="<?= $biaya['jumlah'] ?>" class="form-control" required="">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label>Jenis SPP</label>
+                                                                                            <select name="jenis_spp" id="jenis_spp" class="form-control">
+                                                                                                <option value="0">Pilih Jenis SPP</option>
+                                                                                                <option value='spp_bulanan' <?= ('spp_bulanan' == $biaya['jenis_biaya']) ? 'selected' : ''; ?>>SPP Bulanan</option>
+                                                                                                <option value='spp_tahunan' <?= ('spp_tahunan' == $biaya['jenis_biaya']) ? 'selected' : ''; ?>>SPP Tahunan</option>
+                                                                                            </select>
                                                                                         </div>
                                                                                         <div class="form-group">
                                                                                             <div class="control-label">Status biaya</div>
