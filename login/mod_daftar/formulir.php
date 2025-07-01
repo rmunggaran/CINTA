@@ -55,10 +55,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mb-2">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kategori</label>
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis Pendidikan</label>
                                         <div class="col-sm-12 col-md-7">
                                             <select class='form-control' id="kategori" name="kategori" required>
-                                                <option value="">-- Pilih Kategori --</option>
+                                                <option value="">-- Pilih Jenis Pendidikan --</option>
                                                 <?php $qu = mysqli_query($koneksi, "select * from jurusan");
                                                 while ($jur = mysqli_fetch_array($qu)) {
                                                 ?>
@@ -75,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mb-2">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nomor Induk</label>
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
                                         <div class="col-sm-12 col-md-7">
                                             <input type="text" name="nomor_induk" class="form-control" value="<?= $formulir['nomor_induk'] ?>">
                                         </div>

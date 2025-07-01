@@ -47,7 +47,7 @@
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th>Nama jurusan</th>
+                                <th>Jenis Pendidikan</th>
                                 <th>Kuota</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -91,7 +91,7 @@
                                                         <div class="modal-body">
                                                             <input type="hidden" value="<?= $jurusan['nama_jurusan'] ?>" name="nama_lama">
                                                             <div class="form-group">
-                                                                <label>Nama jurusan</label>
+                                                                <label>Jenis Pendidikan</label>
                                                                 <input type="text" name="nama" value="<?= $jurusan['nama_jurusan'] ?>" class="form-control" required="">
                                                             </div>
                                                             <div class="form-group">
