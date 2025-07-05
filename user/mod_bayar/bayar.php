@@ -118,6 +118,62 @@
                                                 <input type="text" class="form-control uang" name="jumlah" id="jumlah" aria-describedby="helpjumlah" required>
                                             </div>
                                             <div class="form-group">
+                                                <label>Pilih Biaya yang Ingin Dibayar:</label>
+                                                <?php
+                                                $queryBiaya = mysqli_query($koneksi, "SELECT * FROM biaya WHERE (id_jurusan IS NULL OR id_jurusan=0 OR id_jurusan = '$id_jurusan') AND (jenis_biaya IS NULL OR jenis_biaya = 'ppdb') AND status = 1");
+                                                while ($biaya = mysqli_fetch_assoc($queryBiaya)) {
+                                                    // Cek apakah biaya ini sudah pernah dibayar oleh user ini
+                                                    $id_biaya = $biaya['id_biaya'];
+                                                    $cek = mysqli_query($koneksi, "SELECT 1 FROM bayar WHERE id_daftar = '{$siswa['id_daftar']}' AND id_biaya = '$id_biaya' AND (jenis_bayar IS NULL OR jenis_bayar = 'ppdb')");
+
+                                                    if (mysqli_num_rows($cek) > 0) {
+                                                        continue; // skip item yang sudah pernah dibayar
+                                                    }
+                                                ?>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="biaya_dipilih[]" value="<?= $biaya['id_biaya'] ?>" id="biaya_<?= $biaya['id_biaya'] ?>">
+                                                        <label class="form-check-label" for="biaya_<?= $biaya['id_biaya'] ?>">
+                                                            <?= $biaya['nama_biaya'] ?> (Rp <?= number_format($biaya['jumlah'], 0, ',', '.') ?>)
+                                                        </label>
+                                                    </div>
+                                                <?php } ?>
+                                                <div class="mt-3">
+                                                    <strong>Total yang harus dibayar: Rp <span id="total-bayar">0</span></strong>
+                                                    <p class="mt-3">note :minimal transaksi Rp.500.000</p>
+                                                </div>
+                                                <script>
+                                                    // Data jumlah biaya per checkbox
+                                                    const biayaMap = {};
+
+                                                    <?php
+                                                    mysqli_data_seek($queryBiaya, 0); // reset ulang pointer hasil query
+                                                    while ($biaya = mysqli_fetch_assoc($queryBiaya)) {
+                                                        echo "biayaMap['{$biaya['id_biaya']}'] = {$biaya['jumlah']};\n";
+                                                    }
+                                                    ?>
+
+                                                    function updateTotalBayar() {
+                                                        let total = 0;
+                                                        document.querySelectorAll("input[name='biaya_dipilih[]']:checked").forEach((checkbox) => {
+                                                            total += biayaMap[checkbox.value] || 0;
+                                                        });
+
+                                                        document.getElementById("total-bayar").innerText = total.toLocaleString('id-ID');
+                                                        document.getElementById("jumlah").value = total; // isikan otomatis ke input jumlah
+                                                    }
+
+                                                    document.querySelectorAll("input[name='biaya_dipilih[]']").forEach((checkbox) => {
+                                                        checkbox.addEventListener('change', updateTotalBayar);
+                                                    });
+
+                                                    // Jalankan saat awal (jika ada centang bawaan)
+                                                    updateTotalBayar();
+                                                </script>
+
+
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label for="tgl">Tanggal Pembayaran</label>
                                                 <input type="text" class="form-control datepicker" name="tgl" id="tgl" required>
                                             </div>
@@ -144,6 +200,7 @@
                                         </th>
                                         <th>Kode Transaksi</th>
                                         <th>Nama Siswa</th>
+                                        <th>Nama Biaya</th>
                                         <th>Jumlah Bayar</th>
                                         <th>Tgl Bayar</th>
                                         <th>verifikasi</th>
@@ -167,7 +224,11 @@
                                             <td><?= $no; ?></td>
                                             <td><?= $bayar['id_bayar'] ?></td>
                                             <td><?= $bayar['nama'] ?></td>
-                                            <td><?= "Rp " . number_format($bayar['3'], 0, ",", ".") ?></td>
+                                            <?php
+                                            $biaya = fetch($koneksi, 'biaya', ['id_biaya' => $bayar['id_biaya']]);
+                                            ?>
+                                            <td><?= $biaya['nama_biaya'] ?? '-' ?></td>
+                                            <td><?= "Rp " . number_format((int)$bayar['4'], 0, ",", ".") ?></td>
                                             <td><?= $bayar['tgl_bayar'] ?></td>
                                             <td>
                                                 <?php if ($bayar['verifikasi'] == 1) { ?>
@@ -239,6 +300,15 @@
         <script>
             $('#form-bayar').submit(function(e) {
                 e.preventDefault();
+                let jumlahBayar = parseInt($('#jumlah').val().replace(/\D/g, '')) || 0;
+                if (jumlahBayar < 500000) {
+                    iziToast.error({
+                        title: 'Maaf!',
+                        message: 'Minimal pembayaran Rp 500.000',
+                        position: 'topRight'
+                    });
+                    return false;
+                }
                 $.ajax({
                     type: 'POST',
                     url: 'mod_bayar/crud_bayar.php?pg=tambah',

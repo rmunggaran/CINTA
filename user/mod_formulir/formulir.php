@@ -62,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         : generateNomorPendaftaran($koneksi);
 
     $no_daftar          = bersihkanInput($_POST['no_daftar'], $koneksi);
+    $tahun_ajaran          = bersihkanInput($_POST['tahun_ajaran'], $koneksi);
     $kategori           = bersihkanInput($_POST['kategori'], $koneksi);
     $nama_siswa         = bersihkanInput($_POST['nama_siswa'], $koneksi);
     $nomor_induk        = bersihkanInput($_POST['nomor_induk'], $koneksi);
@@ -94,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data_formulir = [
         'no_pendaftaran' => $no_pendaftaran,
+        'tahun_ajaran' => $tahun_ajaran,
         'no_daftar' => $no_daftar,
         'kategori' => $kategori,
         'nama_siswa' => $nama_siswa,
@@ -413,6 +415,17 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
                     readonly required>
 
             </div>
+            <div class="form-group">
+                <label for="tahun_ajaran">Tahun Ajaran:</label>
+                <?php
+                $query = mysqli_query($koneksi, "SELECT * FROM setting WHERE id_setting = 1");
+                $tahun = mysqli_fetch_assoc($query);
+                ?>
+                <input type="text" id="tahun_ajaran" name="tahun_ajaran"
+                    value="<?= htmlspecialchars($tahun['tahun_ajaran'] ?? '') ?>"
+                    readonly required>
+            </div>
+
             <div class="form-group">
                 <label for="kategori">Jenis Pendidikan:</label>
                 <select id="kategori" name="kategori" required>

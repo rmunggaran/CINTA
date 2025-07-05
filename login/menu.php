@@ -78,9 +78,14 @@
 
 
 
-     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+     <div class="mt-4 p-3 hide-sidebar-mini">
          <button type="button" class="btn btn-primary btn-lg btn-block btn-icon-split" data-toggle="modal" data-target="#ppdb">
              <i class="fas fa-web"></i> Aktifkan PPDB
+         </button>
+     </div>
+     <div class="p-3 hide-sidebar-mini">
+         <button type="button" class="btn btn-success btn-lg btn-block btn-icon-split" data-toggle="modal" data-target="#tahun_ajaran">
+             <i class="fas fa-web"></i> Tahun ajaran baru
          </button>
      </div>
  </ul>
@@ -109,6 +114,31 @@
          </div>
      </div>
  </div>
+ <div class="modal fade" id="tahun_ajaran" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content">
+             <form id="form-tahun-ajaran">
+                 <div class="modal-header">
+                     <h5 class="modal-title">Silahkan masukan tahun ajaran</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                     </button>
+                 </div>
+                 <div class="modal-body">
+                     Silahkan masukan tahun ajaran baru DISINI
+                     <input type="text" name="tahun_ajaran" class="form-control" placeholder="2025/2026" value="<?= $setting['tahun_ajaran'] ?>">
+                     <br>
+                     <p>Setiap penambahan tahun ajaran baru sistem akan otomatis memperbarui jenjang kelas.</p>
+
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                     <button type="submit" class="btn btn-primary">Simpan</button>
+                 </div>
+             </form>
+         </div>
+     </div>
+ </div>
  <script>
      $('#form-ppdb').submit(function(e) {
          e.preventDefault();
@@ -121,6 +151,35 @@
                      iziToast.success({
                          title: 'Mantap!',
                          message: 'Data Berhasil diaktifkan',
+                         position: 'topRight'
+                     });
+                     setTimeout(function() {
+                         window.location.reload();
+                     }, 2000);
+                     $('#tambahdata').modal('hide');
+                 } else {
+                     iziToast.error({
+                         title: 'Maaf!',
+                         message: 'Data Gagal ditambahkan ',
+                         position: 'topRight'
+                     });
+                 }
+                 //$('#bodyreset').load(location.href + ' #bodyreset');
+             }
+         });
+         return false;
+     });
+     $('#form-tahun-ajaran').submit(function(e) {
+         e.preventDefault();
+         $.ajax({
+             type: 'POST',
+             url: 'mod_setting/crud_setting.php?pg=update_tahun_ajaran',
+             data: $(this).serialize(),
+             success: function(data) {
+                 if (data == 'ok') {
+                     iziToast.success({
+                         title: 'Mantap!',
+                         message: 'Data Berhasil Tahun Ajaran berhasil di update',
                          position: 'topRight'
                      });
                      setTimeout(function() {

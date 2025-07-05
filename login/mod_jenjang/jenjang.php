@@ -22,6 +22,18 @@
                             <input type="text" name="nama_kelas" class="form-control" required="">
                         </div>
                         <div class="form-group">
+                            <label>Jenjang</label>
+                            <select name="jenjang" id="jenjang" class="form-control" required>
+                                <option value=''>--Pilih Jenjang--</option>
+                                <option value='1'>Kelas 1</option>
+                                <option value='2'>Kelas 2</option>
+                                <option value='3'>Kelas 3</option>
+                                <option value='4'>Kelas 4</option>
+                                <option value='5'>Kelas 5</option>
+                                <option value='6'>Kelas 6</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>kuota</label>
                             <input type="text" name="kuota" class="form-control" required="">
                         </div>
@@ -55,13 +67,14 @@
                                 </th>
                                 <th>id_kelas</th>
                                 <th>Nama Kelas</th>
+                                <th>Jenjang</th>
                                 <th>status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $query = mysqli_query($koneksi, "select * from kelas");
+                            $query = mysqli_query($koneksi, "select * from kelas ORDER BY jenjang + 0 ASC");
                             $no = 0;
                             while ($jenjang = mysqli_fetch_array($query)) {
                                 $no++;
@@ -70,6 +83,7 @@
                                     <td><?= $no; ?></td>
                                     <td><?= $jenjang['id_kelas'] ?></td>
                                     <td><?= $jenjang['nama_kelas'] ?></td>
+                                    <td><?= $jenjang['jenjang'] ?></td>
                                     <td>
                                         <?php if ($jenjang['status'] == 1) { ?>
                                             <span class="badge badge-success">Aktif</span>
@@ -101,6 +115,18 @@
                                                             <div class="form-group">
                                                                 <label>Nama Kelas</label>
                                                                 <input type="text" name="nama_kelas" value="<?= $jenjang['nama_kelas'] ?>" class="form-control" required="">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Jenjang</label>
+                                                                <select name="jenjang" id="jenjang" class="form-control" required>
+                                                                    <option value=''>--Pilih Jenjang--</option>
+                                                                    <option value='1' <?= $jenjang['jenjang'] == 1 ? 'selected' : '' ?>>Kelas 1</option>
+                                                                    <option value='2' <?= $jenjang['jenjang'] == 2 ? 'selected' : '' ?>>Kelas 2</option>
+                                                                    <option value='3' <?= $jenjang['jenjang'] == 3 ? 'selected' : '' ?>>Kelas 3</option>
+                                                                    <option value='4' <?= $jenjang['jenjang'] == 4 ? 'selected' : '' ?>>Kelas 4</option>
+                                                                    <option value='5' <?= $jenjang['jenjang'] == 5 ? 'selected' : '' ?>>Kelas 5</option>
+                                                                    <option value='6' <?= $jenjang['jenjang'] == 6 ? 'selected' : '' ?>>Kelas 6</option>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>kuota</label>

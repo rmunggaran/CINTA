@@ -27,7 +27,8 @@ if ($pg == 'ubah') {
     $data = [
         'nama_kelas'   => $_POST['nama_kelas'],
         'kuota'   => $_POST['kuota'],
-        'status' => $status
+        'status' => $status,
+        'jenjang' => $_POST['jenjang']
     ];
     $id_kelas = $_POST['id_kelas'];
     update($koneksi, 'kelas', $data, ['id_kelas' => $id_kelas]);
@@ -39,7 +40,8 @@ if ($pg == 'tambah') {
         'id_kelas' => $id_kelas,
         'nama_kelas'   => $_POST['nama_kelas'],
         'kuota'   => $_POST['kuota'],
-        'status'         => 1
+        'status'         => 1,
+        'jenjang' => $_POST['jenjang']
     ];
     $exec = insert($koneksi, 'kelas', $data);
     echo $exec;

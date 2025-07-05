@@ -46,6 +46,7 @@
                                         </th>
                                         <th>Kode Transaksi</th>
                                         <th>Nama Siswa</th>
+                                        <th>Nama Biaya</th>
                                         <th>Jumlah Bayar</th>
                                         <th>Tgl Bayar</th>
                                         <th>Penerima</th>
@@ -66,7 +67,11 @@
                                             <td><?= $no; ?></td>
                                             <td><?= $bayar['id_bayar'] ?></td>
                                             <td><?= $bayar['nama'] ?></td>
-                                            <td><?= "Rp " . number_format($bayar['3'], 0, ",", ".") ?></td>
+                                            <?php
+                                            $biaya = fetch($koneksi, 'biaya', ['id_biaya' => $bayar['id_biaya']]);
+                                            ?>
+                                            <td><?= $biaya['nama_biaya'] ?? '-' ?></td>
+                                            <td><?= "Rp " . number_format($bayar['4'], 0, ",", ".") ?></td>
                                             <td><?= $bayar['tgl_bayar'] ?></td>
                                             <td><?php if ($user) {
                                                     echo $user['nama_user'];
@@ -121,6 +126,7 @@
                                         </th>
                                         <th>Kode Transaksi</th>
                                         <th>Nama Siswa</th>
+                                        <th>Nama Biaya</th>
                                         <th>Jumlah Bayar</th>
                                         <th>Tgl Bayar</th>
                                         <th>Penerima</th>
@@ -140,7 +146,11 @@
                                             <td><?= $no; ?></td>
                                             <td><?= $bayar['id_bayar'] ?></td>
                                             <td><?= $bayar['nama'] ?></td>
-                                            <td><?= "Rp " . number_format($bayar['3'], 0, ",", ".") ?></td>
+                                            <?php
+                                            $biaya = fetch($koneksi, 'biaya', ['id_biaya' => $bayar['id_biaya']]);
+                                            ?>
+                                            <td><?= $biaya['nama_biaya'] ?? '-' ?></td>
+                                            <td><?= "Rp " . number_format($bayar['4'], 0, ",", ".") ?></td>
                                             <td><?= $bayar['tgl_bayar'] ?></td>
                                             <td><?php if ($user) {
                                                     echo $user['nama_user'];
@@ -229,6 +239,7 @@
                                     </th>
                                     <th>Kode Transaksi</th>
                                     <th>Nama Siswa</th>
+                                    <th>Nama Biaya</th>
                                     <th>Jumlah Bayar</th>
                                     <th>Tgl Bayar</th>
                                     <th>Petugas</th>
@@ -248,7 +259,11 @@
                                         <td><?= $no; ?></td>
                                         <td><?= $bayar['id_bayar'] ?></td>
                                         <td><?= $bayar['nama'] ?></td>
-                                        <td><?= "Rp " . number_format($bayar['3'], 0, ",", ".") ?></td>
+                                        <?php
+                                        $biaya = fetch($koneksi, 'biaya', ['id_biaya' => $bayar['id_biaya']]);
+                                        ?>
+                                        <td><?= $biaya['nama_biaya'] ?? '-' ?></td>
+                                        <td><?= "Rp " . number_format($bayar['4'], 0, ",", ".") ?></td>
                                         <td><?= $bayar['tgl_bayar'] ?></td>
                                         <td><?php if ($user) {
                                                 echo $user['nama_user'];

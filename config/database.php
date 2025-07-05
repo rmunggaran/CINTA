@@ -8,7 +8,7 @@ if (!defined('BASEPATH')) {
 $server   = "localhost";
 $username = "root";
 $password = "";
-$database = "ppdb_dapit_1";
+$database = "condong";
 
 // Koneksi database
 $koneksi = mysqli_connect($server, $username, $password, $database);
