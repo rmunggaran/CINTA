@@ -41,8 +41,8 @@
                                 <tr>
                                     <td><?= $no; ?></td>
 
-                                    <td><?= $daftar['nama'] ?></td>
-                                    <td><?= $daftar['asal_sekolah'] ?></td>
+                                    <td><?= $daftar['nama_siswa'] ?></td>
+                                    <td><?= $daftar['sekolah_asal'] ?></td>
 
                                     <td>
                                         <?php if ($daftar['akta'] <> null) { ?><a data-toggle="tooltip" data-placement="top" title="" data-original-title="Akte Kelahiran" href="../<?= $daftar['akta'] ?>" class="btn btn-sm btn-success">Lihat Disini</a><?php } ?>

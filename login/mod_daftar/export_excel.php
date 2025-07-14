@@ -37,7 +37,7 @@ function fetch($koneksi, $tabel, $where = [])
             </th>
             <th>no pendaftaran</th>
             <th>id daftar</th>
-            <th>kategoori</th>
+            <th>jenis pendidikan</th>
             <th>Nama siswa</th>
             <th>Nomor Induk</th>
             <th>Jenis kelamin</th>

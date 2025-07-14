@@ -75,7 +75,7 @@
                                     <div class="activity-icon bg-primary text-white shadow-primary">1</div>
                                     <div class="activity-detail">
                                         <h5>Lengkapi Formulir</h5>
-                                        <a href="?pg=formulir" class="badge badge-primary">
+                                        <a class="badge badge-primary">
                                             <i class="fas fa-book"></i> Lengkapi
                                         </a>
                                     </div>
@@ -88,7 +88,7 @@
                                     <div class="activity-icon bg-primary text-white shadow-primary">2</div>
                                     <div class="activity-detail">
                                         <h5>Upload Berkas</h5>
-                                        <a href="?pg=berkas" class="badge badge-success">
+                                        <a class="badge badge-success">
                                             <i class="fas fa-upload"></i> Lengkapi
                                         </a>
                                     </div>

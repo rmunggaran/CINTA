@@ -17,7 +17,7 @@
                                 <th class="text-center">
                                     #
                                 </th>
-                                <th>NISN</th>
+                                <th>NIK</th>
                                 <th>Nama Pendaftar</th>
                                 <th>Asal Sekolah</th>
                                 <th>No Hp</th>

@@ -8,7 +8,7 @@
             <div class="card-header">
                 <h4>Data diri Siswa</h4>
                 <div class="card-header-action">
-
+                    <a target="_blank" href="mod_daftar/print_daftar.php?id=<?= $_GET['id'] ?>" type="button" class="btn btn-success"><i class="fas fa-print    "></i> Cetak Form</a>
 
                 </div>
             </div>
@@ -134,7 +134,7 @@
                                             <input type="text" name="alamat_sekarang" class="form-control" value="<?= $formulir['alamat_sekarang'] ?>">
                                         </div>
                                     </div>
-                                    <div class="form-group row mb-2">
+                                    <!-- <div class="form-group row mb-2">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kelas Diterima:</label>
                                         <div class="col-sm-12 col-md-7">
                                             <input type="text" name="kelas_diterima" class="form-control" value="<?= $formulir['kelas_diterima'] ?>">
@@ -145,7 +145,7 @@
                                         <div class="col-sm-12 col-md-7">
                                             <input type="text" name="tanggal_diterima" class="form-control" value="<?= $formulir['tanggal_diterima'] ?>">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group row mb-2">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sekolah Asal:</label>
                                         <div class="col-sm-12 col-md-7">

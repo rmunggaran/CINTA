@@ -154,7 +154,7 @@
                                 <th class="text-center">
                                     No
                                 </th>
-                                <th>NISN</th>
+                                <th>Username</th>
                                 <th>Password</th>
                                 <th>Nama Pendaftar</th>
                                 <!-- <th>L/P</th>

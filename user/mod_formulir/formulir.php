@@ -401,6 +401,30 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
         <?php unset($_SESSION['flash']); ?>
     <?php endif; ?>
 
+    <?php
+    // Ambil data siswa dari tabel daftar
+    $siswa = fetch($koneksi, 'daftar', ['id_daftar' => $_SESSION['id_daftar']]);
+
+    // Ambil data formulir berdasarkan no_daftar yang sama
+    $formulir = fetch($koneksi, 'formulir', ['no_daftar' => $siswa['id_daftar']]);
+
+    // Cek kondisi
+    if ($formulir) {
+        if ($siswa['status'] == 1) {
+            // Jika sudah diverifikasi
+            echo '<div class="alert alert-success alert-dismissable">
+                Data anda telah diverifikasi
+              </div>';
+        } elseif ($siswa['status'] == 0) {
+            // Jika sedang diverifikasi
+            echo '<div class="alert alert-info alert-dismissable">
+                Data anda sedang diverifikasi mohon ditunggu
+              </div>';
+        }
+    }
+    ?>
+
+
 
     <div class="container">
         <h2>DATA KELENGKAPAN ADMINISTRASI SISWA BARU</h2>

@@ -17,11 +17,12 @@
                                 <th class="text-center">
                                     #
                                 </th>
-                                <th>NISN</th>
+                                <th>NIK</th>
                                 <th>Nama Pendaftar</th>
                                 <th>Asal Sekolah</th>
                                 <th>No Hp</th>
                                 <th>Status</th>
+                                <th>kelas</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -29,7 +30,7 @@
                             <?php
                             $query = mysqli_query($koneksi, "SELECT daftar.*, formulir.* 
                                 FROM daftar 
-                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where status='1' AND (kelas IS NULL OR TRIM(kelas) = '')");
+                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where status='1'");
                             $no = 0;
                             while ($daftar = mysqli_fetch_array($query)) {
                                 $no++;
@@ -51,12 +52,25 @@
                                             <span class="badge badge-warning">Diverifikasi</span>
                                         <?php } ?>
                                     </td>
+                                    <?php
+                                    $id_kelas = $daftar['kelas'];
+                                    $qkelas = mysqli_query($koneksi, "SELECT nama_kelas FROM kelas WHERE id_kelas = '$id_kelas'");
+                                    $dkelas = mysqli_fetch_assoc($qkelas);
+                                    ?>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-tambah<?= $no ?>">
-                                            <i class="fas fa-plus"></i> Tambah kelas
-                                        </button>
+                                        <?php if (!$daftar['kelas']) { ?>
+                                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-tambah<?= $no ?>">
+                                                <i class="fas fa-plus"></i> Tambah kelas
+                                            </button>
+                                        <?php } else { ?>
+                                            <a href="?pg=dt_kelas&id=?pg=dt_kelas&id=<?= $daftar['kelas'] ?>" class="btn btn-sm btn-info">
+                                                <i class="fas fa-plus"></i> <?= $dkelas['nama_kelas'] ?>
+                                            </a>
+                                        <?php } ?>
+                                    </td>
+                                    <td>
 
-                                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="detail siswa" href="?pg=detail&id=<?= enkripsi($daftar['id_daftar']) ?>" class="btn btn-sm btn-success"><i class="fas fa-eye    "></i> Detail</a>
+                                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="detail siswa" href="?pg=ubahdaftar&id=<?= enkripsi($daftar['id_daftar']) ?>" class="btn btn-sm btn-success"><i class="fas fa-eye    "></i> Detail</a>
 
                                         <button data-id="<?= $daftar['id_daftar'] ?>" class="hapus btn-sm btn btn-danger"><i class="fas fa-times    "></i> Cancel</button>
 

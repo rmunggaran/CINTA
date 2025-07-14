@@ -1,264 +1,281 @@
-<?php ob_start();
+<?php
+ob_start();
 require "../../config/database.php";
 require "../../config/function.php";
 require "../../config/functions.crud.php";
 include "../../assets/modules/phpqrcode/qrlib.php";
 session_start();
+
 if (!isset($_SESSION['id_user'])) {
-    die('Anda tidak diijinkan mengakses langsung');
+	die('Anda tidak diijinkan mengakses langsung');
 }
+
 $siswa = fetch($koneksi, 'daftar', ['id_daftar' => dekripsi($_GET['id'])]);
-$tempdir = "temp/"; //Nama folder tempat menyimpan file qrcode
-if (!file_exists($tempdir)) //Buat folder bername temp
-    mkdir($tempdir);
+$formulir = fetch($koneksi, 'formulir', ['no_daftar' => dekripsi($_GET['id'])]);
+$tempdir = "temp/";
+if (!file_exists($tempdir)) mkdir($tempdir);
 
-//isi qrcode jika di scan
 $codeContents = $siswa['nisn'] . '-' . $siswa['nama'];
-
-//simpan file kedalam temp
-//nilai konfigurasi Frame di bawah 4 tidak direkomendasikan
-
 QRcode::png($codeContents, $tempdir . $siswa['nisn'] . '.png', QR_ECLEVEL_M, 4);
-
 ?>
-<!-- General CSS Files -->
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <link rel="stylesheet" href="../../assets/modules/bootstrap/css/bootstrap.min.css">
-     <link rel="shortcut icon" href="https://www.mr-ell.com/media_library/images/7c751732ad0e716986752287a3861548.png">
 
 <!DOCTYPE html>
-
 <html>
-	<head>
-		<title>Formulir_PPDB<?= $siswa['nama'] ?></title>
-	</head>
-	<body onload="window.print();">
-		<img src="../../<?= $setting['kop'] ?>" width="100%" />
-    <body>
-        
-        <hr>
-		<b><center>Formulir Pendaftaran Peserta Didik Baru Tahun 2021</center></b>
-		<br>
-			
-			<table width="100%" style="font-size: 13px" cellpadding="1" cellspacing="0" style="border-bottom:1px solid #a5a5a5;">
-			<tbody>
+
+<head>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+	<link rel="stylesheet" href="../../assets/modules/bootstrap/css/bootstrap.min.css">
+	<link rel="shortcut icon" href="https://www.mr-ell.com/media_library/images/7c751732ad0e716986752287a3861548.png">
+	<title>Formulir_PPDB<?= $siswa['nama'] ?></title>
+</head>
+
+<body onload="window.print();">
+	<img src="../../<?= $setting['kop'] ?>" width="100%" />
+	<hr>
+	<b>
+		<center>Formulir Pendaftaran Peserta Didik Baru Tahun 2021</center>
+	</b><br>
+
+	<table width="100%" style="font-size: 13px" cellpadding="1" cellspacing="0">
+		<tbody>
 			<tr>
-				<td colspan="1" align="left"><b>1.</b></td>
-				<td colspan="4" align="left"><b>Registrasi Peserta Didik</b></td>
-				
+				<td colspan="1"><b>1.</b></td>
+				<td colspan="4"><b>Data Siswa</b></td>
 			</tr>
 			<tr>
-				<td width="5%"></td>
-				<td width="35%" align="">Jenis Pendaftaran</td>
-				<td width="5%" align="center">:</td>
-				<td width="60%" align="left">
-				    <?php if ($siswa['jenis'] == 1) { ?>
-                                    <span class="badge badge-success">Siswa Baru</span>
-                                <?php } elseif ($siswa['status'] == 2) { ?>
-                                    <span class="badge badge-danger">Siswa Pindahan </span>
-                                
-                                <?php } ?>
-				</td>
-				
+				<td style="width: 5%;"></td>
+				<td style="width: 25%;">No Pendaftaran</td>
+				<td style="width: 2%;">:</td>
+				<td><?= $formulir['no_pendaftaran'] ?></td>
 			</tr>
-			
+			<?php
+			$id_jurusan = $formulir['kategori'];
+			$qJurusan = mysqli_query($koneksi, "SELECT nama_jurusan FROM jurusan WHERE id_jurusan = '$id_jurusan'");
+			$dJurusan = mysqli_fetch_assoc($qJurusan);
+			?>
 			<tr>
 				<td></td>
-				<td align="">Jalur Pendaftaran</td>
-				<td align="center">:</td>
-				<td align="left">umum</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td align="">Nomor Pendaftaran</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['no_daftar'] ?> (Diisi Panitia)</td>
-			</tr>
-		
-			<tr>
-				<td></td>
-				<td align="">Jurusan</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['jurusan'] ?></td>
-			</tr>
-			
-			<tr>
-				<td></td>
-				<td align="">Nama Sekolah Asal</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['asal_sekolah'] ?></td>
+				<td>Jenis Pendidikan</td>
+				<td>:</td>
+				<td><?= $dJurusan['nama_jurusan'] ?></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td align="">NPSN Sekolah Asal</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['npsn_asal'] ?></td>
+				<td>Nama Lengkap</td>
+				<td>:</td>
+				<td><?= $formulir['nama_siswa'] ?></td>
 			</tr>
 			<tr>
-				<td colspan="3"></td>
+				<td></td>
+				<td>NIK</td>
+				<td>:</td>
+				<td><?= $formulir['nomor_induk'] ?></td>
 			</tr>
-			</tbody>
+			<tr>
+				<td></td>
+				<td>Jenis Kelamin</td>
+				<td>:</td>
+				<td><?= $formulir['jenis_kelamin'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Tempat Lahir</td>
+				<td>:</td>
+				<td><?= $formulir['tempat_lahir'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Tanggal Lahir</td>
+				<td>:</td>
+				<td><?= $formulir['tanggal_lahir'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Anak Ke</td>
+				<td>:</td>
+				<td><?= $formulir['anak_ke'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Jumlah Saudara</td>
+				<td>:</td>
+				<td><?= $formulir['jumlah_saudara'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Status dalam Keluarga</td>
+				<td>:</td>
+				<td><?= $formulir['status_keluarga'] ?></td>
+			</tr>
+		</tbody>
 	</table>
-	
-	
-		<table width="100%" style="font-size: 13px" cellpadding="1" cellspacing="0" style="border-bottom:1px solid #a5a5a5;">
-			<tbody>
-			<tr>
-				<td colspan="1" align="left"><b>2.</b></td>
-				<td colspan="4" align="left"><b>Biodata Peserta Didik</b></td>
-				
-			</tr>
-			
-			<tr>
-				<td width="5%"></td>
-				<td width="35%" align="">Nama Lengkap</td>
-				<td width="5%" align="center">:</td>
-				<td width="60%" align="left"><?= $siswa['nama'] ?></td>
-			</tr>
-			<tr>
-				<td width="5%"></td>
-				<td align="">Jenis Kelamin</td>
-				<td align="center">:</td>
-				<td align="left"><?= ($siswa['jenkel'] == 'L') ? "Laki-Laki" : "Perempuan"; ?></td>
-			</tr>
-			<tr><td width="5%"></td><td align="">NISN</td><td align="center">:</td><td align="left"><?= $siswa['nisn'] ?></td></tr>
-			<tr><td width="5%"></td><td align="">NIK</td><td align="center">:</td><td align="left"><?= $siswa['nik'] ?></td></tr>
-			<tr>
-				<td width="5%"></td>
-				<td align="">Tempat Lahir</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['tempat_lahir'] ?></td>
-			</tr>
-			<tr>
-				<td width="5%"></td>
-				<td align="">Tanggal Lahir</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['tgl_lahir'] ?></td>
-			</tr>
-			
-			
-			
-			</tbody>
-		</table>
-		<table width="100%" style="font-size: 13px" cellpadding="1" cellspacing="0" style="border-bottom:1px solid #a5a5a5;">
-			<tbody>
-			<tr>
-				<td colspan="1" align="left"><b>3.</b></td>
-				<td colspan="3" align="left"><b>Alamat Peserta Didik</b></td>
-				
-			</tr>
-			<tr>
-				<td width="5%"></td>
-				<td width="35%" align="">Alamat Jalan</td>
-				<td width="5%" align="center">:</td>
-				<td width="60%" align="left"><?= $siswa['alamat'] ?></td>
-			</tr>
-			<tr>
-				<td width="5%"></td>
-				<td align="">RT/RW</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['rt'] ?>/<?= $siswa['rw'] ?></td>
-			</tr>
-			
-			
-			<tr>
-				<td width="5%"></td>
-				<td align="">Kelurahan / Desa</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['desa'] ?></td>
-			</tr>
-			<tr>
-				<td width="5%"></td>
-				<td align="">Kecamatan</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['kecamatan'] ?></td>
-			</tr>
-			<tr>
-				<td width="5%"></td>
-				<td align="">Kabupaten</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['kota'] ?></td>
-			</tr>
-			<tr>
-				<td width="5%"></td>
-				<td align="">Provinsi</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['provinsi'] ?></td>
-			</tr>
-			<tr>
-				<td width="5%"></td>
-				<td align="">No. Hp</td>
-				<td align="center">:</td>
-				<td align="left"><?= $siswa['no_hp'] ?></td>
-			</tr>
-			
-			</tbody>
-		</table>
-		<br>
-		<br>
-			<table width="100%">
-            <tr>
-                <td style="text-align: center">
-                    <font size="1">
-                        <img class="img" src="temp/<?= $siswa['nisn'] ?>.png" ec="H" style="width: 30mm; background-color: white; color: black;">
-                    </font>
-                </td>
-                
-				<td style="text-align: center">
-                    <font size="2">
-                      
-						<img class="img" src="../../<?= $siswa['foto'] ?>" ec="H" style="width: 30mm;hight: 40mm; background-color: white; color: black;">
-					
-					
-</font>
-                </td>
-				
-				<td><td><td><td><td><td>
-				
-                <td style="text-align: left">
-                    <font size="5px">
-                       
-                        <?= $setting['kec'] ?>, <?= date('d-M-Y ') ?>
-                        <p>Pendaftar</p>
-						<br></br>
-						<p><strong><?= $siswa['nama'] ?></strong><p>
-                        
-                    </font>
-                </td></td></td></td></td></td></td></td>
-            </tr>
-        </table>
-		
-		
 
+	<table width="100%" style="font-size: 13px" cellpadding="1" cellspacing="0">
+		<tbody>
+			<tr>
+				<td colspan="1"><b>2.</b></td>
+				<td colspan="4"><b>Alamat Siswa</b></td>
+			</tr>
+			<tr>
+				<td style="width: 5%;"></td>
+				<td style="width: 25%;">Alamat Rumah</td>
+				<td style="width: 2%;">:</td>
+				<td><?= $formulir['alamat_rumah'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Alamat Sekarang</td>
+				<td>:</td>
+				<td><?= $formulir['alamat_sekarang'] ?></td>
+			</tr>
+		</tbody>
+	</table>
 
-			
+	<table width="100%" style="font-size: 13px" cellpadding="1" cellspacing="0">
+		<tbody>
+			<tr>
+				<td colspan="1"><b>3.</b></td>
+				<td colspan="4"><b>Sekolah Asal</b></td>
+			</tr>
+			<tr>
+				<td style="width: 5%;"></td>
+				<td style="width: 25%;">Sekolah Asal</td>
+				<td style="width: 2%;">:</td>
+				<td><?= $formulir['sekolah_asal'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Alamat Sekolah Asal</td>
+				<td>:</td>
+				<td><?= $formulir['alamat_sekolah_asal'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>STTB Tahun</td>
+				<td>:</td>
+				<td><?= $formulir['sttb_tahun'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>STTB Nomor</td>
+				<td>:</td>
+				<td><?= $formulir['sttb_nomor'] ?></td>
+			</tr>
+		</tbody>
+	</table>
+	<table width="100%" style="font-size: 13px" cellpadding="1" cellspacing="0">
+		<tbody>
+			<tr>
+				<td colspan="1"><b>4.</b></td>
+				<td colspan="4"><b>Orang Tua</b></td>
+			</tr>
+			<tr>
+				<td style="width: 5%;"></td>
+				<td style="width: 25%;">Nama Ayah</td>
+				<td style="width: 2%;">:</td>
+				<td><?= $formulir['nama_ayah'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Agama Orang Tua</td>
+				<td>:</td>
+				<td><?= $formulir['agama_ortu'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Alamat Orang Tua</td>
+				<td>:</td>
+				<td><?= $formulir['alamat_ortu'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Pekerjaan Ayah</td>
+				<td>:</td>
+				<td><?= $formulir['pekerjaan_ayah'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Pekerjaan Ibu</td>
+				<td>:</td>
+				<td><?= $formulir['pekerjaan_ibu'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Pendidikan Ayah</td>
+				<td>:</td>
+				<td><?= $formulir['pendidikan_ayah'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Pendidikan Ibu</td>
+				<td>:</td>
+				<td><?= $formulir['pendidikan_ibu'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Penghasilan Perbulan</td>
+				<td>:</td>
+				<td><?= $formulir['penghasilan'] ?></td>
+			</tr>
+		</tbody>
+	</table>
+	<table width="100%" style="font-size: 13px" cellpadding="1" cellspacing="0">
+		<tbody>
+			<tr>
+				<td colspan="1"><b>5.</b></td>
+				<td colspan="4"><b>Wali</b></td>
+			</tr>
+			<tr>
+				<td style="width: 5%;"></td>
+				<td style="width: 25%;">Nama Wali</td>
+				<td style="width: 2%;">:</td>
+				<td><?= $formulir['nama_wali'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Agama Wali</td>
+				<td>:</td>
+				<td><?= $formulir['agama_wali'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Alamat Wali</td>
+				<td>:</td>
+				<td><?= $formulir['alamat_wali'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Pendidikan Wali</td>
+				<td>:</td>
+				<td><?= $formulir['pendidikan_wali'] ?></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Pekerjaan Wali</td>
+				<td>:</td>
+				<td><?= $formulir['pekerjaan_wali'] ?></td>
+			</tr>
 
+		</tbody>
+	</table>
 
+	<br><br>
+	<table width="100%">
+		<tr>
+			<td style="text-align: center">
+				<img src="temp/<?= $siswa['nisn'] ?>.png" style="width: 30mm; background-color: white; color: black;">
+			</td>
+			<td style="text-align: left">
+				<p><?= $setting['kec'] ?>, <?= date('d-M-Y') ?></p>
+				<p>Pendaftar</p><br><br>
+				<p><strong><?= $siswa['nama'] ?></strong></p>
+			</td>
+		</tr>
+	</table>
 
-
-
-        
-
-
+	<script>
+		window.print();
+	</script>
 </body>
 
 </html>
-<script>
-	windw.print();
-</script>
-
-<?php
-
-// $html = ob_get_clean();
-// require_once '../../vendor/autoload.php';
-
-// use Dompdf\Dompdf;
-
-// $dompdf = new Dompdf();
-// $dompdf->loadHtml($html, 'UTF-8');
-
-// $dompdf->setPaper('A4', 'portrait');
-// $dompdf->render();
-// $dompdf->stream("PPDB2021_" . $siswa['nama'] . ".pdf", array("Attachment" => false));
-// exit(0);
-?>
