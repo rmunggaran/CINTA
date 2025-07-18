@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or die("ip anda sudah tercatat oleh sistem kami") ?>
 <div class="section-header">
-    <a href="?pg=diterima" class="btn btn-icon icon-left btn-primary">
+    <a href="?pg=df_ulang" class="btn btn-icon icon-left btn-primary">
         <i class="far fa-edit"></i> Tambah anggota
     </a>
 </div>

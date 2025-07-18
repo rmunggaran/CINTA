@@ -24,18 +24,25 @@ if ($pg == 'keluar') {
 
 if ($pg == 'ubah') {
     $status = (isset($_POST['status'])) ? 1 : 0;
+    $id_kelas = $_POST['id_kelas'];
+    $wali_kelas = $_POST['wali_kelas'];
+
+    mysqli_query($koneksi, "UPDATE guru SET wali_kelas = NULL WHERE wali_kelas = '$id_kelas'");
+
+    mysqli_query($koneksi, "UPDATE guru SET wali_kelas = '$id_kelas' WHERE id = '$wali_kelas'");
+
     $data = [
         'nama_kelas'   => $_POST['nama_kelas'],
         'kuota'   => $_POST['kuota'],
         'status' => $status,
         'jenjang' => $_POST['jenjang']
     ];
-    $id_kelas = $_POST['id_kelas'];
     update($koneksi, 'kelas', $data, ['id_kelas' => $id_kelas]);
 }
 
 if ($pg == 'tambah') {
     $id_kelas = uniqid('KLS');
+    $wali_kelas = $_POST['wali_kelas'];
     $data = [
         'id_kelas' => $id_kelas,
         'nama_kelas'   => $_POST['nama_kelas'],
@@ -44,10 +51,15 @@ if ($pg == 'tambah') {
         'jenjang' => $_POST['jenjang']
     ];
     $exec = insert($koneksi, 'kelas', $data);
+    if ($exec) {
+        // Update wali_kelas di tabel guru
+        mysqli_query($koneksi, "UPDATE guru SET wali_kelas='$id_kelas' WHERE id='$wali_kelas'");
+    }
     echo $exec;
 }
 
 if ($pg == 'hapus') {
     $id_kelas = $_POST['id_kelas'];
+    mysqli_query($koneksi, "UPDATE guru SET wali_kelas = NULL WHERE wali_kelas = '$id_kelas'");
     delete($koneksi, 'kelas', ['id_kelas' => $id_kelas]);
 }

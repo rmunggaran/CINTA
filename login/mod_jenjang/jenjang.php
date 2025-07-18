@@ -34,6 +34,19 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label>Wali Kelas</label>
+                            <select name="wali_kelas" class="form-control" required>
+                                <option value="">-- Pilih Wali Kelas --</option>
+                                <?php
+                                $queryGuru = mysqli_query($koneksi, "SELECT * FROM guru WHERE wali_kelas IS NULL OR wali_kelas = ''");
+                                while ($guru = mysqli_fetch_assoc($queryGuru)) {
+                                    echo "<option value='" . $guru['id'] . "'>" . $guru['nama_guru'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label>kuota</label>
                             <input type="text" name="kuota" class="form-control" required="">
                         </div>
@@ -68,22 +81,31 @@
                                 <th>id_kelas</th>
                                 <th>Nama Kelas</th>
                                 <th>Jenjang</th>
+                                <th>Wali Kelas</th>
                                 <th>status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $query = mysqli_query($koneksi, "select * from kelas ORDER BY jenjang + 0 ASC");
+                            $query = mysqli_query($koneksi, "
+                            SELECT kelas.*, guru.nama_guru 
+                            FROM kelas 
+                            LEFT JOIN guru ON guru.wali_kelas = kelas.id_kelas 
+                            ORDER BY jenjang + 0 ASC
+                        ");
+
                             $no = 0;
                             while ($jenjang = mysqli_fetch_array($query)) {
                                 $no++;
+
                             ?>
                                 <tr>
                                     <td><?= $no; ?></td>
                                     <td><?= $jenjang['id_kelas'] ?></td>
                                     <td><?= $jenjang['nama_kelas'] ?></td>
                                     <td><?= $jenjang['jenjang'] ?></td>
+                                    <td><?= $jenjang['nama_guru'] ?? '-' ?></td>
                                     <td>
                                         <?php if ($jenjang['status'] == 1) { ?>
                                             <span class="badge badge-success">Aktif</span>
@@ -128,6 +150,24 @@
                                                                     <option value='6' <?= $jenjang['jenjang'] == 6 ? 'selected' : '' ?>>Kelas 6</option>
                                                                 </select>
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label>Wali Kelas</label>
+                                                                <select name="wali_kelas" class="form-control" required>
+                                                                    <option value="">-- Pilih Wali Kelas --</option>
+                                                                    <?php
+                                                                    // Ambil guru yang belum jadi wali kelas ATAU yang sekarang jadi wali kelas kelas ini
+                                                                    $queryGuru = mysqli_query($koneksi, "
+            SELECT * FROM guru 
+            WHERE wali_kelas IS NULL OR wali_kelas = '' OR wali_kelas = '{$jenjang['id_kelas']}'
+        ");
+                                                                    while ($guru = mysqli_fetch_assoc($queryGuru)) {
+                                                                        $selected = $guru['wali_kelas'] == $jenjang['id_kelas'] ? 'selected' : '';
+                                                                        echo "<option value='" . $guru['id'] . "' $selected>" . $guru['nama_guru'] . "</option>";
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+
                                                             <div class="form-group">
                                                                 <label>kuota</label>
                                                                 <input type="text" name="kuota" value="<?= $jenjang['kuota'] ?>" class="form-control" required="">

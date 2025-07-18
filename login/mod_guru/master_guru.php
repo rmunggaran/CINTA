@@ -82,16 +82,17 @@
                                     <td><?= $guru['nama_guru'] ?></td>
                                     <td><?= $guru['pendidikan_terakhir'] ?></td>
                                     <?php
-                                    $kelasNama = '-'; // default jika tidak ada wali kelas
-
+                                    $kelasNama = '-';
+                                    $kelasJen = '-';
                                     if (!empty($guru['wali_kelas'])) {
                                         $kelas = fetch($koneksi, 'kelas', ['id_kelas' => $guru['wali_kelas']]);
                                         if ($kelas) {
                                             $kelasNama = $kelas['nama_kelas'];
+                                            $kelasJen = $kelas['jenjang'];
                                         }
                                     }
                                     ?>
-                                    <td><?= $kelasNama ?></td>
+                                    <td><?= $kelasNama ?> - <?= $kelasJen ?></td>
                                     <td>
                                         <img src="../assets/foto_guru/<?= $guru['foto'] ?>" width="50">
                                     </td>
@@ -130,7 +131,7 @@
                                                                     while ($jur = mysqli_fetch_array($qu)) {
                                                                     ?>
                                                                         <option value="<?php echo $jur['id_kelas']; ?>" <?= $guru['wali_kelas'] == $jur['id_kelas'] ? 'selected' : '' ?>>
-                                                                            <?php echo $jur['nama_kelas']; ?>
+                                                                            <?php echo $jur['nama_kelas']; ?> - <?= $jur['jenjang'] ?>
                                                                         </option>
 
 

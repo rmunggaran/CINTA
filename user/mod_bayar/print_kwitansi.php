@@ -56,7 +56,13 @@ QRcode::png($codeContents, $tempdir . $id_bayar . '.png', QR_ECLEVEL_L, 3, 6);
         <tbody>
             <tr>
                 <td><?= $siswa['nama'] ?></td>
-                <td><?= "Rp " . number_format($bayar['jumlah'], 2, ",", ".") ?></td>
+                <td>
+                    <?php
+                    $jumlah = is_numeric($bayar['jumlah']) ? $bayar['jumlah'] : 0;
+                    echo "Rp " . number_format($jumlah, 2, ",", ".");
+                    ?>
+                </td>
+
                 <td><?= $bayar['tgl_bayar'] ?></td>
             </tr>
         </tbody>
