@@ -22,8 +22,8 @@
      <li class="dropdown ">
          <a href="#" class="nav-link has-dropdown"><i class="fas fa-user-friends"></i> <span>Data PPDB</span></a>
          <ul class="dropdown-menu">
-             <li><a class="nav-link" href="?pg=daftar">Semua Data</a></li>
-             <li><a class="nav-link" href="?pg=berkas_ppdb">Daftar Berkas</a></li>
+             <li><a class="nav-link" href="?pg=daftar">Verifikasi</a></li>
+             <!-- <li><a class="nav-link" href="?pg=berkas_ppdb">Daftar Berkas</a></li> -->
              <li><a class="nav-link text-success" href="?pg=diterima">Data Diterima</a></li>
              <li><a class="nav-link text-warning" href="?pg=df_ulang">Siswa Daftar Ulang</a></li>
              <li><a class="nav-link text-danger" href="?pg=ditolak">Ditolak / Cadangan</a></li>
@@ -54,9 +54,11 @@
      <?php } ?>
      <?php if ($user['level'] == 'admin') { ?>
          <li class="dropdown ">
-             <a href="#" class="nav-link has-dropdown"><i class="fas fa-book"></i> <span>Cetak</span></a>
+             <a href="#" class="nav-link has-dropdown"><i class="fas fa-book"></i> <span>Cetak Data PPDB</span></a>
              <ul class="dropdown-menu">
-                 <li><a class="nav-link" href="?pg=l_ppdbyes">Data Penerimaan PPDB</a></li>
+                 <li><a class="nav-link" href="?pg=l_ppdbyes">Semua Data</a></li>
+                 <li><a class="nav-link" href="?pg=l_ppdbyes_diterima">Data Diterima</a></li>
+                 <li><a class="nav-link" href="?pg=l_ppdbyes_ditolak">Data Ditolak / Cadangan</a></li>
 
 
              </ul>

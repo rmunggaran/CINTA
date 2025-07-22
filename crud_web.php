@@ -25,13 +25,13 @@ if ($pg == 'simpan') {
         $nama = mysqli_escape_string($koneksi, ucwords(strtolower($_POST['nama'])));
         $data = [
             'no_daftar' => $newID,
-            'jenis' => $_POST['jenis'],
+            // 'jenis' => $_POST['jenis'],
             'jurusan' => $_POST['jurusan'],
             'nisn' => $_POST['nisn'],
             'nama' => $nama,
             'no_hp' => $_POST['nohp'],
-            'tempat_lahir' => ucwords($_POST['tempat']),
-            'tgl_lahir' => $_POST['tgllahir'],
+            // 'tempat_lahir' => ucwords($_POST['tempat']),
+            // 'tgl_lahir' => $_POST['tgllahir'],
             'password' => $_POST['password'],
             'tgl_daftar' => $_POST['tgl_daftar'],
             'foto' => 'default.png'
@@ -78,12 +78,12 @@ if ($pg == 'simpan2') {
         $data = [
             'no_daftar' => $newID,
             'jurusan' => $_POST['jurusan'],
-            'jenis' => $_POST['jenis'],
+            // 'jenis' => $_POST['jenis'],
             'nisn' => $_POST['nisn'],
             'nama' => $nama,
             'no_hp' => $_POST['nohp'],
-            'tempat_lahir' => ucwords($_POST['tempat']),
-            'tgl_lahir' => $_POST['tgllahir'],
+            // 'tempat_lahir' => ucwords($_POST['tempat']),
+            // 'tgl_lahir' => $_POST['tgllahir'],
             'password' => $_POST['password'],
             'foto' => 'default.png'
         ];

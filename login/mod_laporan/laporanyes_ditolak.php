@@ -1,0 +1,150 @@
+<font face="arial">
+	<section class='content'>
+		<div class='row'>
+			<div class='col-md-12'>
+				<div class='box box-solid'>
+					<div class='box-header'>
+						<h3 class='box-title'>Preview Laporan PPDB</h3>
+						<div class='box-tools pull-right btn-group'>
+							<a class="btn btn-primary" href="mod_laporan/print_daftar_ditolak.php" role="button"> Cetak</a>
+						</div>
+					</div>
+					<div class='box-body' style='background:#c3c3c3;  height:1275px;'>
+						<div class='table-responsive'>
+							<div style='background:#fff; width:80%; margin:0 auto; padding:35px; height:90%;'>
+								<!-- <table border='0' width='100%'> -->
+								<img src="../<?= $setting['kop'] ?>" width="100%" />
+
+								<hr>
+
+								<table style="width:100%">
+									<tr>
+
+										<td colspan='2' align='center'>
+
+											<b>LAPORAN PENERIMAAN PESERTA DIDIK BARU</b>
+
+										</td>
+
+									</tr>
+									<tr>
+										<td colspan='2' align='center'>
+											<b><?= $setting['nama_sekolah'] ?></b>
+										</td>
+									</tr>
+									<tr>
+										<td colspan='2' align='center'>
+											<b>TAHUN PELAJARAN <?= $setting['tahun_ajaran'] ?></b>
+										</td>
+									</tr>
+								</table>
+								<br>
+								<table border='0' width='95%' align='center'>
+									<tr height='30'>
+										<td height='30' colspan='4' style='text-align: justify;'>Data Siswa Baru Yang ditolak Tahun Pelajaran <b> <?= $setting['tahun_ajaran'] ?></b> pada madrasah <b><?= $setting['nama_sekolah'] ?></b></td>
+									</tr>
+								</table>
+								<br>
+								<table width='100%' style="font-size:12px" border='1px' class="table table-sm table-bordered">
+									<thead style="background-color:cornflowerblue;">
+										<tr width='90%'>
+											<th class="text-center">
+												No
+											</th>
+											<th>NIK</th>
+											<th>Nama Pendaftar</th>
+											<th>Jenis Kelamin</th>
+											<th>Asal Sekolah</th>
+											<th>Status Penerimaan</th>
+
+										</tr>
+									</thead>
+
+									<tbody>
+										<?php
+										$query = mysqli_query($koneksi, "SELECT daftar.*, formulir.* 
+                                FROM daftar 
+                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where status='2'");
+										$no = 0;
+										while ($daftar = mysqli_fetch_array($query)) {
+											$no++;
+										?>
+											<tr>
+												<td><?= $no; ?></td>
+												<td><?= $daftar['nomor_induk'] ?></td>
+
+												<td><?= $daftar['nama_siswa'] ?></td>
+												<td><?= $daftar['jenis_kelamin'] ?></td>
+												<td><?= $daftar['sekolah_asal'] ?></td>
+												<td>
+													<?php if ($daftar['status'] == 1) { ?>
+														<span class="badge badge-success">Diterima</span>
+													<?php } elseif ($daftar['status'] == 2) { ?>
+														<span class="badge badge-danger">Dicadangkan </span>
+													<?php } else { ?>
+														<span class="badge badge-warning">Diverifikasi</span>
+													<?php } ?>
+												</td>
+
+
+
+
+											</tr>
+
+										<?php }
+										?>
+
+
+									</tbody>
+
+
+
+								</table>
+								<table width="100% " style="margin-left: 20px;margin-right:20px;font-size:12px">
+									<tr>
+
+										<td width="60% ">
+
+											<p>Panitia PPDB</p>
+											<br><br><br>
+											Mela
+											<p></p>
+
+
+
+
+										<td width="40%">
+											<?= $setting['kec'] ?>, <?= date('d-M-Y ') ?>
+											<p>Kepala <?= $setting['nama_sekolah'] ?></p>
+											<br><br><br>
+											<?= $setting['kepala'] ?>
+											<p></p>
+
+										</td>
+
+									</tr>
+								</table>
+
+
+								<br><br><br><br><br>
+								<table width='100%' height='30'>
+									<tbody>
+										<tr>
+											<td width='25px' style='border:1px solid black'></td>
+											<td width='5px'>&nbsp;</td>
+											<td style='border:1px solid black;font-weight:bold;font-size:14px;text-align:center;'><?= $setting['nama_sekolah'] ?></td>
+											<td width='5px'>&nbsp;</td>
+											<td width='25px' style='border:1px solid black'></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><!-- /.content -->
+	</div><!-- /.content-wrapper -->
+
+</font>

@@ -5,22 +5,34 @@ require("../../config/functions.crud.php");
 session_start();
 $id = $_SESSION['id_daftar'];
 if ($pg == 'konfirmasi') {
-    $data = [
-        'tgl_konfirmasi'              => $_POST['tgl_konfirmasi'],
-        'konfirmasi'              => 1
-    ];
+    $kategori = $_POST['kategori'];
+    $cekKelas = mysqli_query($koneksi, "SELECT * FROM kelas WHERE jurusan_id = '$kategori' AND jenjang = 1 LIMIT 1");
+    $kelas = mysqli_fetch_assoc($cekKelas);
+    if ($kelas) {
+        $id_kelas = $kelas['id_kelas'];
+        $data = [
+            'tgl_konfirmasi'              => $_POST['tgl_konfirmasi'],
+            'konfirmasi'              => 1,
+            'kelas'          => $id_kelas
+        ];
 
-    $exec = update($koneksi, 'daftar', $data, ['id_daftar' => $id]);
-    if ($exec) {
+        $exec = update($koneksi, 'daftar', $data, ['id_daftar' => $id]);
+        if ($exec) {
+            $pesan = [
+                'pesan' => 'Selamat.... Data Anda Berhasil Di Konfirmasi'
+            ];
+            echo 'ok';
+        } else {
+            $pesan = [
+                'pesan' => mysqli_error($koneksi)
+            ];
+            echo mysqli_error($koneksi);
+        }
+    } else {
         $pesan = [
             'pesan' => 'Selamat.... Data Anda Berhasil Di Konfirmasi'
         ];
-        echo 'ok';
-    } else {
-        $pesan = [
-            'pesan' => mysqli_error($koneksi)
-        ];
-        echo mysqli_error($koneksi);
+        echo "Tidak ditemukan kelas yang sesuai untuk kategori tersebut!";
     }
 }
 if ($pg == 'simpandatadiri') {

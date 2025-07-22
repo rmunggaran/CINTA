@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4>Data Pendaftar</h4>
+                <h4>Data Pendaftar Diterima</h4>
                 <div class="card-header-action">
                     <a class="btn btn-primary" href="mod_daftar/export_diterima.php" role="button"> Download Excel</a>
 

@@ -21,7 +21,7 @@
                             <label>Nama Kelas</label>
                             <input type="text" name="nama_kelas" class="form-control" required="">
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Jenjang</label>
                             <select name="jenjang" id="jenjang" class="form-control" required>
                                 <option value=''>--Pilih Jenjang--</option>
@@ -32,7 +32,7 @@
                                 <option value='5'>Kelas 5</option>
                                 <option value='6'>Kelas 6</option>
                             </select>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label>Wali Kelas</label>
                             <select name="wali_kelas" class="form-control" required>
@@ -49,6 +49,21 @@
                         <div class="form-group">
                             <label>kuota</label>
                             <input type="text" name="kuota" class="form-control" required="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="kategori">Jenis Pendidikan:</label>
+                            <select id="kategori" name="kategori" class="form-control" required>
+                                <option value="">-- Pilih Kategori --</option>
+                                <?php $qu = mysqli_query($koneksi, "select * from jurusan");
+                                while ($jur = mysqli_fetch_array($qu)) {
+                                ?>
+                                    <option value="<?php echo $jur['id_jurusan']; ?>" <?= (isset($data['kategori']) && $data['kategori'] == $jur['id_jurusan']) ? 'selected' : '' ?>><?php echo $jur['nama_jurusan']; ?></option>
+
+                                <?php } ?>
+                                <!-- <option value="full" <?= (isset($data['kategori']) && $data['kategori'] == 'full') ? 'selected' : '' ?>>Full Day School</option>
+                    <option value="reguler" <?= (isset($data['kategori']) && $data['kategori'] == 'reguler') ? 'selected' : '' ?>>Reguler</option> -->
+                            </select>
                         </div>
 
                     </div>
@@ -80,7 +95,6 @@
                                 </th>
                                 <th>id_kelas</th>
                                 <th>Nama Kelas</th>
-                                <th>Jenjang</th>
                                 <th>Wali Kelas</th>
                                 <th>status</th>
                                 <th>Action</th>
@@ -92,7 +106,7 @@
                             SELECT kelas.*, guru.nama_guru 
                             FROM kelas 
                             LEFT JOIN guru ON guru.wali_kelas = kelas.id_kelas 
-                            ORDER BY jenjang + 0 ASC
+                            ORDER BY nama_kelas + 0 ASC
                         ");
 
                             $no = 0;
@@ -104,18 +118,17 @@
                                     <td><?= $no; ?></td>
                                     <td><?= $jenjang['id_kelas'] ?></td>
                                     <td><?= $jenjang['nama_kelas'] ?></td>
-                                    <td><?= $jenjang['jenjang'] ?></td>
                                     <td><?= $jenjang['nama_guru'] ?? '-' ?></td>
                                     <td>
                                         <?php if ($jenjang['status'] == 1) { ?>
                                             <span class="badge badge-success">Aktif</span>
                                         <?php } else { ?>
-                                            <span class="badge badge-danger">Non Aktif</span>
+                                            <span class="badge badge-danger">Tidak aktif</span>
                                         <?php } ?>
                                     </td>
                                     <td>
                                         <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Lihat anggota" href="?pg=dt_kelas&id=<?= $jenjang['id_kelas'] ?>" class="btn btn-sm btn-success"><i class="fas fa-eye    "></i> Detail</a>
-                                        <button data-id="<?= $jenjang['id_kelas'] ?>" class="hapus btn btn-danger">Hapus</button>
+                                        <!-- <button data-id="<?= $jenjang['id_kelas'] ?>" class="hapus btn btn-danger">Hapus</button> -->
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $no ?>">
                                             Edit
@@ -138,7 +151,7 @@
                                                                 <label>Nama Kelas</label>
                                                                 <input type="text" name="nama_kelas" value="<?= $jenjang['nama_kelas'] ?>" class="form-control" required="">
                                                             </div>
-                                                            <div class="form-group">
+                                                            <!-- <div class="form-group">
                                                                 <label>Jenjang</label>
                                                                 <select name="jenjang" id="jenjang" class="form-control" required>
                                                                     <option value=''>--Pilih Jenjang--</option>
@@ -149,7 +162,7 @@
                                                                     <option value='5' <?= $jenjang['jenjang'] == 5 ? 'selected' : '' ?>>Kelas 5</option>
                                                                     <option value='6' <?= $jenjang['jenjang'] == 6 ? 'selected' : '' ?>>Kelas 6</option>
                                                                 </select>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="form-group">
                                                                 <label>Wali Kelas</label>
                                                                 <select name="wali_kelas" class="form-control" required>
@@ -181,6 +194,21 @@
                                                                     <span class="custom-switch-indicator"></span>
                                                                     <span class="custom-switch-description"> Pilih Status</span>
                                                                 </label>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="kategori">Jenis Pendidikan:</label>
+                                                                <select id="kategori" name="kategori" class="form-control" required>
+                                                                    <option value="">-- Pilih Kategori --</option>
+                                                                    <?php $qu = mysqli_query($koneksi, "select * from jurusan");
+                                                                    while ($jur = mysqli_fetch_array($qu)) {
+                                                                    ?>
+                                                                        <option value="<?php echo $jur['id_jurusan']; ?>" <?= (isset($jenjang['jurusan_id']) && $jenjang['jurusan_id'] == $jur['id_jurusan']) ? 'selected' : '' ?>><?php echo $jur['nama_jurusan']; ?></option>
+
+                                                                    <?php } ?>
+                                                                    <!-- <option value="full" <?= (isset($data['kategori']) && $data['kategori'] == 'full') ? 'selected' : '' ?>>Full Day School</option>
+                    <option value="reguler" <?= (isset($data['kategori']) && $data['kategori'] == 'reguler') ? 'selected' : '' ?>>Reguler</option> -->
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">

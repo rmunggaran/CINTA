@@ -21,6 +21,12 @@ switch ($pg) {
     case 'l_ppdbyes':
         include "mod_laporan/laporanyes.php";
         break;
+    case 'l_ppdbyes_diterima':
+        include "mod_laporan/laporanyes_diterima.php";
+        break;
+    case 'l_ppdbyes_ditolak':
+        include "mod_laporan/laporanyes_ditolak.php";
+        break;
     case 'move':
         include "mod_daftar/move.php";
         break;

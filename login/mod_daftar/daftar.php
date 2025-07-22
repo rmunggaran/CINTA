@@ -128,7 +128,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4>Data akun Pendaftar</h4>
+                <h4>Data Pendaftar</h4>
 
                 <div class="card-header-action">
                     <a class="btn btn-primary" href="mod_daftar/export_excel.php" role="button"> Download data formulir Excel</a>
@@ -154,18 +154,19 @@
                                 <th class="text-center">
                                     No
                                 </th>
-                                <th>Username</th>
-                                <th>Password</th>
+                                <th>NIK</th>
                                 <th>Nama Pendaftar</th>
-                                <!-- <th>L/P</th>
-                                <th>No Hp</th> -->
+                                <th>Asal Sekolah</th>
+                                <th>No Hp</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $query = mysqli_query($koneksi, "select * from daftar");
+                            $query = mysqli_query($koneksi, "SELECT daftar.*, formulir.* 
+                                FROM daftar 
+                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where status IS NULL OR status=0");
                             $no = 0;
                             while ($daftar = mysqli_fetch_array($query)) {
                                 $no++;
@@ -173,15 +174,14 @@
                             ?>
                                 <tr>
                                     <td><?= $no; ?></td>
-                                    <td><?= $daftar['nisn'] ?></td>
-                                    <td><?= $daftar['password'] ?></td>
-                                    <td><?= $daftar['nama'] ?></td>
-                                    <!-- <td><?= $daftar['jenkel'] ?></td>
+                                    <td><?= $daftar['nomor_induk'] ?></td>
+                                    <td><?= $daftar['nama_siswa'] ?></td>
+                                    <td><?= $daftar['sekolah_asal'] ?></td>
                                     <td>
                                         <i class="fab fa-whatsapp text-success   "></i>
-                                        <a target="_blank" href="https://api.whatsapp.com/send?phone=62<?= $daftar['no_hp'] ?>&text=Terima kasih telah mendaftar di <?= $setting['nama_sekolah'] ?>. Silahkan Login untuk melengkapi formulir pendaftaran dengan username *<?= $daftar['nisn'] ?>%2A%0Apassword%20%3A%20%2A<?= $daftar['password'] ?>%2A">
+                                        <a target="_blank" href="https://api.whatsapp.com/send?phone=62<?= $daftar['no_hp'] ?>&text=Terima%20kasih%20sudah%20mendaftar%20di%20SMK%20HS%20AGUNG%2C%0AHarap%20segera%20melunasi%20pembayaran.%20%28abaikan%20jika%20sudah%20lunas%29%0AInfo%20lebih%20lanjut%20silahkan%20kunjungi%20website%20ppdb.smkhsagung.sch.id%0ASilahkan%20login%20dan%20lengkapi%20data%20formulirnya.%20%0Ausername%20%3A%20%2A<?= $daftar['no_daftar'] ?>%2A%0Apassword%20%3A%20%2A<?= $daftar['password'] ?>%2A">
                                             <?= $daftar['no_hp'] ?></a>
-                                    </td> -->
+                                    </td>
 
                                     <td>
                                         <?php if ($daftar['status'] == 1) { ?>
@@ -194,6 +194,7 @@
                                     </td>
                                     <td>
                                         <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Formulir siswa" href="?pg=ubahdaftar&id=<?= enkripsi($daftar['id_daftar']) ?>" class="btn btn-sm btn-info"><i class="fas fa-book    "></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Berkas Siswa" href="?pg=berkas_ppdb" class="btn btn-sm btn-warning"><i class="fas fa-file    "></i></a>
                                         <!-- Button trigger modal -->
                                         <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Cetak" href="mod_daftar/print_daftar.php?id=<?= enkripsi($daftar['id_daftar']) ?>" class="btn btn-sm btn-success"><i class="fas fa-print    "></i></a>
                                         <!-- Button trigger modal -->
@@ -264,7 +265,7 @@
                                                                     <label class="custom-switch">
                                                                         <input type="radio" name="status" value="2" class="custom-switch-input" <?= $daftar['status'] == 2 ? 'checked' : '' ?>>
                                                                         <span class="custom-switch-indicator"></span>
-                                                                        <span class="custom-switch-description">Dicadangkan</span>
+                                                                        <span class="custom-switch-description">Direvisi</span>
                                                                     </label>
 
 

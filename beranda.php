@@ -253,13 +253,13 @@
                                                     </div>
 
                                                     <div class="form-row">
-                                                        <div class="form-group col-md-6">
+                                                        <!-- <div class="form-group col-md-6">
                                                             <label for="jenis">JENIS PENDAFTARAN</label>
                                                             <select class="form-control" name="jenis" id="jenis">
                                                                 <option value="1">Siswa Baru</option>
                                                                 <option value="2">Pindahan</option>
                                                             </select>
-                                                        </div>
+                                                        </div> -->
                                                         <input type="hidden" class="form-control datepicker" name="tgl_daftar" required>
                                                         <div class="form-group col-md-6">
                                                             <label for="nisn">Username</label>
@@ -286,7 +286,7 @@
 
                                                     </div>
 
-                                                    <div class="form-row">
+                                                    <!-- <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <label for="tempat">TEMPAT LAHIR</label>
                                                             <input type="text" class="form-control" name="tempat" required>
@@ -296,7 +296,7 @@
                                                             <input type="date" class="form-control datepicker" name="tgllahir" required>
                                                         </div>
 
-                                                    </div>
+                                                    </div> -->
                                                     <div class="form-group">
                                                         <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
                                                         <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" required>
@@ -340,16 +340,20 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-row">
-                                                        <div class="form-group col-md-6">
+                                                        <!-- <div class="form-group col-md-6">
                                                             <label for="jenis">JENIS PENDAFTARAN</label>
                                                             <select class="form-control" name="jenis" id="jenis">
                                                                 <option value="1">Siswa Baru</option>
                                                                 <option value="2">Pindahan</option>
                                                             </select>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="form-group col-md-6">
                                                             <label for="nisn">Username</label>
                                                             <input type="text" maxlength="10" class="form-control" name="nisn" placeholder="Username" autocomplete="off" required>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
+                                                            <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" required>
                                                         </div>
                                                     </div>
 
@@ -372,7 +376,7 @@
 
                                                     </div>
 
-                                                    <div class="form-row">
+                                                    <!-- <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <label for="tempat">TEMPAT LAHIR</label>
                                                             <input type="text" class="form-control" name="tempat" required>
@@ -382,11 +386,8 @@
                                                             <input type="date" class="form-control datepicker" name="tgllahir" required>
                                                         </div>
 
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
-                                                        <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" required>
-                                                    </div>
+                                                    </div> -->
+
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <a href="#" onclick="document.getElementById('captcha').src = 'securimage/securimage_show.php?' + Math.random(); return false">Refresh Kode</a>
@@ -502,16 +503,20 @@
                                             <form id="form-daftar">
                                                 <div class="card-body">
                                                     <div class="form-row">
-                                                        <div class="form-group col-md-6">
+                                                        <!-- <div class="form-group col-md-6">
                                                             <label for="jenis">JENIS PENDAFTARAN</label>
                                                             <select class="form-control" name="jenis" id="jenis">
                                                                 <option value="1">Siswa Baru</option>
                                                                 <option value="2">Pindahan</option>
                                                             </select>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="form-group col-md-6">
                                                             <label for="nisn">Username</label>
                                                             <input type="text" maxlength="10" class="form-control" name="nisn" placeholder="Username" autocomplete="off" disabled>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
+                                                            <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" disabled>
                                                         </div>
                                                     </div>
 
@@ -545,10 +550,7 @@
                                                         </div>
 
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
-                                                        <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" disabled>
-                                                    </div>
+
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <a href="#" onclick="document.getElementById('captcha').src = 'securimage/securimage_show.php?' + Math.random(); return false">Refresh Kode</a>
@@ -696,7 +698,7 @@
                             </div>-->
                             <div class="col-sm-6">
                                 <div class="card mt-2">
-                                    <div class="card-header bg-success">Kuota Pendaftar</div>
+                                    <div class="card-header bg-success">Kuota diterima</div>
                                     <div class="card-body">
                                         <h2 class="text-center">
                                             <?php

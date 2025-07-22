@@ -161,6 +161,7 @@
 				</div>
 
 				<form id="form-konfirmasi">
+					<input type="text" name="kategori" class="form-control" value="<?= $formulir['kategori'] ?>" hidden>
 					<input type="date" name="tgl_konfirmasi" class="form-control datepicker" value="<?= $daftar['tgl_konfirmasi'] ?>" hidden>
 					<input type="text" name="jurusan" class="form-control" value="<?= $daftar['jurusan'] ?>" hidden>
 

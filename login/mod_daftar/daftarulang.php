@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4>Data Pendaftar</h4>
+                <h4>Data Pendaftar Yang sudah daftar ulang</h4>
                 <div class="card-header-action">
                     <a class="btn btn-primary" href="mod_daftar/export_dfulang.php" role="button"> Download Excel</a>
 
@@ -49,7 +49,7 @@
                                     </td>
                                     <?php
                                     $id_kelas = $daftar['kelas'];
-                                    $qkelas = mysqli_query($koneksi, "SELECT nama_kelas,jenjang FROM kelas WHERE id_kelas = '$id_kelas'");
+                                    $qkelas = mysqli_query($koneksi, "SELECT nama_kelas FROM kelas WHERE id_kelas = '$id_kelas'");
                                     $dkelas = mysqli_fetch_assoc($qkelas);
                                     ?>
                                     <td>
@@ -59,7 +59,7 @@
                                             </button>
                                         <?php } else { ?>
                                             <a href="?pg=dt_kelas&id=?pg=dt_kelas&id=<?= $daftar['kelas'] ?>" class="btn btn-sm btn-info">
-                                                <i class="fas fa-plus"></i> <?= $dkelas['nama_kelas'] ?> - <?= $dkelas['jenjang']; ?>
+                                                <i class="fas fa-plus"></i> <?= $dkelas['nama_kelas'] ?>
                                             </a>
                                         <?php } ?>
                                     </td>
