@@ -272,33 +272,21 @@ if ($pg == 'aktifppdb') {
     }
 }
 if ($pg == 'update_tahun_ajaran') {
-    $data = [
-        'tahun_ajaran' => $_POST['tahun_ajaran']
-    ];
-    $where = [
-        'id_setting' => 1
-    ];
-    $exec = update($koneksi, 'setting', $data, $where);
+    $id = $_POST['id_tahun'];
 
+    mysqli_query($koneksi, "UPDATE tahun_ajaran SET aktif = 'N'");
+
+    $exec = mysqli_query($koneksi, "UPDATE tahun_ajaran SET aktif = 'Y' WHERE id = '$id'");
     if ($exec) {
-        $query = mysqli_query($koneksi, "SELECT * FROM kelas");
-
-        while ($row = mysqli_fetch_array($query)) {
-            $id_kelas = $row['id_kelas'];
-            $jenjang = $row['jenjang'];
-
-            $jenjang_angka = (int) $jenjang;
-
-            if ($jenjang < 6) {
-                $jenjang_baru = (string)($jenjang_angka + 1);
-                mysqli_query($koneksi, "UPDATE kelas SET jenjang = '$jenjang_baru' WHERE id_kelas = '$id_kelas'");
-            } else {
-                mysqli_query($koneksi, "UPDATE kelas SET jenjang = 'lulus' WHERE id_kelas = '$id_kelas'");
-            }
-        }
-
         echo "ok";
     } else {
-        echo "Gagal menyimpan";
+        echo "Perubahan tahun ajaran gagal";
     }
+}
+if ($pg == 'tambah_tahun') {
+    $data = [
+        'tahun'   => $_POST['tahun'],
+    ];
+    $exec = insert($koneksi, 'tahun_ajaran', $data);
+    echo $exec;
 }

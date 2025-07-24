@@ -6,7 +6,8 @@ session_start();
 $id = $_SESSION['id_daftar'];
 if ($pg == 'konfirmasi') {
     $kategori = $_POST['kategori'];
-    $cekKelas = mysqli_query($koneksi, "SELECT * FROM kelas WHERE jurusan_id = '$kategori' AND jenjang = 1 LIMIT 1");
+    $tahun = $tahunAktif['tahun'];
+    $cekKelas = mysqli_query($koneksi, "SELECT * FROM kelas WHERE jurusan_id = '$kategori' AND tahun_ajaran = '$tahun' LIMIT 1");
     $kelas = mysqli_fetch_assoc($cekKelas);
     if ($kelas) {
         $id_kelas = $kelas['id_kelas'];

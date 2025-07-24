@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or die("ip anda sudah tercatat oleh sistem kami") ?>
 <div class="section-header">
 
-  
+
 
 
 </div>
@@ -22,9 +22,7 @@
                                 </th>
                                 <th>Nama Siswa</th>
                                 <th>Username</th>
-								<th>Password</th>
-                                <th>Kelas</th>
-                                <th>Status</th>
+                                <th>Password</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -39,20 +37,12 @@
                                     <td><?= $no; ?></td>
                                     <td><?= $siswa['nama'] ?></td>
                                     <td><?= $siswa['nisn'] ?></td>
-									<td><?= $siswa['password'] ?></td>
-                                    <td><?= $siswa['kelas'] ?></td>
+                                    <td><?= $siswa['password'] ?></td>
                                     <td>
-                                        <?php if ($siswa['status'] == 1) { ?>
-                                            <span class="badge badge-success">Aktif</span>
-                                        <?php } else { ?>
-                                            <span class="badge badge-danger">Non Aktif</span>
-                                        <?php } ?>
-                                    </td>
-                                    <td>
-                                        
+
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-edit<?= $no ?>">
-                                            <i class="fas fa-edit    "></i> Aktifkan
+                                            <i class="fas fa-edit    "></i> Edit
                                         </button>
 
                                         <!-- Modal -->
@@ -74,14 +64,14 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Username</label>
-                                                                <input type="text" name="no_siswa" value="<?= $siswa['nisn'] ?>" class="form-control" required="">
+                                                                <input type="text" name="nisn" value="<?= $siswa['nisn'] ?>" class="form-control" required="">
                                                             </div>
-                                                            
+
                                                             <div class="form-group">
                                                                 <label>Ganti Password</label>
-                                                                 <input type="text" name="password" value="<?= $siswa['nisn'] ?>" class="form-control" required="">
+                                                                <input type="text" name="password" value="<?= $siswa['password'] ?>" class="form-control" required="">
                                                             </div>
-                                                            
+
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -101,6 +91,7 @@
                                             url: 'mod_user/crud_user.php?pg=ubahsiswa',
                                             data: $(this).serialize(),
                                             success: function(data) {
+                                                console.log('Respon dari PHP:', data);
                                                 if (data == 'OK') {
                                                     iziToast.success({
                                                         title: 'OKee!',

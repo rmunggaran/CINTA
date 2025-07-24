@@ -55,6 +55,20 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mb-2">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tahun Ajaran</label>
+                                        <div class="col-sm-12 col-md-7">
+                                            <select class='form-control' id="tahun_ajaran" name="tahun_ajaran" required>
+                                                <option value="">-- Pilih Tahun Ajaran --</option>
+                                                <?php $qu = mysqli_query($koneksi, "select * from tahun_ajaran");
+                                                while ($tahun = mysqli_fetch_array($qu)) {
+                                                ?>
+                                                    <option value="<?php echo $tahun['tahun']; ?>" <?= ($formulir['tahun_ajaran'] == $tahun['tahun']) ? 'selected' : '' ?>><?php echo $tahun['tahun']; ?></option>
+
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-2">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis Pendidikan</label>
                                         <div class="col-sm-12 col-md-7">
                                             <select class='form-control' id="kategori" name="kategori" required>

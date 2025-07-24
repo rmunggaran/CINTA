@@ -10,13 +10,13 @@
                     if ($daftar && isset($daftar['kelas']) && $daftar['kelas']) {
                         // Ambil data kelas berdasarkan id_kelas
                         $kelas = fetch($koneksi, 'kelas', ['id_kelas' => $daftar['kelas']]);
-                        $wali_kelas = fetch($koneksi, 'guru', ['wali_kelas' => $kelas['id_kelas']]);
+                        $wali_kelas = fetch($koneksi, 'guru', ['id' => $kelas['walikelas_id']]);
                     ?>
                         <img src="<?= 'http://localhost/CINTA/' . $setting['kop'] ?>" width="100%" />
 
                         <div style="padding: 20px; border: 1px solid #000; margin-top: 20px;">
                             <h3 style="text-align: center; text-transform: uppercase;">
-                                Berdasarkan hasil seleksi penerimaan peserta didik baru tahun pelajaran <?= $setting['tahun_ajaran'] ?>
+                                Berdasarkan hasil seleksi penerimaan peserta didik baru tahun pelajaran <?= $tahunAktif['tahun'] ?>
                             </h3>
 
                             <p style="text-align: justify; margin-top: 20px;">
@@ -46,7 +46,7 @@
                                 <h1 style="margin: 10px 0; font-size: 36px; color: darkblue;">DITERIMA</h1>
                                 <p style="margin: 0;">Sebagai Siswa Kelas</p>
                                 <h3 style="margin: 5px 0;"><?= $kelas['nama_kelas'] ?></h3>
-                                <p style="margin: 0;">Tahun Pelajaran <?= $setting['tahun_ajaran'] ?></p>
+                                <p style="margin: 0;">Tahun Pelajaran <?= $tahunAktif['tahun'] ?></p>
                                 <p style="margin: 0;">Wali kelas <?= $wali_kelas['nama_guru'] ?></p>
                             </div>
 

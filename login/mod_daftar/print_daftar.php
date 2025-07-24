@@ -33,7 +33,7 @@ QRcode::png($codeContents, $tempdir . $siswa['nisn'] . '.png', QR_ECLEVEL_M, 4);
 	<img src="../../<?= $setting['kop'] ?>" width="100%" />
 	<hr>
 	<b>
-		<center>Formulir Pendaftaran Peserta Didik Baru Tahun 2021</center>
+		<center>Formulir Pendaftaran Peserta Didik Baru Tahun Ajaran <?= $formulir['tahun_ajaran']; ?></center>
 	</b><br>
 
 	<?php if ($formulir) { ?>

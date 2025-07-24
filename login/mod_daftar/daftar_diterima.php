@@ -27,9 +27,10 @@
                         </thead>
                         <tbody>
                             <?php
+                            $id_tahun_aktif = $tahunAktif['tahun'];
                             $query = mysqli_query($koneksi, "SELECT daftar.*, formulir.* 
                                 FROM daftar 
-                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where status='1'");
+                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where status='1' AND formulir.tahun_ajaran = '$id_tahun_aktif'");
                             $no = 0;
                             while ($daftar = mysqli_fetch_array($query)) {
                                 $no++;

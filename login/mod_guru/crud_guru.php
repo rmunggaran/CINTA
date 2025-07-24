@@ -10,11 +10,12 @@ if (!isset($_SESSION['id_user'])) {
 if ($pg == 'edit') {
     $id_guru = $_POST['id_guru'];
     $foto_lama = $_POST['foto_lama'];
+    $status = (isset($_POST['status'])) ? 1 : 0;
 
     $data = [
         'nama_guru' => $_POST['nama_guru'],
         'pendidikan_terakhir' => $_POST['pendidikan_terakhir'],
-        'wali_kelas' => $_POST['wali_kelas']
+        'status' => $status,
     ];
 
     // Jika user upload foto baru
@@ -52,7 +53,7 @@ if ($pg == 'tambah') {
         $data = [
             'nama_guru'           => $_POST['nama_guru'],
             'pendidikan_terakhir' => $_POST['pendidikan_terakhir'],
-            'wali_kelas'          => $_POST['wali_kelas'],
+            'status'              => 1,
             'foto'                => $nama_baru, // simpan nama file saja di DB
         ];
 

@@ -43,11 +43,6 @@
 	<?php } else { ?>
 
 	<?php } ?>
-	<?php if ($kategori == 1 && $siswa['status'] == 1) { ?>
-		<li><a class="nav-link" href="?pg=bayar_spp"><i class="fas fa-money-bill fa-fw"></i> <span>Pembayaran SPP</span></a></li>
-	<?php } else { ?>
-
-	<?php } ?>
 	<?php if ($siswa['kelas']) { ?>
 		<li><a class="nav-link" href="?pg=kelas&id=<?= $siswa['kelas'] ?>"><i class="fas fa-landmark fa-fw"></i> <span>Kelas</span></a></li>
 	<?php } else { ?>

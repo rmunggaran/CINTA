@@ -1,6 +1,13 @@
 <?php
 $setting = mysqli_fetch_array(mysqli_query($koneksi, "select * from setting where id_setting='1'"));
 
+function tahun_ajaran_aktif($koneksi)
+{
+	$query = mysqli_query($koneksi, "SELECT * FROM tahun_ajaran WHERE aktif='Y' LIMIT 1");
+	return mysqli_fetch_assoc($query);
+}
+$tahunAktif = tahun_ajaran_aktif($koneksi);
+
 if (!function_exists('base_url')) {
 	function base_url($atRoot = FALSE, $atCore = FALSE, $parse = FALSE)
 	{
@@ -326,7 +333,95 @@ $penghasilan = [
 ];
 
 $pekerjaan2 = [
-	"Belum/Tidak Bekerja", "Mengurus Rumah Tangga", "Pelajar/Mahasiswa", "Pensiunan", "Pegawai Negeri Sipil", "Tentara Nasional Indonesia", "Kepolisian RI", "Perdagangan", "Petani/Pekebun", "Peternak", "Nelayan/Perikanan", "Industri", "Konstruksi", "Transportasi", "Karyawan Swasta", "Karyawan BUMN", "Karyawan BUMD", "Karyawan Honorer", "Buruh Harian Lepas", "Buruh Tani/Perkebunan", "Buruh Nelayan/Perikanan", "Buruh Peternakan", "Pembantu Rumah Tangga", "Tukang Cukur", "Tukang Listrik", "Tukang Batu", "Tukang Kayu", "Tukang Sol Sepatu", "Tukang Las/Pandai Besi", "Tukang Jahit", "Penata Rambut", "Penata Rias", "Penata Busana", "Mekanik", "Tukang Gigi", "Seniman", "Tabib", "Paraji", "Perancang Busana", "Penterjemah", "Imam Masjid", "Pendeta", "Pastur", "Wartawan", "Ustadz/Mubaligh", "Juru Masak", "Promotor Acara", "Anggota DPR-RI", "Anggota DPD", "Anggota BPK", "Presiden", "Wakil Presiden", "Anggota Mahkamah Konstitusi", "Anggota Kabinet/Kementrian", "Duta Besar", "Gubernur", "Wakil Gubernur", "Bupati", "Wakil Bupati", "Walikota", "Wakil Walikota", "Anggota DPRD Propinsi", "Anggota DPRD Kabupten/Kota", "Dosen", "Guru", "Pilot", "Pengacara", "Notaris", "Arsitek", "Akuntan", "Konsultan", "Dokter", "Bidan", "Perawat", "Apoteker", "Psikiater/Psikolog", "Penyiar Televisi", "Penyiar Radio", "Pelaut", "Peneliti", "Sopir", "Pialang", "Paranormal", "Pedagang", "Perangkat Desa", "Kepala Desa", "Biarawati", "Wiraswasta", "Lainnya"
+	"Belum/Tidak Bekerja",
+	"Mengurus Rumah Tangga",
+	"Pelajar/Mahasiswa",
+	"Pensiunan",
+	"Pegawai Negeri Sipil",
+	"Tentara Nasional Indonesia",
+	"Kepolisian RI",
+	"Perdagangan",
+	"Petani/Pekebun",
+	"Peternak",
+	"Nelayan/Perikanan",
+	"Industri",
+	"Konstruksi",
+	"Transportasi",
+	"Karyawan Swasta",
+	"Karyawan BUMN",
+	"Karyawan BUMD",
+	"Karyawan Honorer",
+	"Buruh Harian Lepas",
+	"Buruh Tani/Perkebunan",
+	"Buruh Nelayan/Perikanan",
+	"Buruh Peternakan",
+	"Pembantu Rumah Tangga",
+	"Tukang Cukur",
+	"Tukang Listrik",
+	"Tukang Batu",
+	"Tukang Kayu",
+	"Tukang Sol Sepatu",
+	"Tukang Las/Pandai Besi",
+	"Tukang Jahit",
+	"Penata Rambut",
+	"Penata Rias",
+	"Penata Busana",
+	"Mekanik",
+	"Tukang Gigi",
+	"Seniman",
+	"Tabib",
+	"Paraji",
+	"Perancang Busana",
+	"Penterjemah",
+	"Imam Masjid",
+	"Pendeta",
+	"Pastur",
+	"Wartawan",
+	"Ustadz/Mubaligh",
+	"Juru Masak",
+	"Promotor Acara",
+	"Anggota DPR-RI",
+	"Anggota DPD",
+	"Anggota BPK",
+	"Presiden",
+	"Wakil Presiden",
+	"Anggota Mahkamah Konstitusi",
+	"Anggota Kabinet/Kementrian",
+	"Duta Besar",
+	"Gubernur",
+	"Wakil Gubernur",
+	"Bupati",
+	"Wakil Bupati",
+	"Walikota",
+	"Wakil Walikota",
+	"Anggota DPRD Propinsi",
+	"Anggota DPRD Kabupten/Kota",
+	"Dosen",
+	"Guru",
+	"Pilot",
+	"Pengacara",
+	"Notaris",
+	"Arsitek",
+	"Akuntan",
+	"Konsultan",
+	"Dokter",
+	"Bidan",
+	"Perawat",
+	"Apoteker",
+	"Psikiater/Psikolog",
+	"Penyiar Televisi",
+	"Penyiar Radio",
+	"Pelaut",
+	"Peneliti",
+	"Sopir",
+	"Pialang",
+	"Paranormal",
+	"Pedagang",
+	"Perangkat Desa",
+	"Kepala Desa",
+	"Biarawati",
+	"Wiraswasta",
+	"Lainnya"
 ];
 $jenistinggal = array("Bersama Orang Tua", "Bersama Wali", "Kost");
 $jenistinggal = array("Bersama Orang Tua", "Bersama Wali", "Kost");
@@ -337,8 +432,18 @@ function kata($x)
 {
 	$x = abs($x);
 	$angka = array(
-		"", "satu", "dua", "tiga", "empat", "lima",
-		"enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas"
+		"",
+		"satu",
+		"dua",
+		"tiga",
+		"empat",
+		"lima",
+		"enam",
+		"tujuh",
+		"delapan",
+		"sembilan",
+		"sepuluh",
+		"sebelas"
 	);
 	$temp = "";
 	if ($x < 12) {

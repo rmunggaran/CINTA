@@ -2,7 +2,7 @@
 require("../../config/database.php");
 // Skrip berikut ini adalah skrip yang bertugas untuk meng-export data tadi ke excell
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=Data_PPDB.xls");
+header("Content-Disposition: attachment; filename=Data_PPDB_Diverifikasi.xls");
 session_start();
 if (!isset($_SESSION['id_user'])) {
     die('Anda tidak diijinkan mengakses langsung');
@@ -27,7 +27,7 @@ function fetch($koneksi, $tabel, $where = [])
 </style>
 
 <center>
-    <h3>DATA SISWA </h3>
+    <h3>DATA SISWA Diverifikasi </h3>
 </center>
 <table border="1">
     <thead>
@@ -36,6 +36,7 @@ function fetch($koneksi, $tabel, $where = [])
                 No
             </th>
             <th>no pendaftaran</th>
+            <th>tahun ajaran</th>
             <th>id daftar</th>
             <th>jenis pendidikan</th>
             <th>Nama siswa</th>
@@ -73,7 +74,11 @@ function fetch($koneksi, $tabel, $where = [])
     </thead>
     <tbody>
         <?php
-        $query = mysqli_query($koneksi, "select * from formulir");
+        $tahunAktif = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM tahun_ajaran WHERE aktif = 'Y'"));
+        $id_tahun_aktif = $tahunAktif['tahun'];
+        $query = mysqli_query($koneksi, "SELECT daftar.*, formulir.* 
+                                FROM daftar 
+                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where (status IS NULL OR status = 0) AND formulir.tahun_ajaran = '$id_tahun_aktif'");
         $no = 0;
         while ($siswa = mysqli_fetch_array($query)) {
             $no++;
@@ -81,6 +86,7 @@ function fetch($koneksi, $tabel, $where = [])
             <tr>
                 <td><?= $no; ?></td>
                 <td><?= $siswa['no_pendaftaran'] ?></td>
+                <td><?= $siswa['tahun_ajaran'] ?></td>
                 <td><?= $siswa['no_daftar'] ?></td>
                 <?php
                 $jurusan = fetch($koneksi, 'jurusan', ['id_jurusan' => $siswa['kategori']]);

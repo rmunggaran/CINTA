@@ -96,8 +96,6 @@ if ($pg == 'status') {
         'nama' => ucwords(strtoupper($nama)),
         'tempat_lahir' => $_POST['tempat_lahir'],
         'tgl_lahir' => $_POST['tgl_lahir'],
-        'asal_sekolah' => $_POST['asal'],
-        'npsn_asal' => $_POST['npsn_asal'],
         'no_hp' => str_replace(" ", "", $_POST['no_hp']),
         'status' => $status
     ];
@@ -105,7 +103,12 @@ if ($pg == 'status') {
         'id_daftar' => $_POST['id_daftar']
     ];
     $id_daftar = $_POST['id_daftar'];
-    update($koneksi, 'daftar', $data, $where);
+    $update = update($koneksi, 'daftar', $data, $where);
+    if ($update) {
+        echo 'success';
+    } else {
+        echo mysqli_error($koneksi);
+    }
 }
 if ($pg == 'nilai') {
     $nilai = (isset($_POST['nilai'])) ? $_POST['nilai'] : 0;
@@ -152,11 +155,10 @@ if ($pg == 'simpandatadiri') {
         'status_keluarga'  => $_POST['status_keluarga'],
         'alamat_rumah'     => $_POST['alamat_rumah'],
         'alamat_sekarang'  => $_POST['alamat_sekarang'],
-        'kelas_diterima'   => $_POST['kelas_diterima'],
-        'tanggal_diterima' => $_POST['tanggal_diterima'],
         'sekolah_asal'     => $_POST['sekolah_asal'],
         'sttb_tahun'       => $_POST['sttb_tahun'],
         'sttb_nomor'       => $_POST['sttb_nomor'],
+        'tahun_ajaran'     => $_POST['tahun_ajaran'],
 
     ];
     $where = [

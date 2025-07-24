@@ -40,14 +40,14 @@ if (!isset($_SESSION['id_user'])) {
 				</tr>
 				<tr>
 					<td colspan='2' align='center'>
-						<b>TAHUN PELAJARAN <?= $setting['tahun_ajaran'] ?></b>
+						<b>TAHUN PELAJARAN <?= $tahunAktif['tahun'] ?></b>
 					</td>
 				</tr>
 			</table>
 			<br>
 			<table border='0' width='95%' align='center'>
 				<tr height='30'>
-					<td height='30' colspan='4' style='text-align: justify;'>Data Siswa Baru Tahun Pelajaran <b> <?= $setting['tahun_ajaran'] ?></b> pada madrasah <b><?= $setting['nama_sekolah'] ?></b></td>
+					<td height='30' colspan='4' style='text-align: justify;'>Data Siswa Baru Tahun Pelajaran <b> <?= $tahunAktif['tahun'] ?></b> pada madrasah <b><?= $setting['nama_sekolah'] ?></b></td>
 				</tr>
 			</table>
 			<br>
@@ -68,9 +68,10 @@ if (!isset($_SESSION['id_user'])) {
 
 				<tbody style="background-color:whitesmoke;">
 					<?php
+					$id_tahun_aktif = $tahunAktif['tahun'];
 					$query = mysqli_query($koneksi, "SELECT daftar.*, formulir.* 
                                 FROM daftar 
-                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar");
+                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where formulir.tahun_ajaran = '$id_tahun_aktif'");
 					$no = 0;
 					while ($daftar = mysqli_fetch_array($query)) {
 						$no++;

@@ -25,18 +25,6 @@
                             <input type="text" name="pendidikan_terakhir" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Wali Kelas</label>
-                            <select class='form-control' id="wali_kelas" name="wali_kelas">
-                                <option value="">-- Jadikan wali kelas --</option>
-                                <?php $qu = mysqli_query($koneksi, "select * from kelas");
-                                while ($jur = mysqli_fetch_array($qu)) {
-                                ?>
-                                    <option value="<?php echo $jur['id_kelas']; ?>"><?php echo $jur['nama_kelas']; ?></option>
-
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label>Foto</label>
                             <input type="file" name="foto" class="form-control" accept="image/*" required>
                         </div>
@@ -65,7 +53,7 @@
                                 <th class="text-center">#</th>
                                 <th>Nama Guru</th>
                                 <th>Pendidikan Terakhir</th>
-                                <th>Wali Kelas</th>
+                                <th>Status</th>
                                 <th>Foto</th>
                                 <th>Action</th>
                             </tr>
@@ -81,24 +69,19 @@
                                     <td><?= $no; ?></td>
                                     <td><?= $guru['nama_guru'] ?></td>
                                     <td><?= $guru['pendidikan_terakhir'] ?></td>
-                                    <?php
-                                    $kelasNama = '-';
-                                    $kelasJen = '-';
-                                    if (!empty($guru['wali_kelas'])) {
-                                        $kelas = fetch($koneksi, 'kelas', ['id_kelas' => $guru['wali_kelas']]);
-                                        if ($kelas) {
-                                            $kelasNama = $kelas['nama_kelas'];
-                                            $kelasJen = $kelas['jenjang'];
-                                        }
-                                    }
-                                    ?>
-                                    <td><?= $kelasNama ?> - <?= $kelasJen ?></td>
+                                    <td>
+                                        <?php if ($guru['status'] == 1) { ?>
+                                            <span class="badge badge-success">Aktif</span>
+                                        <?php } else { ?>
+                                            <span class="badge badge-danger">Tidak aktif</span>
+                                        <?php } ?>
+                                    </td>
                                     <td>
                                         <img src="../assets/foto_guru/<?= $guru['foto'] ?>" width="50">
                                     </td>
                                     <td>
-                                        <button data-id="<?= $guru['id'] ?>" class="hapus btn btn-danger">Hapus</button>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit<?= $no ?>">Edit</button>
+                                        <!-- <button data-id="<?= $guru['id'] ?>" class="hapus btn btn-danger">Hapus</button> -->
 
                                         <!-- Modal Edit Guru -->
                                         <div class="modal fade" id="modal-edit<?= $no ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -123,21 +106,7 @@
                                                                 <label>Pendidikan Terakhir</label>
                                                                 <input type="text" name="pendidikan_terakhir" value="<?= $guru['pendidikan_terakhir'] ?>" class="form-control" required="">
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label>Wali Kelas</label>
-                                                                <select class='form-control' id="wali_kelas" name="wali_kelas">
-                                                                    <option value="">-- Jadikan wali kelas --</option>
-                                                                    <?php $qu = mysqli_query($koneksi, "select * from kelas");
-                                                                    while ($jur = mysqli_fetch_array($qu)) {
-                                                                    ?>
-                                                                        <option value="<?php echo $jur['id_kelas']; ?>" <?= $guru['wali_kelas'] == $jur['id_kelas'] ? 'selected' : '' ?>>
-                                                                            <?php echo $jur['nama_kelas']; ?> - <?= $jur['jenjang'] ?>
-                                                                        </option>
 
-
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
 
                                                             <div class="form-group">
                                                                 <label>Foto</label><br>
@@ -150,6 +119,16 @@
                                                                     <label>Upload Foto</label>
                                                                     <input type="file" name="foto" class="form-control">
                                                                 <?php } ?>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="control-label">Status (Aktif / Tidak Aktif)</div>
+                                                                <label class="custom-switch mt-2">
+                                                                    <input type="checkbox" name="status" class="custom-switch-input" value='1' <?php if ($guru['status'] == 1) {
+                                                                                                                                                    echo "checked";
+                                                                                                                                                } ?>>
+                                                                    <span class="custom-switch-indicator"></span>
+                                                                    <span class="custom-switch-description"> Pilih Status</span>
+                                                                </label>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">

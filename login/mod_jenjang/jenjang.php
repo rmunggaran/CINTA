@@ -10,6 +10,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form id="form-tambah">
+                    <input type="text" id="tahun_ajaran" name="tahun_ajaran" value="<?= $tahunAktif['tahun']; ?>" hidden>
                     <div class="modal-header">
                         <h5 class="modal-title">Tambah Data Kelas</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -21,30 +22,28 @@
                             <label>Nama Kelas</label>
                             <input type="text" name="nama_kelas" class="form-control" required="">
                         </div>
-                        <!-- <div class="form-group">
-                            <label>Jenjang</label>
-                            <select name="jenjang" id="jenjang" class="form-control" required>
-                                <option value=''>--Pilih Jenjang--</option>
-                                <option value='1'>Kelas 1</option>
-                                <option value='2'>Kelas 2</option>
-                                <option value='3'>Kelas 3</option>
-                                <option value='4'>Kelas 4</option>
-                                <option value='5'>Kelas 5</option>
-                                <option value='6'>Kelas 6</option>
-                            </select>
-                        </div> -->
                         <div class="form-group">
                             <label>Wali Kelas</label>
                             <select name="wali_kelas" class="form-control" required>
                                 <option value="">-- Pilih Wali Kelas --</option>
                                 <?php
-                                $queryGuru = mysqli_query($koneksi, "SELECT * FROM guru WHERE wali_kelas IS NULL OR wali_kelas = ''");
+                                $tahun_ajaran_aktif = $tahunAktif['tahun'];
+                                $queryGuru = mysqli_query($koneksi, "
+                                    SELECT * FROM guru 
+                                    WHERE id NOT IN (
+                                        SELECT walikelas_id 
+                                        FROM kelas 
+                                        WHERE walikelas_id IS NOT NULL
+                                        AND tahun_ajaran = '$tahun_ajaran_aktif'
+                                    )
+                                ");
                                 while ($guru = mysqli_fetch_assoc($queryGuru)) {
                                     echo "<option value='" . $guru['id'] . "'>" . $guru['nama_guru'] . "</option>";
                                 }
                                 ?>
                             </select>
                         </div>
+
 
                         <div class="form-group">
                             <label>kuota</label>
@@ -93,21 +92,23 @@
                                 <th class="text-center">
                                     #
                                 </th>
-                                <th>id_kelas</th>
-                                <th>Nama Kelas</th>
+                                <th>Rombel</th>
                                 <th>Wali Kelas</th>
+                                <th>Tahun Ajaran</th>
                                 <th>status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
+                            $id_tahun_aktif = $tahunAktif['tahun'];
                             $query = mysqli_query($koneksi, "
-                            SELECT kelas.*, guru.nama_guru 
-                            FROM kelas 
-                            LEFT JOIN guru ON guru.wali_kelas = kelas.id_kelas 
-                            ORDER BY nama_kelas + 0 ASC
-                        ");
+                                SELECT kelas.*, guru.nama_guru 
+                                FROM kelas 
+                                LEFT JOIN guru ON guru.id = kelas.walikelas_id 
+                                WHERE kelas.tahun_ajaran = '$id_tahun_aktif'
+                                ORDER BY nama_kelas + 0 ASC
+                            ");
 
                             $no = 0;
                             while ($jenjang = mysqli_fetch_array($query)) {
@@ -116,9 +117,9 @@
                             ?>
                                 <tr>
                                     <td><?= $no; ?></td>
-                                    <td><?= $jenjang['id_kelas'] ?></td>
                                     <td><?= $jenjang['nama_kelas'] ?></td>
                                     <td><?= $jenjang['nama_guru'] ?? '-' ?></td>
+                                    <td><?= $jenjang['tahun_ajaran'] ?? '-' ?></td>
                                     <td>
                                         <?php if ($jenjang['status'] == 1) { ?>
                                             <span class="badge badge-success">Aktif</span>
@@ -151,35 +152,29 @@
                                                                 <label>Nama Kelas</label>
                                                                 <input type="text" name="nama_kelas" value="<?= $jenjang['nama_kelas'] ?>" class="form-control" required="">
                                                             </div>
-                                                            <!-- <div class="form-group">
-                                                                <label>Jenjang</label>
-                                                                <select name="jenjang" id="jenjang" class="form-control" required>
-                                                                    <option value=''>--Pilih Jenjang--</option>
-                                                                    <option value='1' <?= $jenjang['jenjang'] == 1 ? 'selected' : '' ?>>Kelas 1</option>
-                                                                    <option value='2' <?= $jenjang['jenjang'] == 2 ? 'selected' : '' ?>>Kelas 2</option>
-                                                                    <option value='3' <?= $jenjang['jenjang'] == 3 ? 'selected' : '' ?>>Kelas 3</option>
-                                                                    <option value='4' <?= $jenjang['jenjang'] == 4 ? 'selected' : '' ?>>Kelas 4</option>
-                                                                    <option value='5' <?= $jenjang['jenjang'] == 5 ? 'selected' : '' ?>>Kelas 5</option>
-                                                                    <option value='6' <?= $jenjang['jenjang'] == 6 ? 'selected' : '' ?>>Kelas 6</option>
-                                                                </select>
-                                                            </div> -->
                                                             <div class="form-group">
                                                                 <label>Wali Kelas</label>
                                                                 <select name="wali_kelas" class="form-control" required>
                                                                     <option value="">-- Pilih Wali Kelas --</option>
                                                                     <?php
-                                                                    // Ambil guru yang belum jadi wali kelas ATAU yang sekarang jadi wali kelas kelas ini
+                                                                    $tahun_ajaran_aktif = $tahunAktif['tahun'];
                                                                     $queryGuru = mysqli_query($koneksi, "
-            SELECT * FROM guru 
-            WHERE wali_kelas IS NULL OR wali_kelas = '' OR wali_kelas = '{$jenjang['id_kelas']}'
-        ");
+                                                                        SELECT * FROM guru 
+                                                                        WHERE id NOT IN (
+                                                                            SELECT walikelas_id FROM kelas 
+                                                                            WHERE walikelas_id IS NOT NULL
+                                                                            AND tahun_ajaran = '$tahun_ajaran_aktif'
+                                                                        ) 
+                                                                        OR id = '" . $jenjang['walikelas_id'] . "'
+                                                                    ");
                                                                     while ($guru = mysqli_fetch_assoc($queryGuru)) {
-                                                                        $selected = $guru['wali_kelas'] == $jenjang['id_kelas'] ? 'selected' : '';
+                                                                        $selected = $guru['id'] == $jenjang['walikelas_id'] ? 'selected' : '';
                                                                         echo "<option value='" . $guru['id'] . "' $selected>" . $guru['nama_guru'] . "</option>";
                                                                     }
                                                                     ?>
                                                                 </select>
                                                             </div>
+
 
                                                             <div class="form-group">
                                                                 <label>kuota</label>

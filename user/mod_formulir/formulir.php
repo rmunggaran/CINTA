@@ -441,12 +441,8 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
             </div>
             <div class="form-group">
                 <label for="tahun_ajaran">Tahun Ajaran:</label>
-                <?php
-                $query = mysqli_query($koneksi, "SELECT * FROM setting WHERE id_setting = 1");
-                $tahun = mysqli_fetch_assoc($query);
-                ?>
                 <input type="text" id="tahun_ajaran" name="tahun_ajaran"
-                    value="<?= htmlspecialchars($tahun['tahun_ajaran'] ?? '') ?>"
+                    value="<?= htmlspecialchars($data['tahun_ajaran'] ?? $tahunAktif['tahun']) ?>"
                     readonly required>
             </div>
 

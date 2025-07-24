@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4>Data Pendaftar</h4>
+                <h4>Data Pendaftar Ditolak / Direvisi</h4>
                 <!-- <div class="card-header-action">
                     <a class="btn btn-primary" href="mod_daftar/export_diterima.php" role="button"> Download Excel</a>
 
@@ -27,9 +27,10 @@
                         </thead>
                         <tbody>
                             <?php
+                            $id_tahun_aktif = $tahunAktif['tahun'];
                             $query = mysqli_query($koneksi, "SELECT daftar.*, formulir.* 
                                 FROM daftar 
-                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where status='2'");
+                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where status='2' AND formulir.tahun_ajaran = '$id_tahun_aktif'");
                             $no = 0;
                             while ($daftar = mysqli_fetch_array($query)) {
                                 $no++;
@@ -47,11 +48,11 @@
                                         <?php if ($daftar['status'] == 1) { ?>
                                             <span class="badge badge-success">diterima</span>
                                         <?php } else { ?>
-                                            <span class="badge badge-danger">Cadangan</span>
+                                            <span class="badge badge-danger">Ditolak / Revisi</span>
                                         <?php } ?>
                                     </td>
                                     <td>
-                                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="detail siswa" href="?pg=detail&id=<?= enkripsi($daftar['id_daftar']) ?>" class="btn btn-sm btn-success"><i class="fas fa-eye    "></i> Detail</a>
+                                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="detail siswa" href="?pg=ubahdaftar&id=<?= enkripsi($daftar['id_daftar']) ?>" class="btn btn-sm btn-success"><i class="fas fa-eye    "></i> Detail</a>
 
                                         <button data-id="<?= $daftar['id_daftar'] ?>" class="hapus btn-sm btn btn-danger"><i class="fas fa-times    "></i> Cancel</button>
 

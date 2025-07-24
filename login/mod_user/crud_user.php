@@ -29,22 +29,22 @@ if ($pg == 'ubah') {
     echo $exec;
 }
 if ($pg == 'ubahsiswa') {
-   
+
     if ($_POST['password'] <> "") {
         $data = [
-            'no_siswa'     => $_POST['no_siswa'],
             'nama'   => $_POST['nama'],
+            'nisn'   => $_POST['nisn'],
             'password'      => $_POST['password'],
             'status'         => 1
         ];
     } else {
         $data = [
-            'no_siswa'     => $_POST['no_siswa'],
             'nama'   => $_POST['nama'],
-            
+            'nisn'   => $_POST['nisn'],
             'status'         => 1
         ];
     }
+    // var_dump($data);
     $id_siswa = $_POST['id_siswa'];
     $exec = update($koneksi, 'siswa', $data, ['id_siswa' => $id_siswa]);
     echo $exec;

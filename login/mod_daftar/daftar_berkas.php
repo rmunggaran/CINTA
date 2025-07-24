@@ -1,5 +1,4 @@
 <?php defined('BASEPATH') or die("ip anda sudah tercatat oleh sistem kami") ?>
-<!-- Modal -->
 
 
 <div class="row">
@@ -30,9 +29,11 @@
                         </thead>
                         <tbody>
                             <?php
+                            $id_siswa = dekripsi($_GET['id']) ?? null; // contoh ambil dari URL
                             $query = mysqli_query($koneksi, "SELECT daftar.*, formulir.* 
                                 FROM daftar 
-                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar ");
+                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar 
+                                WHERE daftar.id_daftar = '$id_siswa'");
                             $no = 0;
                             while ($daftar = mysqli_fetch_array($query)) {
                                 $no++;
@@ -45,16 +46,16 @@
                                     <td><?= $daftar['sekolah_asal'] ?></td>
 
                                     <td>
-                                        <?php if ($daftar['akta'] <> null) { ?><a data-toggle="tooltip" data-placement="top" title="" data-original-title="Akte Kelahiran" href="../<?= $daftar['akta'] ?>" class="btn btn-sm btn-success">Lihat Disini</a><?php } ?>
+                                        <?php if ($daftar['akta'] <> null) { ?><a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Akte Kelahiran" href="../<?= $daftar['akta'] ?>" class="btn btn-sm btn-success">Lihat Disini</a><?php } ?>
                                     </td>
                                     <td>
-                                        <?php if ($daftar['kk'] <> null) { ?><a data-toggle="tooltip" data-placement="top" title="" data-original-title="Kartu Keluarga" href="../<?= $daftar['kk'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-address-card    "></i></a><?php } ?>
+                                        <?php if ($daftar['kk'] <> null) { ?><a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Kartu Keluarga" href="../<?= $daftar['kk'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-address-card    "></i></a><?php } ?>
                                     </td>
                                     <td>
-                                        <?php if ($daftar['ktp_ortu'] <> null) { ?> <a data-toggle="tooltip" data-placement="top" title="" data-original-title="KTP Orang Tua" href="../<?= $daftar['ktp_ortu'] ?>" class="btn btn-sm btn-warning"><i class="far fa-address-card    "></i></a><?php } ?>
+                                        <?php if ($daftar['ktp_ortu'] <> null) { ?> <a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="KTP Orang Tua" href="../<?= $daftar['ktp_ortu'] ?>" class="btn btn-sm btn-warning"><i class="far fa-address-card    "></i></a><?php } ?>
                                     </td>
                                     <td>
-                                        <?php if ($daftar['kps_pkh'] <> null) { ?><a data-toggle="tooltip" data-placement="top" title="" data-original-title="KPS/PKH (Jika Ada)" href="../<?= $daftar['kps_pkh'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-envelope    "></i></a><?php } ?>
+                                        <?php if ($daftar['kps_pkh'] <> null) { ?><a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="KPS/PKH (Jika Ada)" href="../<?= $daftar['kps_pkh'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-envelope    "></i></a><?php } ?>
                                     </td>
                                     <td>
                                 </tr>

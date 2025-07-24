@@ -26,9 +26,8 @@
              <!-- <li><a class="nav-link" href="?pg=berkas_ppdb">Daftar Berkas</a></li> -->
              <li><a class="nav-link text-success" href="?pg=diterima">Data Diterima</a></li>
              <li><a class="nav-link text-warning" href="?pg=df_ulang">Siswa Daftar Ulang</a></li>
-             <li><a class="nav-link text-danger" href="?pg=ditolak">Ditolak / Cadangan</a></li>
+             <li><a class="nav-link text-danger" href="?pg=ditolak">Ditolak / Revisi</a></li>
              <li><a class="nav-link" href="?pg=bayar">Pembayaran PPBD</a></li>
-             <li><a class="nav-link" href="?pg=bayar_spp">Pembayaran SPP</a></li>
          </ul>
      </li>
      <?php if ($user['level'] == 'admin') { ?>
@@ -58,7 +57,7 @@
              <ul class="dropdown-menu">
                  <li><a class="nav-link" href="?pg=l_ppdbyes">Semua Data</a></li>
                  <li><a class="nav-link" href="?pg=l_ppdbyes_diterima">Data Diterima</a></li>
-                 <li><a class="nav-link" href="?pg=l_ppdbyes_ditolak">Data Ditolak / Cadangan</a></li>
+                 <li><a class="nav-link" href="?pg=l_ppdbyes_ditolak">Data Ditolak / Revisi</a></li>
 
 
              </ul>
@@ -127,13 +126,23 @@
                      </button>
                  </div>
                  <div class="modal-body">
-                     Silahkan masukan tahun ajaran baru DISINI
-                     <input type="text" name="tahun_ajaran" class="form-control" placeholder="2025/2026" value="<?= $setting['tahun_ajaran'] ?>">
+                     Silahkan pilih tahun ajaran yang ingin di aktifkan
+                     <select class="form-control" name="id_tahun" required>
+                         <option disabled selected>Pilih Tahun Ajaran</option>
+                         <?php
+                            $q = mysqli_query($koneksi, "SELECT * FROM tahun_ajaran ORDER BY tahun DESC");
+                            while ($t = mysqli_fetch_assoc($q)) {
+                                $selected = ($t['aktif'] == 'Y') ? 'selected' : '';
+                                echo "<option value='{$t['id']}' $selected>{$t['tahun']}</option>";
+                            }
+                            ?>
+                     </select>
                      <br>
                      <p>Setiap penambahan tahun ajaran baru sistem akan otomatis memperbarui jenjang kelas.</p>
 
                  </div>
                  <div class="modal-footer">
+                     <a href="?pg=setting" class="btn btn-secondary">Tambah Tahun Ajaran</a>
                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                      <button type="submit" class="btn btn-primary">Simpan</button>
                  </div>

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or die("ip anda sudah tercatat oleh sistem kami") ?>
 <!-- Modal -->
-<div class="modal fade" id="tambahdata" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<!-- <div class="modal fade" id="tambahdata" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form id="form-tambah">
@@ -70,7 +70,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
 <div class="modal fade" id="hapusdata" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -131,16 +131,16 @@
                 <h4>Data Pendaftar</h4>
 
                 <div class="card-header-action">
-                    <a class="btn btn-primary" href="mod_daftar/export_excel.php" role="button"> Download data formulir Excel</a>
-                    <button type="button" class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahdata">
+                    <a class="btn btn-primary" href="mod_daftar/export_excel.php" role="button"> Download Excel</a>
+                    <!-- <button type="button" class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#tambahdata">
                         <i class="far fa-edit"></i> Tambah Data
-                    </button>
+                    </button> -->
                     <!--<button type="button" class="btn btn-danger m-b-5" data-toggle="modal" data-target="#importdata"><i class="sidebar-item-icon fa fa-upload"></i>
 					Import Data
 					</button>-->
-                    <button type="button" class="btn btn-icon icon-left btn-warning" data-toggle="modal" data-target="#hapusdata">
+                    <!-- <button type="button" class="btn btn-icon icon-left btn-warning" data-toggle="modal" data-target="#hapusdata">
                         <i class="fa fa-trash"></i> Hapus Data
-                    </button>
+                    </button> -->
 
                 </div>
 
@@ -164,13 +164,13 @@
                         </thead>
                         <tbody>
                             <?php
+                            $id_tahun_aktif = $tahunAktif['tahun'];
                             $query = mysqli_query($koneksi, "SELECT daftar.*, formulir.* 
                                 FROM daftar 
-                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where status IS NULL OR status=0");
+                                INNER JOIN formulir ON daftar.id_daftar = formulir.no_daftar where (status IS NULL OR status = 0) AND formulir.tahun_ajaran = '$id_tahun_aktif'");
                             $no = 0;
                             while ($daftar = mysqli_fetch_array($query)) {
                                 $no++;
-                                $bayar = mysqli_fetch_array(mysqli_query($koneksi, "select sum(jumlah) as total from bayar where id_daftar='$daftar[id_daftar]' "));
                             ?>
                                 <tr>
                                     <td><?= $no; ?></td>
@@ -194,7 +194,7 @@
                                     </td>
                                     <td>
                                         <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Formulir siswa" href="?pg=ubahdaftar&id=<?= enkripsi($daftar['id_daftar']) ?>" class="btn btn-sm btn-info"><i class="fas fa-book    "></i></a>
-                                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Berkas Siswa" href="?pg=berkas_ppdb" class="btn btn-sm btn-warning"><i class="fas fa-file    "></i></a>
+                                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Berkas Siswa" href="?pg=berkas_ppdb&id=<?= enkripsi($daftar['id_daftar']) ?>" class="btn btn-sm btn-warning"><i class="fas fa-file    "></i></a>
                                         <!-- Button trigger modal -->
                                         <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Cetak" href="mod_daftar/print_daftar.php?id=<?= enkripsi($daftar['id_daftar']) ?>" class="btn btn-sm btn-success"><i class="fas fa-print    "></i></a>
                                         <!-- Button trigger modal -->
@@ -206,9 +206,6 @@
                                             </button>
                                         </span>
 
-                                        <!-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-nilai<?= $no ?>">
-                                            <i class="fas fa-address-book    "></i>
-                                        </button> -->
                                         <span data-toggle="tooltip" title="Hapus">
                                             <button data-id="<?= $daftar['id_daftar'] ?>" class="hapus btn-sm btn btn-danger"><i class="fas fa-trash    "></i></button>
                                         </span>
@@ -228,25 +225,25 @@
                                                             <input type="hidden" value="<?= $daftar['id_daftar'] ?>" name="id_daftar" class="form-control" required="">
 
                                                             <div class="form-group">
-                                                                <label>NISN</label>
-                                                                <input type="text" value="<?= $daftar['nisn'] ?>" name="nisn" class="form-control nisn"="">
+                                                                <label>Username</label>
+                                                                <input type="text" value="<?= $daftar['nisn'] ?>" name="nisn" class="form-control nisn" required="">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Nama Siswa</label>
-                                                                <input type="text" value="<?= $daftar['nama'] ?>" name="nama" class="form-control"="">
+                                                                <input type="text" value="<?= $daftar['nama'] ?>" name="nama" class="form-control" required="">
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label>Tempat Lahir</label>
-                                                                <input type="text" value="<?= $daftar['tempat_lahir'] ?>" name="tempat_lahir" class="form-control"="">
+                                                                <input type="text" value="<?= $daftar['tempat_lahir'] ?>" name="tempat_lahir" class="form-control" required="">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Tanggal Lahir</label>
-                                                                <input type="date" value="<?= $daftar['tgl_lahir'] ?>" name="tgl_lahir" class="form-control"="">
+                                                                <input type="date" value="<?= $daftar['tanggal_lahir'] ?>" name="tgl_lahir" class="form-control" required="">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>No HP</label>
-                                                                <input type="number" value="<?= $daftar['no_hp'] ?>" name="no_hp" class="form-control"="">
+                                                                <input type="number" value="<?= $daftar['no_hp'] ?>" name="no_hp" class="form-control" required="">
                                                             </div>
 
                                                             <div class="form-group">
@@ -265,7 +262,7 @@
                                                                     <label class="custom-switch">
                                                                         <input type="radio" name="status" value="2" class="custom-switch-input" <?= $daftar['status'] == 2 ? 'checked' : '' ?>>
                                                                         <span class="custom-switch-indicator"></span>
-                                                                        <span class="custom-switch-description">Direvisi</span>
+                                                                        <span class="custom-switch-description">Ditolak / Revisi </span>
                                                                     </label>
 
 
@@ -280,70 +277,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="modal fade" id="modal-nilai<?= $no ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <form id="form-nilai<?= $no ?>" name="form-nilai">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">INPUT NILAI RAPOR</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-
-                                                            <input type="hidden" value="<?= $daftar['id_daftar'] ?>" name="id_daftar" class="form-control" required="">
-
-                                                            <div class="form-group">
-                                                                <label style="color: blue;font-weight: bold;">SEMESTER 1</label>
-                                                                <input type="text" value="<?= $daftar['bin1'] ?>" id="bin1" name="bin1" class="form-control"="" placeholder="BAHASA INDONESIA">
-                                                                <input type="text" value="<?= $daftar['mat1'] ?>" id="mat1" name="mat1" class="form-control"="" placeholder="MATEMATIKA">
-                                                                <input type="text" value="<?= $daftar['ipa1'] ?>" id="ipa1" name="ipa1" class="form-control"="" placeholder="IPA">
-                                                                <input type="text" value="<?= $daftar['big1'] ?>" id="big1" name="big1" class="form-control"="" placeholder="BAHASA INGGRIS">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label style="color: blue;font-weight: bold;">SEMESTER 2</label>
-                                                                <input type="text" value="<?= $daftar['bin2'] ?>" id="bin2" name="bin2" class="form-control"="" placeholder="BAHASA INDONESIA">
-                                                                <input type="text" value="<?= $daftar['mat2'] ?>" id="mat2" name="mat2" class="form-control"="" placeholder="MATEMATIKA">
-                                                                <input type="text" value="<?= $daftar['ipa2'] ?>" id="ipa2" name="ipa2" class="form-control"="" placeholder="IPA">
-                                                                <input type="text" value="<?= $daftar['big2'] ?>" id="big2" name="big2" class="form-control"="" placeholder="BAHASA INGGRIS">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label style="color: blue;font-weight: bold;">SEMESTER 3</label>
-                                                                <input type="text" value="<?= $daftar['bin3'] ?>" id="bin3" name="bin3" class="form-control"="" placeholder="BAHASA INDONESIA">
-                                                                <input type="text" value="<?= $daftar['mat3'] ?>" id="mat3" name="mat3" class="form-control"="" placeholder="MATEMATIKA">
-                                                                <input type="text" value="<?= $daftar['ipa3'] ?>" id="ipa3" name="ipa3" class="form-control"="" placeholder="IPA">
-                                                                <input type="text" value="<?= $daftar['big3'] ?>" id="big3" name="big3" class="form-control"="" placeholder="BAHASA INGGRIS">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label style="color: blue;font-weight: bold;">SEMESTER 4</label>
-                                                                <input type="text" value="<?= $daftar['bin4'] ?>" id="bin4" name="bin4" class="form-control"="" placeholder="BAHASA INDONESIA">
-                                                                <input type="text" value="<?= $daftar['mat4'] ?>" id="mat4" name="mat4" class="form-control"="" placeholder="MATEMATIKA">
-                                                                <input type="text" value="<?= $daftar['ipa4'] ?>" id="ipa4" name="ipa4" class="form-control"="" placeholder="IPA">
-                                                                <input type="text" value="<?= $daftar['big4'] ?>" id="big4" name="big4" class="form-control"="" placeholder="BAHASA INGGRIS">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label style="color: blue;font-weight: bold;">SEMESTER 5</label>
-                                                                <input type="text" value="<?= $daftar['bin5'] ?>" id="bin5" name="bin5" class="form-control"="" placeholder="BAHASA INDONESIA">
-                                                                <input type="text" value="<?= $daftar['mat5'] ?>" id="mat5" name="mat5" class="form-control"="" placeholder="MATEMATIKA">
-                                                                <input type="text" value="<?= $daftar['ipa5'] ?>" id="ipa5" name="ipa5" class="form-control"="" placeholder="IPA">
-                                                                <input type="text" value="<?= $daftar['big5'] ?>" id="big5" name="big5" class="form-control"="" placeholder="BAHASA INGGRIS">
-                                                            </div>
-                                                            <div class="form-group">
-															<label style="color: blue;font-weight: bold;">JUMLAH</label>
-															<input type="text" id="jumlah" name="jumlah" class="form-control" placeholder="Jumlah" readonly="">
-															</div>
-
-
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div> -->
                                     </td>
                                 </tr>
 
