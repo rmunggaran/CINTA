@@ -120,7 +120,7 @@
                                             </h5>
                                             <br />
                                             <p data-animation="animated slideInRight" data-delay="1s">
-                                                Aplikasi Penerimaan Peserta didik baru Tahun Pelajaran <?= $tahunAktif['tahun'] ?> <?= $setting['nama_sekolah'] ?>.
+                                                Aplikasi Penerimaan Peserta didik baru Tahun Pelajaran <?= $tahunAktif['tahun'] ?? 'Belum diset' ?> <?= $setting['nama_sekolah'] ?>.
                                             </p>
                                             <p data-animation="animated slideInRight" data-delay="2s">
                                                 Pendaftaran Siswa dan Siswi Baru Tahun 2025 ini telah dibuka. Silahkan Segera Daftar dan lengkapi Formulir
@@ -139,7 +139,7 @@
                                                 Syarat Pendaftaran Peserta Didik Baru
                                             </h5>
                                             <h5 data-animation="animated fadeInDownBig">
-                                                Tahun Pelajaran <?= $tahunAktif['tahun'] ?>
+                                                Tahun Pelajaran <?= $tahunAktif['tahun'] ?? 'Belum diset' ?>
                                             </h5>
                                             <ul>
 
@@ -161,7 +161,7 @@
                                                 Alur Pendaftaran Peserta Didik Baru
                                             </h5>
                                             <h5 data-animation="animated fadeInDownBig">
-                                                Tahun Pelajaran <?= $tahunAktif['tahun'] ?>
+                                                Tahun Pelajaran <?= $tahunAktif['tahun'] ?? 'Belum diset' ?>
                                             </h5>
                                             <ul>
                                                 <li data-animation="animated fadeInDownBig" data-delay="1s">
@@ -437,7 +437,7 @@
                                         </h5>
                                         <br />
                                         <p data-animation="animated slideInRight" data-delay="1s">
-                                            Aplikasi Penerimaan Peserta didik baru Tahun Pelajaran <?= $tahunAktif['tahun'] ?> <?= $setting['nama_sekolah'] ?>.
+                                            Aplikasi Penerimaan Peserta didik baru Tahun Pelajaran<?= $tahunAktif['tahun'] ?? 'Belum diset' ?> <?= $setting['nama_sekolah'] ?>.
                                         </p>
                                         <p data-animation="animated slideInRight" data-delay="2s">
                                             Pendaftaran Siswa dan Siswi Baru Tahun 2025 ini Belum Dibuka.
