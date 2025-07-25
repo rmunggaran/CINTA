@@ -98,10 +98,10 @@ switch ($pg) {
         cek_login_admin();
         include "mod_jurusan/jurusan.php";
         break;
-    case 'jenis':
-        cek_login_admin();
-        include "mod_jenis/jenis.php";
-        break;
+    // case 'jenis':
+    //     cek_login_admin();
+    //     include "mod_jenis/jenis.php";
+    //     break;
     case 'biaya':
         cek_login_admin();
         include "mod_biaya/biaya.php";

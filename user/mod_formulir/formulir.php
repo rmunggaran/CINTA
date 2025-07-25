@@ -415,6 +415,11 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
             echo '<div class="alert alert-success alert-dismissable">
                 Data anda telah diverifikasi
               </div>';
+        } elseif ($siswa['status'] == 2) {
+            // Jika sedang diverifikasi
+            echo '<div class="alert alert-warning alert-dismissable">
+                Periksa kembali data atau berkas Anda. Mungkin ada yang salah atau belum memenuhi syarat.
+              </div>';
         } elseif ($siswa['status'] == 0) {
             // Jika sedang diverifikasi
             echo '<div class="alert alert-info alert-dismissable">

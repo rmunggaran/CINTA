@@ -37,7 +37,7 @@
                  <!-- <li><a class="nav-link" href="?pg=sekolah">Master Sekolah</a></li> -->
                  <li><a class="nav-link text-success" href="?pg=kelas">Master Kelas</a></li>
                  <li><a class="nav-link" href="?pg=jurusan">Jenis Pendidikan</a></li>
-                 <li><a class="nav-link" href="?pg=jenis">Master Jenis Daftar</a></li>
+                 <!-- <li><a class="nav-link" href="?pg=jenis">Master Jenis Daftar</a></li> -->
              </ul>
          </li>
 

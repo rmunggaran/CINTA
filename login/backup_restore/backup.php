@@ -1,6 +1,6 @@
 <?php
-    error_reporting(0);
-    
+error_reporting(0);
+
 
 
 function &backup_tables($host, $user, $pass, $name, $tables = '*')
@@ -71,10 +71,10 @@ if (!file_exists('backup')) {
 }
 
 $tabel = "*";
-$backup_file = 'backup/backup_simas'  . '.sql';
- // SETTING DATABASE BACKUP DISINI
+$backup_file = 'backup/backup_condong'  . '.sql';
+// SETTING DATABASE BACKUP DISINI
 
-$mybackup = backup_tables("localhost","root","","ppdb_dapit_1",$tabel);
+$mybackup = backup_tables("localhost", "root", "", "condong", $tabel);
 
 
 // save to file

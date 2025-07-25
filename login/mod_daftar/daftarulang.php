@@ -89,10 +89,10 @@
                                                         <label>Masukan ke kelas</label>
                                                         <select class='form-control' id="kelas" name="kelas" required>
                                                             <option value="">-- Pilih Kelas --</option>
-                                                            <?php $qu = mysqli_query($koneksi, "select * from kelas");
+                                                            <?php $qu = mysqli_query($koneksi, "select * from kelas where tahun_ajaran = '$id_tahun_aktif'");
                                                             while ($jur = mysqli_fetch_array($qu)) {
                                                             ?>
-                                                                <option value="<?php echo $jur['id_kelas']; ?>"><?php echo $jur['nama_kelas']; ?> - <?= $jur['jenjang']; ?></option>
+                                                                <option value="<?php echo $jur['id_kelas']; ?>"><?php echo $jur['nama_kelas']; ?></option>
 
                                                             <?php } ?>
                                                         </select>

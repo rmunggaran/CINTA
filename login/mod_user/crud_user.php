@@ -29,6 +29,10 @@ if ($pg == 'ubah') {
     echo $exec;
 }
 if ($pg == 'ubahsiswa') {
+    if (empty($_POST['id_daftar'])) {
+        echo "ID Siswa kosong!";
+        exit;
+    }
 
     if ($_POST['password'] <> "") {
         $data = [
@@ -45,8 +49,8 @@ if ($pg == 'ubahsiswa') {
         ];
     }
     // var_dump($data);
-    $id_siswa = $_POST['id_siswa'];
-    $exec = update($koneksi, 'siswa', $data, ['id_siswa' => $id_siswa]);
+    $id_daftar = $_POST['id_daftar'];
+    $exec = update($koneksi, 'daftar', $data, ['id_daftar' => $id_daftar]);
     echo $exec;
 }
 if ($pg == 'tambah') {

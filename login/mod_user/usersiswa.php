@@ -57,7 +57,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <input type="hidden" value="<?= $siswa['id_siswa'] ?>" name="id_siswa" class="form-control" required="">
+                                                            <input type="hidden" value="<?= $siswa['id_daftar'] ?>" name="id_daftar" class="form-control" required="">
                                                             <div class="form-group">
                                                                 <label>Nama user</label>
                                                                 <input type="text" name="nama" value="<?= $siswa['nama'] ?>" class="form-control" required="">

@@ -81,7 +81,7 @@
 													<?php if ($daftar['status'] == 1) { ?>
 														<span class="badge badge-success">Diterima</span>
 													<?php } elseif ($daftar['status'] == 2) { ?>
-														<span class="badge badge-danger">Dicadangkan </span>
+														<span class="badge badge-danger">Ditolak / Revisi </span>
 													<?php } else { ?>
 														<span class="badge badge-warning">Diverifikasi</span>
 													<?php } ?>
