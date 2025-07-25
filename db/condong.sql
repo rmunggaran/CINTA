@@ -30,10 +30,12 @@ CREATE TABLE IF NOT EXISTS `bayar` (
   PRIMARY KEY (`id_bayar`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table condong.bayar: ~4 rows (approximately)
+-- Dumping data for table condong.bayar: ~2 rows (approximately)
 INSERT INTO `bayar` (`id_bayar`, `id_user`, `id_daftar`, `id_biaya`, `jumlah`, `tgl_bayar`, `keterangan`, `bukti`, `verifikasi`, `hapus`, `jenis_bayar`) VALUES
 	('202507240001', 0, 328, 'ATK', 200000, '2025-07-24', NULL, 'bukti_transaksi/bukti_20250724_6881d65f27269.jpg', 1, NULL, 'ppdb'),
-	('202507240002', 0, 328, 'FD2025', 500000, '2025-07-24', NULL, 'bukti_transaksi/bukti_20250724_6881d65f27269.jpg', 1, NULL, 'ppdb');
+	('202507240002', 0, 328, 'FD2025', 500000, '2025-07-24', NULL, 'bukti_transaksi/bukti_20250724_6881d65f27269.jpg', 1, NULL, 'ppdb'),
+	('202507250001', 0, 328, 'SR', 100000, '2025-07-25', NULL, 'bukti_transaksi/bukti_20250725_6882d9234063f.jpg', 1, NULL, 'ppdb'),
+	('202507250002', 0, 328, 'SRG', 600000, '2025-07-25', NULL, 'bukti_transaksi/bukti_20250725_6882d9234063f.jpg', 1, NULL, 'ppdb');
 
 -- Dumping structure for table condong.biaya
 CREATE TABLE IF NOT EXISTS `biaya` (
@@ -46,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `biaya` (
   PRIMARY KEY (`id_biaya`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table condong.biaya: ~10 rows (approximately)
+-- Dumping data for table condong.biaya: ~8 rows (approximately)
 INSERT INTO `biaya` (`id_biaya`, `nama_biaya`, `jumlah`, `status`, `id_jurusan`, `jenis_biaya`) VALUES
 	('ATK', 'ATK', 200000, '1', 0, 'ppdb'),
 	('BP', 'Buku Paket', 1203000, '1', 0, 'ppdb'),
@@ -61,115 +63,33 @@ INSERT INTO `biaya` (`id_biaya`, `nama_biaya`, `jumlah`, `status`, `id_jurusan`,
 CREATE TABLE IF NOT EXISTS `daftar` (
   `id_daftar` int NOT NULL AUTO_INCREMENT,
   `no_daftar` varchar(20) DEFAULT NULL,
-  `id_siswa` int DEFAULT NULL,
-  `jenis` int DEFAULT NULL,
-  `nis` varchar(30) DEFAULT NULL,
-  `nik` varchar(30) DEFAULT NULL,
-  `no_kk` varchar(30) DEFAULT NULL,
   `nisn` varchar(30) NOT NULL,
   `nama` varchar(128) NOT NULL,
-  `warga_siswa` varchar(20) DEFAULT NULL,
   `foto` varchar(128) NOT NULL,
-  `jenkel` varchar(1) DEFAULT NULL,
   `tempat_lahir` varchar(128) DEFAULT NULL,
   `tgl_lahir` date DEFAULT NULL,
-  `asal_sekolah` varchar(128) DEFAULT NULL,
-  `npsn_asal` varchar(20) DEFAULT NULL,
   `kelas` varchar(50) DEFAULT NULL,
   `jurusan` varchar(30) DEFAULT '',
-  `jenjang` varchar(11) DEFAULT NULL,
-  `agama` varchar(50) DEFAULT NULL,
-  `status_tinggal` varchar(100) DEFAULT NULL,
-  `alamat` text,
-  `rt` varchar(5) DEFAULT NULL,
-  `rw` varchar(5) DEFAULT NULL,
-  `desa` varchar(128) DEFAULT NULL,
-  `kecamatan` varchar(128) DEFAULT NULL,
-  `kota` varchar(128) DEFAULT NULL,
-  `provinsi` varchar(128) DEFAULT NULL,
-  `kode_pos` varchar(6) DEFAULT NULL,
-  `koordinat` varchar(100) DEFAULT NULL,
-  `transportasi` varchar(128) DEFAULT NULL,
   `no_hp` varchar(16) DEFAULT NULL,
-  `email` varchar(128) DEFAULT NULL,
-  `anak_ke` int DEFAULT NULL,
-  `saudara` int DEFAULT NULL,
-  `biaya_sekolah` varchar(100) DEFAULT NULL,
-  `paud` text,
-  `tk` text,
-  `hepatitis` varchar(10) DEFAULT NULL,
-  `polio` varchar(10) DEFAULT NULL,
-  `bcg` varchar(10) DEFAULT NULL,
-  `campak` varchar(10) DEFAULT NULL,
-  `dpt` varchar(10) DEFAULT NULL,
-  `covid` varchar(10) DEFAULT NULL,
-  `citacita` text,
-  `hobi` text,
-  `status_keluarga` varchar(50) DEFAULT NULL,
-  `tinggal` varchar(128) DEFAULT NULL,
-  `jarak` varchar(128) DEFAULT NULL,
-  `waktu` varchar(128) DEFAULT NULL,
-  `nik_ayah` varchar(16) DEFAULT NULL,
-  `nama_ayah` varchar(128) DEFAULT NULL,
-  `tempat_lahir_ayah` varchar(100) DEFAULT NULL,
-  `tahun_ayah` date DEFAULT NULL,
-  `status_ayah` varchar(128) DEFAULT NULL,
-  `pendidikan_ayah` varchar(128) DEFAULT NULL,
-  `pekerjaan_ayah` varchar(128) DEFAULT NULL,
-  `penghasilan_ayah` varchar(128) DEFAULT NULL,
-  `no_hp_ayah` varchar(16) DEFAULT NULL,
-  `nik_ibu` varchar(16) DEFAULT NULL,
-  `nama_ibu` varchar(128) DEFAULT NULL,
-  `tempat_lahir_ibu` varchar(100) DEFAULT NULL,
-  `tahun_ibu` date DEFAULT NULL,
-  `status_ibu` varchar(128) DEFAULT NULL,
-  `pendidikan_ibu` varchar(128) DEFAULT NULL,
-  `pekerjaan_ibu` varchar(128) DEFAULT NULL,
-  `penghasilan_ibu` varchar(128) DEFAULT NULL,
-  `no_hp_ibu` varchar(16) DEFAULT NULL,
-  `nik_wali` varchar(16) DEFAULT NULL,
-  `nama_wali` varchar(128) DEFAULT NULL,
-  `tempat_lahir_wali` varchar(100) DEFAULT NULL,
-  `tahun_wali` date DEFAULT NULL,
-  `pendidikan_wali` varchar(50) DEFAULT NULL,
-  `pekerjaan_wali` varchar(50) DEFAULT NULL,
-  `penghasilan_wali` varchar(50) DEFAULT NULL,
-  `no_hp_wali` varchar(16) DEFAULT NULL,
-  `no_ijazah` varchar(128) DEFAULT NULL,
-  `no_shun` varchar(128) DEFAULT NULL,
-  `no_ujian` varchar(128) DEFAULT NULL,
-  `no_kip` varchar(30) DEFAULT NULL,
-  `kip` varchar(256) DEFAULT NULL,
   `kk` text,
-  `kepala_keluarga` varchar(100) DEFAULT NULL,
-  `ijazah` varchar(256) DEFAULT NULL,
   `akta` varchar(256) DEFAULT NULL,
-  `file_shun` varchar(256) DEFAULT NULL,
-  `tgl_keluar` date DEFAULT NULL,
-  `alasan_keluar` varchar(100) DEFAULT NULL,
-  `surat_keluar` varchar(255) DEFAULT NULL,
-  `level` varchar(10) DEFAULT NULL,
   `aktif` int DEFAULT '0',
   `status` int DEFAULT '0',
-  `sekolah_tujuan` varchar(10) DEFAULT NULL,
-  `npsn_sekolah_tujuan` varchar(10) DEFAULT NULL,
-  `tgl_daftar` date DEFAULT NULL,
   `tgl_konfirmasi` date DEFAULT NULL,
   `konfirmasi` int DEFAULT NULL,
-  `bayar` varchar(100) DEFAULT NULL,
   `online` int DEFAULT '0',
   `password` text,
-  `jumlah` varchar(10) DEFAULT NULL,
   `ktp_ortu` varchar(256) DEFAULT NULL,
   `kps_pkh` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id_daftar`)
-) ENGINE=InnoDB AUTO_INCREMENT=331 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=333 DEFAULT CHARSET=latin1;
 
--- Dumping data for table condong.daftar: ~12 rows (approximately)
-INSERT INTO `daftar` (`id_daftar`, `no_daftar`, `id_siswa`, `jenis`, `nis`, `nik`, `no_kk`, `nisn`, `nama`, `warga_siswa`, `foto`, `jenkel`, `tempat_lahir`, `tgl_lahir`, `asal_sekolah`, `npsn_asal`, `kelas`, `jurusan`, `jenjang`, `agama`, `status_tinggal`, `alamat`, `rt`, `rw`, `desa`, `kecamatan`, `kota`, `provinsi`, `kode_pos`, `koordinat`, `transportasi`, `no_hp`, `email`, `anak_ke`, `saudara`, `biaya_sekolah`, `paud`, `tk`, `hepatitis`, `polio`, `bcg`, `campak`, `dpt`, `covid`, `citacita`, `hobi`, `status_keluarga`, `tinggal`, `jarak`, `waktu`, `nik_ayah`, `nama_ayah`, `tempat_lahir_ayah`, `tahun_ayah`, `status_ayah`, `pendidikan_ayah`, `pekerjaan_ayah`, `penghasilan_ayah`, `no_hp_ayah`, `nik_ibu`, `nama_ibu`, `tempat_lahir_ibu`, `tahun_ibu`, `status_ibu`, `pendidikan_ibu`, `pekerjaan_ibu`, `penghasilan_ibu`, `no_hp_ibu`, `nik_wali`, `nama_wali`, `tempat_lahir_wali`, `tahun_wali`, `pendidikan_wali`, `pekerjaan_wali`, `penghasilan_wali`, `no_hp_wali`, `no_ijazah`, `no_shun`, `no_ujian`, `no_kip`, `kip`, `kk`, `kepala_keluarga`, `ijazah`, `akta`, `file_shun`, `tgl_keluar`, `alasan_keluar`, `surat_keluar`, `level`, `aktif`, `status`, `sekolah_tujuan`, `npsn_sekolah_tujuan`, `tgl_daftar`, `tgl_konfirmasi`, `konfirmasi`, `bayar`, `online`, `password`, `jumlah`, `ktp_ortu`, `kps_pkh`) VALUES
-	(328, 'PPDB2025001', NULL, NULL, NULL, NULL, NULL, 'tesa', 'TESA DOANG', NULL, 'default.png', NULL, 'Tasikmalaya', '2003-06-24', NULL, NULL, 'KLS6881824a77c23', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8293329829', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/upload/kk/kk328.jpg', NULL, NULL, 'assets/upload/akta/akta328.jpg', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, '2025-07-24', 1, NULL, 1, 'tesa', NULL, 'assets/upload/ktp_ortu/ktp_ortu328.jpg', 'assets/upload/kps_pkh/kps_pkh328.jpg'),
-	(329, 'PPDB2025002', NULL, NULL, NULL, NULL, NULL, 'Ranti', 'Ranti Doang', NULL, 'default.png', NULL, NULL, NULL, NULL, NULL, NULL, '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '83923992', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/upload/kk/kk329.jpg', NULL, NULL, 'assets/upload/akta/akta329.jpg', NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'ranti', NULL, 'assets/upload/ktp_ortu/ktp_ortu329.jpg', 'assets/upload/kps_pkh/kps_pkh329.jpg'),
-	(330, 'PPDB2025003', NULL, NULL, NULL, NULL, NULL, 'ferla', 'FERLA DOANG', NULL, 'default.png', NULL, 'Tasikmalaya', '2025-07-09', NULL, NULL, 'KLS6881ac915fc3f', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '892392833', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'assets/upload/kk/kk330.png', NULL, NULL, 'assets/upload/akta/akta330.png', NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, '2025-07-24', 1, NULL, 1, 'ferla', NULL, 'assets/upload/ktp_ortu/ktp_ortu330.png', 'assets/upload/kps_pkh/kps_pkh330.png');
+-- Dumping data for table condong.daftar: ~3 rows (approximately)
+INSERT INTO `daftar` (`id_daftar`, `no_daftar`, `nisn`, `nama`, `foto`, `tempat_lahir`, `tgl_lahir`, `kelas`, `jurusan`, `no_hp`, `kk`, `akta`, `aktif`, `status`, `tgl_konfirmasi`, `konfirmasi`, `online`, `password`, `ktp_ortu`, `kps_pkh`) VALUES
+	(328, 'PPDB2025001', 'tesa', 'TESA DOANG', 'default.png', 'Tasikmalaya', '2025-07-08', 'KLS6881aca69690d', '1', '8293329829', 'assets/upload/kk/kk328.jpg', 'assets/upload/akta/akta328.jpg', 0, 1, '2025-07-25', 1, 1, 'tesa', 'assets/upload/ktp_ortu/ktp_ortu328.jpg', 'assets/upload/kps_pkh/kps_pkh328.jpg'),
+	(329, 'PPDB2025002', 'ranti', 'RANTI DOANG', 'default.png', 'Tasikmalaya', '2025-07-16', NULL, '2', '83923992', 'assets/upload/kk/kk329.jpg', 'assets/upload/akta/akta329.jpg', 0, 2, NULL, NULL, 1, 'ranti', 'assets/upload/ktp_ortu/ktp_ortu329.jpg', 'assets/upload/kps_pkh/kps_pkh329.jpg'),
+	(330, 'PPDB2025003', 'ferla', 'FERLA DOANG', 'default.png', 'Tasikmalaya', '2025-07-15', '', '2', '892392833', 'assets/upload/kk/kk330.png', 'assets/upload/akta/akta330.png', 0, 0, '2025-07-24', NULL, 1, 'ferla', 'assets/upload/ktp_ortu/ktp_ortu330.png', 'assets/upload/kps_pkh/kps_pkh330.png'),
+	(332, 'PPDB2025005', 'diang', 'DIANG', 'default.png', 'Tasikmalaya', '2025-07-16', NULL, '1', '8273293923', 'assets/upload/kk/kk332.jpg', 'assets/upload/akta/akta332.jpg', 0, 1, NULL, NULL, 1, '12345', 'assets/upload/ktp_ortu/ktp_ortu332.jpg', 'assets/upload/kps_pkh/kps_pkh332.jpg');
 
 -- Dumping structure for table condong.formulir
 CREATE TABLE IF NOT EXISTS `formulir` (
@@ -209,13 +129,14 @@ CREATE TABLE IF NOT EXISTS `formulir` (
   `pekerjaan_wali` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `tahun_ajaran` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table condong.formulir: ~11 rows (approximately)
+-- Dumping data for table condong.formulir: ~3 rows (approximately)
 INSERT INTO `formulir` (`id`, `no_pendaftaran`, `no_daftar`, `kategori`, `nama_siswa`, `nomor_induk`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `anak_ke`, `jumlah_saudara`, `status_keluarga`, `alamat_rumah`, `alamat_sekarang`, `kelas_diterima`, `tanggal_diterima`, `sekolah_asal`, `alamat_sekolah_asal`, `sttb_tahun`, `sttb_nomor`, `nama_ayah`, `nama_ibu`, `agama_ortu`, `alamat_ortu`, `pekerjaan_ayah`, `pekerjaan_ibu`, `pendidikan_ayah`, `pendidikan_ibu`, `penghasilan`, `nama_wali`, `agama_wali`, `alamat_wali`, `pendidikan_wali`, `pekerjaan_wali`, `tahun_ajaran`) VALUES
-	(34, 'PSB-1', '328', '1', 'Tesa Doang', '12823823232', 'Perempuan', 'Tasikmalaya', '2003-06-24', 1, 1, 'Anak', 'kadksad dksakdksa', 'kadksad dksakdksa', NULL, NULL, 'Fuji Yochien', 'Jepang', '2033', 'ksakdksa', 'Dedi kusnandar', 'Mizuhara', 'Islam', 'kadksad dksakdksa', 'Guru/Dosen', 'Pegawai Swasta', 'S3 (Doktor)', 'S1 (Sarjana)', 'Lebih dari Rp.5.000.001', 'Mizuhara', 'Islam', 'kadksad dksakdksa', 'S1 (Sarjana)', 'Pegawai Swasta', '2024/2025'),
-	(35, 'PSB-2', '329', '2', 'Ranti doang', '21929182932', 'Perempuan', 'Tasikmalaya', '2025-07-24', 3, 3, '1', 'Gn tanjung', 'Gn tanjung', NULL, NULL, 'TK PGRI', 'Manonjaya', '2033', 'ksakdksa', 'anu kusnandar', 'anu ibu', 'Islam', 'Gn tanjung', 'Pegawai Swasta', 'Lainnya', 'SMA/MA/SMK/Paket C', 'SMA/MA/SMK/Paket C', 'Lebih dari Rp.5.000.001', 'anu ibu', 'Islam', 'Gn tanjung', 'SMA/MA/SMK/Paket C', 'Lainnya', '2024/2025'),
-	(36, 'PSB-3', '330', '2', 'Ferla Doang', '72737238283', 'Perempuan', 'Tasikmalaya', '2025-07-09', 3, 2, 'Anak', 'Cineam', 'Cineam', NULL, NULL, 'TK PGRI', 'Cineam', '2006', '92392323', 'doang anu', 'anu doang', 'Islam', 'Cineam', 'Petani/Peternak', 'Lainnya', 'S3 (Doktor)', 'Diploma III/IV', 'Lebih dari Rp.5.000.001', 'anu doang', 'Islam', 'Cineam', 'Diploma III/IV', 'Lainnya', '2025/2026');
+	(38, 'PSB-1', '332', '2', 'Diang doang', '128372838232', 'Laki-laki', 'Tasikmalaya', '2025-07-16', 3, 1, 'Anak', 'Cineam', 'Cineam', NULL, NULL, 'TK PGRI', 'Cineam', '2006', '92392323', 'Dedi kusnandar', 'Mizuhara', 'Islam', 'Cineam', 'Wiraswasta/Pedagang', 'Wiraswasta/Pedagang', 'S1 (Sarjana)', 'S1 (Sarjana)', 'Lebih dari Rp.5.000.001', 'Mizuhara', 'Islam', 'Cineam', 'S1 (Sarjana)', 'Wiraswasta/Pedagang', '2025/2026'),
+	(39, 'PSB-2', '328', '1', 'Tesa Doang', '12823823383', 'Perempuan', 'Tasikmalaya', '2025-07-08', 3, 1, 'Anak', 'Condong', 'Condong', NULL, NULL, 'TK PGRI', 'Condong', '2006', '92392323', 'anu kusnandar', 'anu ibu', 'Islam', 'Condong', 'TNI/POLRI', 'Lainnya', 'SMA/MA/SMK/Paket C', 'SMA/MA/SMK/Paket C', 'Lebih dari Rp.5.000.001', 'anu ibu', 'Islam', 'Condong', 'SMA/MA/SMK/Paket C', 'Lainnya', '2025/2026'),
+	(40, 'PSB-3', '329', '2', 'Ranti doang', '28328382738728', 'Perempuan', 'Tasikmalaya', '2025-07-16', 1, 2, 'Anak', 'Gn tanjung', 'Gn tanjung', NULL, NULL, 'TK PGRI', 'Manonjaya', '2006', '92392323', 'Dedi kusnandar', 'anu doang', 'Islam', 'Gn tanjung', 'Pegawai Swasta', 'Lainnya', 'SMA/MA/SMK/Paket C', 'SMA/MA/SMK/Paket C', 'Lebih dari Rp.5.000.001', 'Dedi kusnandar', 'Islam', 'Gn tanjung', 'SMA/MA/SMK/Paket C', 'Pegawai Swasta', '2025/2026'),
+	(41, 'PSB-4', '330', '2', 'Ferla Doang', '72737238283', 'Perempuan', 'Tasikmalaya', '2025-07-15', 2, 2, 'Anak', 'Cineam', 'Cineam', NULL, NULL, 'TK PGRI', 'Manonjaya', '2024', '5688765567', 'Jojon susanto', 'Ratni Sudarmini', 'Islam', 'Cineam', 'Petani/Peternak', 'Petani/Peternak', 'SMA/MA/SMK/Paket C', 'SMA/MA/SMK/Paket C', 'Lebih dari Rp.5.000.001', 'Ratni Sudarmini', 'Islam', 'Cineam', 'SMA/MA/SMK/Paket C', 'Petani/Peternak', '2025/2026');
 
 -- Dumping structure for table condong.guru
 CREATE TABLE IF NOT EXISTS `guru` (
@@ -225,41 +146,15 @@ CREATE TABLE IF NOT EXISTS `guru` (
   `foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `status` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table condong.guru: ~5 rows (approximately)
 INSERT INTO `guru` (`id`, `nama_guru`, `pendidikan_terakhir`, `foto`, `status`) VALUES
 	(1, 'Bu Sitii', 'S1 PGSDd', 'siti.png', 1),
 	(10, 'Risa', 'D3', 'foto_68327bdc035f6.jpg', 1),
-	(11, 'Tesa', 'D3', 'foto_68327cae30fcf.jpg', 1),
-	(12, 'Bu aneng', 'S1 PGSD', 'foto_6832da9280d3d.png', 1);
-
--- Dumping structure for table condong.histori
-CREATE TABLE IF NOT EXISTS `histori` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_permohonan` varchar(30) NOT NULL,
-  `nik` int NOT NULL,
-  `status` int NOT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `keterangan` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dumping data for table condong.histori: ~0 rows (approximately)
-
--- Dumping structure for table condong.jenis
-CREATE TABLE IF NOT EXISTS `jenis` (
-  `id_jenis` varchar(50) NOT NULL,
-  `nama_jenis` varchar(50) NOT NULL,
-  `status` int NOT NULL,
-  PRIMARY KEY (`id_jenis`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dumping data for table condong.jenis: ~3 rows (approximately)
-INSERT INTO `jenis` (`id_jenis`, `nama_jenis`, `status`) VALUES
-	('KH', 'Khusus', 1),
-	('PD', 'Pindahan', 1),
-	('SB', 'Siswa Baru', 1);
+	(11, 'Bu Tesa', 'D3', 'foto_68327cae30fcf.jpg', 1),
+	(12, 'Bu aneng', 'S1 PGSD', 'foto_6832da9280d3d.png', 1),
+	(15, 'Pak Joni', 'S! PGSD', 'foto_6882dd92ebcc6.jpg', 1);
 
 -- Dumping structure for table condong.jurusan
 CREATE TABLE IF NOT EXISTS `jurusan` (
@@ -269,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `jurusan` (
   `status` int DEFAULT NULL,
   `jumlah_pendaftar` int DEFAULT '0',
   PRIMARY KEY (`id_jurusan`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table condong.jurusan: ~2 rows (approximately)
 INSERT INTO `jurusan` (`id_jurusan`, `nama_jurusan`, `kuota`, `status`, `jumlah_pendaftar`) VALUES
@@ -374,26 +269,9 @@ CREATE TABLE IF NOT EXISTS `setting` (
   PRIMARY KEY (`id_setting`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table condong.setting: ~0 rows (approximately)
+-- Dumping data for table condong.setting: ~1 rows (approximately)
 INSERT INTO `setting` (`id_setting`, `nama_sekolah`, `jenjang`, `nsm`, `npsn`, `status`, `alamat`, `kota`, `provinsi`, `logo`, `favicon`, `email`, `no_telp`, `klikchat`, `livechat`, `nolivechat`, `infobayar`, `syarat`, `kab`, `kec`, `web`, `kepala`, `nip`, `ppdb`, `kop`, `logo_ppdb`, `tgl_pengumuman`, `tgl_tutup`) VALUES
 	(1, 'MI CONDONG', 0, '-', '20402448', 'Swasta', 'Komplek Pst. Condong, Setianagara, Cibeureum', 'Tasikmalaya', 'Jawa Barat', 'assets/img/logo/logo518.png', NULL, 'micondong@gmail.com', '-', 'Assalamu Alaikum\r\n\r\nMohon informasi PPDB', 'Assalamu Alaikum\r\n\r\nMohon informasi PPDB', '087828116091', '<h5><b>Pembayaran bisa di transfer melalui :</b></h5><ul><li>BRI - 12353435 - MI Condong</li><li>BCA - 123513 - MI Condong</li></ul>', '<p><br></p><ol><li>Surat Keterangan Lulus</li><li>Akta Kelahiran</li><li>Kartu Keluarga</li></ol>', '', '', '-', 'Cece Insan Kamil S.Ag', '-', '1', 'assets/img/kop/kop458.png', 'assets/img/logo/logo_ppdb430.png', '2025-06-30', '2021-05-20');
-
--- Dumping structure for table condong.siswa
-CREATE TABLE IF NOT EXISTS `siswa` (
-  `id_siswa` int NOT NULL AUTO_INCREMENT,
-  `no` int NOT NULL,
-  `nama` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `nisn` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `kelas` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `status` int NOT NULL,
-  `foto_profil` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id_siswa`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Dumping data for table condong.siswa: ~0 rows (approximately)
-INSERT INTO `siswa` (`id_siswa`, `no`, `nama`, `nisn`, `password`, `kelas`, `status`, `foto_profil`) VALUES
-	(1, 12345, 'joni', '12345', '12345', 'XI', 1, NULL);
 
 -- Dumping structure for table condong.tahun_ajaran
 CREATE TABLE IF NOT EXISTS `tahun_ajaran` (
@@ -403,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `tahun_ajaran` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table condong.tahun_ajaran: ~0 rows (approximately)
+-- Dumping data for table condong.tahun_ajaran: ~3 rows (approximately)
 INSERT INTO `tahun_ajaran` (`id`, `tahun`, `aktif`) VALUES
 	(1, '2024/2025', 'N'),
 	(2, '2025/2026', 'Y'),
@@ -419,12 +297,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   `status` int NOT NULL,
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 
--- Dumping data for table condong.user: ~2 rows (approximately)
+-- Dumping data for table condong.user: ~1 rows (approximately)
 INSERT INTO `user` (`id_user`, `nama_user`, `level`, `username`, `password`, `status`) VALUES
 	(5, 'ADMIN', 'admin', 'admin', '$2y$10$kqHkA.usgKh4TNcJJH1h..Pvn.puyeNgYZWncJo3pfXm.nlAkiP6C', 1),
-	(66, 'tesa', 'admin', 'tesa', '$2y$10$KeDQOuLq1rhKtI0Q2kUk4OHNck9TaN2xBGmebf/ZdFiAWEcOzjWkC', 1);
+	(67, 'admin2', 'admin', 'admin2', '$2y$10$uTC7scd45iE7vArwluYecODdyvsy56voXWm/jQ7BCbeFPoop5V4V6', 1),
+	(66, 'Bu tesa', 'admin', 'tesa', '$2y$10$KeDQOuLq1rhKtI0Q2kUk4OHNck9TaN2xBGmebf/ZdFiAWEcOzjWkC', 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
