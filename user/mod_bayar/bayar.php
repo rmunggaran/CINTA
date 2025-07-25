@@ -307,10 +307,10 @@
                 let kategori = parseInt($('#kategori').val()) || 0;
 
                 // Validasi hanya jika kategori = 1
-                if (kategori === 1 && jumlahBayar < 500000) {
+                if (kategori === 1 && jumlahBayar < 600000) {
                     iziToast.error({
                         title: 'Maaf!',
-                        message: 'Minimal pembayaran Rp 500.000 untuk kategori ini',
+                        message: 'Minimal pembayaran Rp 600.000 untuk kategori ini',
                         position: 'topRight'
                     });
                     return false;
