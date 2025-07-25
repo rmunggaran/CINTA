@@ -264,13 +264,17 @@ QRcode::png($codeContents, $tempdir . $siswa['nisn'] . '.png', QR_ECLEVEL_M, 4);
 		<table width="100%">
 			<tr>
 				<td style="text-align: center">
-					<img src="temp/<?= $siswa['nisn'] ?>.png" style="width: 30mm; background-color: white; color: black;">
+					<!-- <img src="temp/<?= $siswa['nisn'] ?>.png" style="width: 30mm; background-color: white; color: black;"> -->
 				</td>
-				<td style="text-align: left">
-					<p><?= $setting['kec'] ?>, <?= date('d-M-Y') ?></p>
-					<p>Pendaftar</p><br><br>
-					<p><strong><?= $siswa['nama'] ?></strong></p>
+				<td>
+					<div style="width: 300px; margin-left: auto; margin-right: 100px; text-align: center;">
+						<p><?= $setting['kec'] ?>, <?= date('d-M-Y') ?></p>
+						<p>Pendaftar</p><br><br>
+						<p><strong><?= $formulir['nama_wali'] ?></strong></p>
+					</div>
 				</td>
+
+
 			</tr>
 		</table>
 

@@ -46,16 +46,44 @@
                                     <td><?= $daftar['sekolah_asal'] ?></td>
 
                                     <td>
-                                        <?php if ($daftar['akta'] <> null) { ?><a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Akte Kelahiran" href="../<?= $daftar['akta'] ?>" class="btn btn-sm btn-success">Lihat Disini</a><?php } ?>
+                                        <?php if ($daftar['akta'] != null) { ?>
+                                            <a href="../<?= $daftar['akta'] ?>" target="_blank" class="btn btn-sm btn-info">
+                                                <i class="fas fa-eye"></i> Preview
+                                            </a>
+                                            <a href="../<?= $daftar['akta'] ?>" download class="btn btn-sm btn-success">
+                                                <i class="fas fa-download"></i> Unduh
+                                            </a>
+                                        <?php } ?>
                                     </td>
                                     <td>
-                                        <?php if ($daftar['kk'] <> null) { ?><a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Kartu Keluarga" href="../<?= $daftar['kk'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-address-card    "></i></a><?php } ?>
+                                        <?php if ($daftar['kk'] != null) { ?>
+                                            <a href="../<?= $daftar['kk'] ?>" target="_blank" class="btn btn-sm btn-info">
+                                                <i class="fas fa-eye"></i> Preview
+                                            </a>
+                                            <a href="../<?= $daftar['kk'] ?>" download class="btn btn-sm btn-success">
+                                                <i class="fas fa-download"></i> Unduh
+                                            </a>
+                                        <?php } ?>
                                     </td>
                                     <td>
-                                        <?php if ($daftar['ktp_ortu'] <> null) { ?> <a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="KTP Orang Tua" href="../<?= $daftar['ktp_ortu'] ?>" class="btn btn-sm btn-warning"><i class="far fa-address-card    "></i></a><?php } ?>
+                                        <?php if ($daftar['ktp_ortu'] != null) { ?>
+                                            <a href="../<?= $daftar['ktp_ortu'] ?>" target="_blank" class="btn btn-sm btn-info">
+                                                <i class="fas fa-eye"></i> Preview
+                                            </a>
+                                            <a href="../<?= $daftar['ktp_ortu'] ?>" download class="btn btn-sm btn-success">
+                                                <i class="fas fa-download"></i> Unduh
+                                            </a>
+                                        <?php } ?>
                                     </td>
                                     <td>
-                                        <?php if ($daftar['kps_pkh'] <> null) { ?><a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="KPS/PKH (Jika Ada)" href="../<?= $daftar['kps_pkh'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-envelope    "></i></a><?php } ?>
+                                        <?php if ($daftar['kps_pkh'] != null) { ?>
+                                            <a href="../<?= $daftar['kps_pkh'] ?>" target="_blank" class="btn btn-sm btn-info">
+                                                <i class="fas fa-eye"></i> Preview
+                                            </a>
+                                            <a href="../<?= $daftar['kps_pkh'] ?>" download class="btn btn-sm btn-success">
+                                                <i class="fas fa-download"></i> Unduh
+                                            </a>
+                                        <?php } ?>
                                     </td>
                                     <td>
                                 </tr>

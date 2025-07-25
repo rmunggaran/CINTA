@@ -547,11 +547,11 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
             <div class="form-row">
                 <div class="form-group">
                     <label for="sttb_tahun">STTB Tahun:</label>
-                    <input type="text" id="sttb_tahun" name="sttb_tahun" value="<?= htmlspecialchars($data['sttb_tahun'] ?? '') ?>" required>
+                    <input type="text" id="sttb_tahun" name="sttb_tahun" value="<?= htmlspecialchars($data['sttb_tahun'] ?? '') ?>">
                 </div>
                 <div class="form-group">
                     <label for="sttb_nomor">STTB Nomor:</label>
-                    <input type="text" id="sttb_nomor" name="sttb_nomor" value="<?= htmlspecialchars($data['sttb_nomor'] ?? '') ?>" required>
+                    <input type="text" id="sttb_nomor" name="sttb_nomor" value="<?= htmlspecialchars($data['sttb_nomor'] ?? '') ?>">
                 </div>
             </div>
             <!-- 5. Orang Tua -->

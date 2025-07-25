@@ -113,6 +113,7 @@
                                     <form id="form-bayar">
                                         <div class="modal-body">
                                             <input type="hidden" value="<?= $siswa['id_daftar'] ?>" name="id">
+                                            <input type="hidden" name="kategori" id="kategori" value="<?= $id_jurusan ?>">
                                             <div class="form-group">
                                                 <label for="jumlah">Jumlah Pembayaran Rp.</label>
                                                 <input type="text" class="form-control uang" name="jumlah" id="jumlah" aria-describedby="helpjumlah" required>
@@ -139,7 +140,9 @@
                                                 <?php } ?>
                                                 <div class="mt-3">
                                                     <strong>Total yang harus dibayar: Rp <span id="total-bayar">0</span></strong>
-                                                    <p class="mt-3">note :minimal transaksi Rp.500.000</p>
+                                                    <?php if ($id_jurusan = 1) { ?>
+                                                        <p class="mt-3">note :minimal transaksi Rp.500.000</p>
+                                                    <?php } ?>
                                                 </div>
                                                 <script>
                                                     // Data jumlah biaya per checkbox
@@ -301,10 +304,13 @@
             $('#form-bayar').submit(function(e) {
                 e.preventDefault();
                 let jumlahBayar = parseInt($('#jumlah').val().replace(/\D/g, '')) || 0;
-                if (jumlahBayar < 500000) {
+                let kategori = parseInt($('#kategori').val()) || 0;
+
+                // Validasi hanya jika kategori = 1
+                if (kategori === 1 && jumlahBayar < 500000) {
                     iziToast.error({
                         title: 'Maaf!',
-                        message: 'Minimal pembayaran Rp 500.000',
+                        message: 'Minimal pembayaran Rp 500.000 untuk kategori ini',
                         position: 'topRight'
                     });
                     return false;
