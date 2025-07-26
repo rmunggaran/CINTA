@@ -82,7 +82,7 @@
                                 <a class="nav-link" href="#tentang" id="link-tentang">Daftar</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#statistik" id="link-statistik">Statistik</a>
+                                <a class="nav-link" href="#statistik" id="link-statistik">kuota </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#persyaratan" id="link-persyaratan">Info Guru</a>
@@ -323,14 +323,14 @@
                                             <div class="card-header bg-info">
                                                 <h4>Daftar Akun</h4>
                                             </div>
-                                            <form id="form-daftar2">
+                                            <form id="form-daftar">
                                                 <div class="card-body">
                                                     <input type="date" name="tgl_daftar" class="form-control datepicker" value="<?= $daftar['tgl_daftar'] ?>" hidden>
                                                     <div class="form-row">
-                                                        <label for="asal">JENIS PENDIDIKAN</label>
+                                                        <label for="asal">JURUSAN / PEMINATAN</label>
                                                         <select class="form-control select2" style="width: 100%" name="jurusan" id="jurusan">
                                                             <option value=""></option>
-                                                            <?php $qu = mysqli_query($koneksi, "select * from jurusan");
+                                                            <?php $qu = mysqli_query($koneksi, "select * from jurusan where id='1'");
                                                             while ($jur = mysqli_fetch_array($qu)) {
                                                             ?>
                                                                 <option value="<?php echo $jur['id_jurusan']; ?>"><?php echo $jur['nama_jurusan']; ?></option>
@@ -339,6 +339,7 @@
 
                                                         </select>
                                                     </div>
+
                                                     <div class="form-row">
                                                         <!-- <div class="form-group col-md-6">
                                                             <label for="jenis">JENIS PENDAFTARAN</label>
@@ -347,13 +348,10 @@
                                                                 <option value="2">Pindahan</option>
                                                             </select>
                                                         </div> -->
+                                                        <input type="hidden" class="form-control datepicker" name="tgl_daftar" required>
                                                         <div class="form-group col-md-6">
                                                             <label for="nisn">Username</label>
                                                             <input type="text" maxlength="10" class="form-control" name="nisn" placeholder="Username" autocomplete="off" required>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
-                                                            <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" required>
                                                         </div>
                                                     </div>
 
@@ -366,7 +364,7 @@
                                                             <label for="nohp">NO HANDPHONE</label>
                                                             <div class="row">
                                                                 <div class="col-2">
-                                                                    <input type="text" placeholder="+62" disabled style="width:45px" class="form-control">
+                                                                    <input type="text" placeholder="+62" disabled class="form-control">
                                                                 </div>
                                                                 <div class="col-10">
                                                                     <input type="number" class="form-control" name="nohp" placeholder="No HP Whatsapp" required>
@@ -387,7 +385,10 @@
                                                         </div>
 
                                                     </div> -->
-
+                                                    <div class="form-group">
+                                                        <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
+                                                        <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" required>
+                                                    </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <a href="#" onclick="document.getElementById('captcha').src = 'securimage/securimage_show.php?' + Math.random(); return false">Refresh Kode</a>
@@ -400,8 +401,8 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="card-footer">
-                                                    <button id='btnsimpan' type="submit" class="btn btn-lg btn-success">SIMPAN DATA</button>
+                                                <div class="card-header bg-white">
+                                                    <button id='btnsimpan' type="submit" class="btn btn-lg btn-primary">DAFTAR</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -456,16 +457,16 @@
 
                             </div>
                             <div class="col-sm-4">
-                                <div class="card card-login bg-info">
+                                <div class="card card-login bg-success">
                                     <div class="card-body">
-                                        <div class="avatar bg-info" align="center">
+                                        <div class="avatar bg-success" align="center">
                                             <img src="<?= $setting['logo_ppdb'] ?>" alt="" height="70%" width="70%">
                                         </div>
                                         <br>
                                         <form id="form-login">
                                             <div class="form-group">
                                                 <span class="fa fa-user"></span>
-                                                <input type="text" onkeyup="this.value = this.value.toUpperCase()" class="form-control" name="username" placeholder="Masukkan NISN" required autocomplete="off" disabled>
+                                                <input type="text" onkeyup="this.value = this.value.toUpperCase()" class="form-control" name="username" placeholder="Masukkan Username atau Nama" required autocomplete="off" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <span class="fa fa-key"></span>
@@ -573,7 +574,7 @@
                                 <br>
                                 <div class="col-sm-6">
                                     <p align="center">
-                                        <img src="assets/alurppdb.png" align="center" width="600" style="max-width: 90%" />
+                                        <img src="assets/alurppdbmic.png" align="center" width="600" style="max-width: 90%" />
                                     </p>
                                 </div>
                             </div>
@@ -688,14 +689,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--<div class="col-sm-4">
-                                <div class="card mt-2">
-                                    <div class="card-header bg-secondary">Data Siswa</div>
-                                    <div class="card-body">
-                                        <h2 class="text-center"><?= rowcount($koneksi, 'siswa') ?></h2>
-                                    </div>
-                                </div>
-                            </div>-->
                             <div class="col-sm-6">
                                 <div class="card mt-2">
                                     <div class="card-header bg-success">Kuota diterima</div>
@@ -748,11 +741,10 @@
                                         <td><?= $guru['pendidikan_terakhir'] ?></td>
                                         <?php
                                         $kelasNama = '-';
-                                        if (!empty($guru['wali_kelas'])) {
-                                            $kelas = fetch($koneksi, 'kelas', ['id_kelas' => $guru['wali_kelas']]);
-                                            if ($kelas) {
-                                                $kelasNama = $kelas['nama_kelas'];
-                                            }
+                                        $kelasQuery = mysqli_query($koneksi, "SELECT * FROM kelas WHERE walikelas_id = '$guru[id]' AND tahun_ajaran = '$tahunAktif[tahun]'");
+                                        if ($kelasQuery && mysqli_num_rows($kelasQuery) > 0) {
+                                            $kelasData = mysqli_fetch_array($kelasQuery);
+                                            $kelasNama = $kelasData['nama_kelas'];
                                         }
                                         ?>
                                         <td><?= $kelasNama ?></td>

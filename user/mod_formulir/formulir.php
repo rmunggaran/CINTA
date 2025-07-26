@@ -252,6 +252,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // --- ijazah ---
+    if (!empty($_FILES['ijazah']['name'])) {
+        $file = $_FILES['ijazah'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        if (in_array($ext, $ekstensi)) {
+            $query = mysqli_query($koneksi, "SELECT ijazah FROM daftar WHERE id_daftar = '$id'");
+            $lama = mysqli_fetch_assoc($query);
+
+            if (!empty($lama['ijazah'])) {
+                $file_lama = realpath(__DIR__ . '/../../' . $lama['ijazah']);
+                if ($file_lama && is_file($file_lama)) {
+                    unlink($file_lama);
+                }
+            }
+
+            $dir = realpath(__DIR__ . '/../../assets/upload/ijazah');
+            if (!$dir) {
+                mkdir(__DIR__ . '/../../assets/upload/ijazah', 0777, true);
+                $dir = realpath(__DIR__ . '/../../assets/upload/ijazah');
+            }
+
+            $dest = $dir . "/ijazah{$id}.{$ext}";
+            if (move_uploaded_file($file['tmp_name'], $dest)) {
+                $data_berkas['ijazah'] = 'assets/upload/ijazah/ijazah' . $id . '.' . $ext;
+            }
+        }
+    }
+
     if (!empty($data_berkas)) {
         $exec_berkas = update($koneksi, 'daftar', $data_berkas, ['id_daftar' => $id]);
         if ($exec_berkas) {
@@ -766,6 +794,15 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
                 <input class="form-control" type="file" name="kps_pkh" id="kps_pkh" accept=".jpg, .jpeg, .png">
                 <?php if (!empty($berkas['kps_pkh'])): ?>
                     <p>File lama: <a href="../<?= $berkas['kps_pkh'] ?>?ts=<?= time() ?>" target="_blank">Lihat KPS/PKH</a></p>
+                <?php endif; ?>
+            </div>
+
+            <!-- KPS/PKH -->
+            <div class="form-group mb-3">
+                <label for="kps_pkh" class="form-label">Ijazah TK (jika ada)</label>
+                <input class="form-control" type="file" name="ijazah" id="ijazah" accept=".jpg, .jpeg, .png">
+                <?php if (!empty($berkas['ijazah'])): ?>
+                    <p>File lama: <a href="../<?= $berkas['ijazah'] ?>?ts=<?= time() ?>" target="_blank">Lihat ijazah</a></p>
                 <?php endif; ?>
             </div>
             <button type="submit" class="btn-submit" id="submit-all">Simpan</button>

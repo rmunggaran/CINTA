@@ -17,7 +17,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Nama jurusan</label>
+                            <label>Jenis Pendidikan</label>
                             <input type="text" name="nama" class="form-control" required="">
                         </div>
                         <div class="form-group">

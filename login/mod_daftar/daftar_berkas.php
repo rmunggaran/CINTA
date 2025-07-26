@@ -25,6 +25,7 @@
                                 <th>Kartu Keluarga</th>
                                 <th>KTP Orang Tua</th>
                                 <th>KPS/PKH (Jika Ada)</th>
+                                <th>Ijazah (Jika Ada)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,6 +87,15 @@
                                         <?php } ?>
                                     </td>
                                     <td>
+                                        <?php if ($daftar['ijazah'] != null) { ?>
+                                            <a href="../<?= $daftar['ijazah'] ?>" target="_blank" class="btn btn-sm btn-info">
+                                                <i class="fas fa-eye"></i> Preview
+                                            </a>
+                                            <a href="../<?= $daftar['ijazah'] ?>" download class="btn btn-sm btn-success">
+                                                <i class="fas fa-download"></i> Unduh
+                                            </a>
+                                        <?php } ?>
+                                    </td>
                                 </tr>
 
                             <?php }
