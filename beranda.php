@@ -242,7 +242,7 @@
                                                         <label for="asal">JURUSAN / PEMINATAN</label>
                                                         <select class="form-control select2" style="width: 100%" name="jurusan" id="jurusan">
                                                             <option value=""></option>
-                                                            <?php $qu = mysqli_query($koneksi, "select * from jurusan where id='1'");
+                                                            <?php $qu = mysqli_query($koneksi, "select * from jurusan");
                                                             while ($jur = mysqli_fetch_array($qu)) {
                                                             ?>
                                                                 <option value="<?php echo $jur['id_jurusan']; ?>"><?php echo $jur['nama_jurusan']; ?></option>
@@ -264,6 +264,10 @@
                                                         <div class="form-group col-md-6">
                                                             <label for="nisn">Username</label>
                                                             <input type="text" maxlength="10" class="form-control" name="nisn" placeholder="Username" autocomplete="off" required>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
+                                                            <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" required>
                                                         </div>
                                                     </div>
 
@@ -297,10 +301,6 @@
                                                         </div>
 
                                                     </div> -->
-                                                    <div class="form-group">
-                                                        <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
-                                                        <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" required>
-                                                    </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <a href="#" onclick="document.getElementById('captcha').src = 'securimage/securimage_show.php?' + Math.random(); return false">Refresh Kode</a>
@@ -323,14 +323,14 @@
                                             <div class="card-header bg-info">
                                                 <h4>Daftar Akun</h4>
                                             </div>
-                                            <form id="form-daftar">
+                                            <form id="form-daftar2">
                                                 <div class="card-body">
                                                     <input type="date" name="tgl_daftar" class="form-control datepicker" value="<?= $daftar['tgl_daftar'] ?>" hidden>
                                                     <div class="form-row">
-                                                        <label for="asal">JURUSAN / PEMINATAN</label>
+                                                        <label for="asal">JENIS PENDIDIKAN</label>
                                                         <select class="form-control select2" style="width: 100%" name="jurusan" id="jurusan">
                                                             <option value=""></option>
-                                                            <?php $qu = mysqli_query($koneksi, "select * from jurusan where id='1'");
+                                                            <?php $qu = mysqli_query($koneksi, "select * from jurusan");
                                                             while ($jur = mysqli_fetch_array($qu)) {
                                                             ?>
                                                                 <option value="<?php echo $jur['id_jurusan']; ?>"><?php echo $jur['nama_jurusan']; ?></option>
@@ -353,6 +353,10 @@
                                                             <label for="nisn">Username</label>
                                                             <input type="text" maxlength="10" class="form-control" name="nisn" placeholder="Username" autocomplete="off" required>
                                                         </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
+                                                            <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" required>
+                                                        </div>
                                                     </div>
 
                                                     <div class="form-row">
@@ -364,7 +368,7 @@
                                                             <label for="nohp">NO HANDPHONE</label>
                                                             <div class="row">
                                                                 <div class="col-2">
-                                                                    <input type="text" placeholder="+62" disabled class="form-control">
+                                                                    <input type="text" placeholder="+62" disabled style="width:45px" class="form-control">
                                                                 </div>
                                                                 <div class="col-10">
                                                                     <input type="number" class="form-control" name="nohp" placeholder="No HP Whatsapp" required>
@@ -385,10 +389,6 @@
                                                         </div>
 
                                                     </div> -->
-                                                    <div class="form-group">
-                                                        <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
-                                                        <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" required>
-                                                    </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <a href="#" onclick="document.getElementById('captcha').src = 'securimage/securimage_show.php?' + Math.random(); return false">Refresh Kode</a>
@@ -401,8 +401,8 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="card-header bg-white">
-                                                    <button id='btnsimpan' type="submit" class="btn btn-lg btn-primary">DAFTAR</button>
+                                                <div class="card-footer">
+                                                    <button id='btnsimpan' type="submit" class="btn btn-lg btn-success">SIMPAN DATA</button>
                                                 </div>
                                             </form>
                                         </div>
