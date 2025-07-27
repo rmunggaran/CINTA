@@ -30,12 +30,15 @@ CREATE TABLE IF NOT EXISTS `bayar` (
   PRIMARY KEY (`id_bayar`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table condong.bayar: ~2 rows (approximately)
+-- Dumping data for table condong.bayar: ~8 rows (approximately)
 INSERT INTO `bayar` (`id_bayar`, `id_user`, `id_daftar`, `id_biaya`, `jumlah`, `tgl_bayar`, `keterangan`, `bukti`, `verifikasi`, `hapus`, `jenis_bayar`) VALUES
 	('202507240001', 0, 328, 'ATK', 200000, '2025-07-24', NULL, 'bukti_transaksi/bukti_20250724_6881d65f27269.jpg', 1, NULL, 'ppdb'),
 	('202507240002', 0, 328, 'FD2025', 500000, '2025-07-24', NULL, 'bukti_transaksi/bukti_20250724_6881d65f27269.jpg', 1, NULL, 'ppdb'),
 	('202507250001', 0, 328, 'SR', 100000, '2025-07-25', NULL, 'bukti_transaksi/bukti_20250725_6882d9234063f.jpg', 1, NULL, 'ppdb'),
-	('202507250002', 0, 328, 'SRG', 600000, '2025-07-25', NULL, 'bukti_transaksi/bukti_20250725_6882d9234063f.jpg', 1, NULL, 'ppdb');
+	('202507250002', 0, 328, 'SRG', 600000, '2025-07-25', NULL, 'bukti_transaksi/bukti_20250725_6882d9234063f.jpg', 1, NULL, 'ppdb'),
+	('202507260001', 0, 328, 'BP', 1203000, '2025-07-26', NULL, 'bukti_transaksi/bukti_20250726_6884bc3d7189b.jpg', 1, NULL, 'ppdb'),
+	('202507260002', 0, 328, 'FDS', 1200000, '2025-07-26', NULL, 'bukti_transaksi/bukti_20250726_6884bc3d7189b.jpg', 1, NULL, 'ppdb'),
+	('202507260003', 0, 328, 'PS', 2100000, '2025-07-26', NULL, 'bukti_transaksi/bukti_20250726_6884bc3d7189b.jpg', 1, NULL, 'ppdb');
 
 -- Dumping structure for table condong.biaya
 CREATE TABLE IF NOT EXISTS `biaya` (
@@ -81,15 +84,19 @@ CREATE TABLE IF NOT EXISTS `daftar` (
   `password` text,
   `ktp_ortu` varchar(256) DEFAULT NULL,
   `kps_pkh` varchar(256) DEFAULT NULL,
+  `ijazah` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_daftar`)
-) ENGINE=InnoDB AUTO_INCREMENT=333 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=337 DEFAULT CHARSET=latin1;
 
--- Dumping data for table condong.daftar: ~3 rows (approximately)
-INSERT INTO `daftar` (`id_daftar`, `no_daftar`, `nisn`, `nama`, `foto`, `tempat_lahir`, `tgl_lahir`, `kelas`, `jurusan`, `no_hp`, `kk`, `akta`, `aktif`, `status`, `tgl_konfirmasi`, `konfirmasi`, `online`, `password`, `ktp_ortu`, `kps_pkh`) VALUES
-	(328, 'PPDB2025001', 'tesa', 'TESA DOANG', 'default.png', 'Tasikmalaya', '2025-07-08', 'KLS6881aca69690d', '1', '8293329829', 'assets/upload/kk/kk328.jpg', 'assets/upload/akta/akta328.jpg', 0, 1, '2025-07-25', 1, 1, 'tesa', 'assets/upload/ktp_ortu/ktp_ortu328.jpg', 'assets/upload/kps_pkh/kps_pkh328.jpg'),
-	(329, 'PPDB2025002', 'ranti', 'RANTI DOANG', 'default.png', 'Tasikmalaya', '2025-07-16', NULL, '2', '83923992', 'assets/upload/kk/kk329.jpg', 'assets/upload/akta/akta329.jpg', 0, 2, NULL, NULL, 1, 'ranti', 'assets/upload/ktp_ortu/ktp_ortu329.jpg', 'assets/upload/kps_pkh/kps_pkh329.jpg'),
-	(330, 'PPDB2025003', 'ferla', 'FERLA DOANG', 'default.png', 'Tasikmalaya', '2025-07-15', '', '2', '892392833', 'assets/upload/kk/kk330.png', 'assets/upload/akta/akta330.png', 0, 0, '2025-07-24', NULL, 1, 'ferla', 'assets/upload/ktp_ortu/ktp_ortu330.png', 'assets/upload/kps_pkh/kps_pkh330.png'),
-	(332, 'PPDB2025005', 'diang', 'DIANG', 'default.png', 'Tasikmalaya', '2025-07-16', NULL, '1', '8273293923', 'assets/upload/kk/kk332.jpg', 'assets/upload/akta/akta332.jpg', 0, 1, NULL, NULL, 1, '12345', 'assets/upload/ktp_ortu/ktp_ortu332.jpg', 'assets/upload/kps_pkh/kps_pkh332.jpg');
+-- Dumping data for table condong.daftar: ~4 rows (approximately)
+INSERT INTO `daftar` (`id_daftar`, `no_daftar`, `nisn`, `nama`, `foto`, `tempat_lahir`, `tgl_lahir`, `kelas`, `jurusan`, `no_hp`, `kk`, `akta`, `aktif`, `status`, `tgl_konfirmasi`, `konfirmasi`, `online`, `password`, `ktp_ortu`, `kps_pkh`, `ijazah`) VALUES
+	(328, 'PPDB2025001', 'tesa', 'TESA DOANG', 'default.png', 'Tasikmalaya', '2025-07-08', 'KLS6881ac915fc3f', '1', '8293329829', 'assets/upload/kk/kk328.jpg', 'assets/upload/akta/akta328.jpg', 0, 1, '2025-07-25', 1, 1, 'tesa', 'assets/upload/ktp_ortu/ktp_ortu328.jpg', 'assets/upload/kps_pkh/kps_pkh328.jpg', NULL),
+	(329, 'PPDB2025002', 'ranti', 'RANTI DOANG', 'default.png', 'Tasikmalaya', '2025-07-16', NULL, '2', '83923992', 'assets/upload/kk/kk329.jpg', 'assets/upload/akta/akta329.jpg', 0, 2, NULL, NULL, 1, 'ranti', 'assets/upload/ktp_ortu/ktp_ortu329.jpg', 'assets/upload/kps_pkh/kps_pkh329.jpg', NULL),
+	(330, 'PPDB2025003', 'ferla', 'FERLA DOANG', 'default.png', 'Tasikmalaya', '2025-07-15', '', '2', '892392833', 'assets/upload/kk/kk330.png', 'assets/upload/akta/akta330.png', 0, 0, '2025-07-24', NULL, 1, 'ferla', 'assets/upload/ktp_ortu/ktp_ortu330.png', 'assets/upload/kps_pkh/kps_pkh330.png', NULL),
+	(332, 'PPDB2025005', '12345', 'DIANG', 'default.png', 'Tasikmalaya', '2025-07-16', 'KLS6881ac915fc3f', '1', '8273293923', 'assets/upload/kk/kk332.jpg', 'assets/upload/akta/akta332.jpg', 0, 1, '2025-07-26', 1, 1, '12345', 'assets/upload/ktp_ortu/ktp_ortu332.jpg', 'assets/upload/kps_pkh/kps_pkh332.jpg', 'assets/upload/ijazah/ijazah332.png'),
+	(333, 'PPDB2025006', 'anu', 'ANU DOANG', 'default.png', 'Tasikmalaya', '2025-07-18', '', '2', '89238923', 'assets/upload/kk/kk333.jpg', 'assets/upload/akta/akta333.jpg', 0, 0, '2025-07-25', 0, 1, 'anu', 'assets/upload/ktp_ortu/ktp_ortu333.jpg', NULL, NULL),
+	(335, 'PPDB2025007', 'anuuuuuuuu', 'Anuuuuuuuu', 'default.png', NULL, NULL, NULL, '2', '829293923', NULL, NULL, 0, 0, NULL, NULL, 1, 'anuuuuuuuu', NULL, NULL, NULL),
+	(336, 'PPDB2025008', 'dadang', 'Dadang Surandang', 'default.png', NULL, NULL, NULL, '1', '98292929', 'assets/upload/kk/kk336.jpg', 'assets/upload/akta/akta336.jpg', 0, 0, NULL, NULL, 1, 'dadang', 'assets/upload/ktp_ortu/ktp_ortu336.jpg', 'assets/upload/kps_pkh/kps_pkh336.jpg', 'assets/upload/ijazah/ijazah336.jpg');
 
 -- Dumping structure for table condong.formulir
 CREATE TABLE IF NOT EXISTS `formulir` (
@@ -129,14 +136,16 @@ CREATE TABLE IF NOT EXISTS `formulir` (
   `pekerjaan_wali` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `tahun_ajaran` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table condong.formulir: ~3 rows (approximately)
+-- Dumping data for table condong.formulir: ~0 rows (approximately)
 INSERT INTO `formulir` (`id`, `no_pendaftaran`, `no_daftar`, `kategori`, `nama_siswa`, `nomor_induk`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `anak_ke`, `jumlah_saudara`, `status_keluarga`, `alamat_rumah`, `alamat_sekarang`, `kelas_diterima`, `tanggal_diterima`, `sekolah_asal`, `alamat_sekolah_asal`, `sttb_tahun`, `sttb_nomor`, `nama_ayah`, `nama_ibu`, `agama_ortu`, `alamat_ortu`, `pekerjaan_ayah`, `pekerjaan_ibu`, `pendidikan_ayah`, `pendidikan_ibu`, `penghasilan`, `nama_wali`, `agama_wali`, `alamat_wali`, `pendidikan_wali`, `pekerjaan_wali`, `tahun_ajaran`) VALUES
 	(38, 'PSB-1', '332', '2', 'Diang doang', '128372838232', 'Laki-laki', 'Tasikmalaya', '2025-07-16', 3, 1, 'Anak', 'Cineam', 'Cineam', NULL, NULL, 'TK PGRI', 'Cineam', '2006', '92392323', 'Dedi kusnandar', 'Mizuhara', 'Islam', 'Cineam', 'Wiraswasta/Pedagang', 'Wiraswasta/Pedagang', 'S1 (Sarjana)', 'S1 (Sarjana)', 'Lebih dari Rp.5.000.001', 'Mizuhara', 'Islam', 'Cineam', 'S1 (Sarjana)', 'Wiraswasta/Pedagang', '2025/2026'),
 	(39, 'PSB-2', '328', '1', 'Tesa Doang', '12823823383', 'Perempuan', 'Tasikmalaya', '2025-07-08', 3, 1, 'Anak', 'Condong', 'Condong', NULL, NULL, 'TK PGRI', 'Condong', '2006', '92392323', 'anu kusnandar', 'anu ibu', 'Islam', 'Condong', 'TNI/POLRI', 'Lainnya', 'SMA/MA/SMK/Paket C', 'SMA/MA/SMK/Paket C', 'Lebih dari Rp.5.000.001', 'anu ibu', 'Islam', 'Condong', 'SMA/MA/SMK/Paket C', 'Lainnya', '2025/2026'),
 	(40, 'PSB-3', '329', '2', 'Ranti doang', '28328382738728', 'Perempuan', 'Tasikmalaya', '2025-07-16', 1, 2, 'Anak', 'Gn tanjung', 'Gn tanjung', NULL, NULL, 'TK PGRI', 'Manonjaya', '2006', '92392323', 'Dedi kusnandar', 'anu doang', 'Islam', 'Gn tanjung', 'Pegawai Swasta', 'Lainnya', 'SMA/MA/SMK/Paket C', 'SMA/MA/SMK/Paket C', 'Lebih dari Rp.5.000.001', 'Dedi kusnandar', 'Islam', 'Gn tanjung', 'SMA/MA/SMK/Paket C', 'Pegawai Swasta', '2025/2026'),
-	(41, 'PSB-4', '330', '2', 'Ferla Doang', '72737238283', 'Perempuan', 'Tasikmalaya', '2025-07-15', 2, 2, 'Anak', 'Cineam', 'Cineam', NULL, NULL, 'TK PGRI', 'Manonjaya', '2024', '5688765567', 'Jojon susanto', 'Ratni Sudarmini', 'Islam', 'Cineam', 'Petani/Peternak', 'Petani/Peternak', 'SMA/MA/SMK/Paket C', 'SMA/MA/SMK/Paket C', 'Lebih dari Rp.5.000.001', 'Ratni Sudarmini', 'Islam', 'Cineam', 'SMA/MA/SMK/Paket C', 'Petani/Peternak', '2025/2026');
+	(41, 'PSB-4', '330', '2', 'Ferla Doang', '72737238283', 'Perempuan', 'Tasikmalaya', '2025-07-15', 2, 2, 'Anak', 'Cineam', 'Cineam', NULL, NULL, 'TK PGRI', 'Manonjaya', '2024', '5688765567', 'Jojon susanto', 'Ratni Sudarmini', 'Islam', 'Cineam', 'Petani/Peternak', 'Petani/Peternak', 'SMA/MA/SMK/Paket C', 'SMA/MA/SMK/Paket C', 'Lebih dari Rp.5.000.001', 'Ratni Sudarmini', 'Islam', 'Cineam', 'SMA/MA/SMK/Paket C', 'Petani/Peternak', '2025/2026'),
+	(42, 'PSB-5', '333', '2', 'anu doang', '1289182982', 'Laki-laki', 'Tasikmalaya', '2025-07-18', 2, 1, 'Anak', 'Gn tanjung', 'Gn tanjung', NULL, NULL, 'TK PGRI', 'Manonjaya', '', '', 'Dedi kusnandar', 'Ratni Sudarmini', 'Islam', 'Gn tanjung', 'Wiraswasta/Pedagang', 'Pegawai Swasta', 'S2 (Magister)', 'S1 (Sarjana)', 'Lebih dari Rp.5.000.001', 'Ratni Sudarmini', 'Islam', 'Gn tanjung', 'S1 (Sarjana)', 'Pegawai Swasta', '2025/2026'),
+	(43, 'PSB-6', '336', '1', 'Dadang Surandang', '2982912989129', 'Laki-laki', 'Tasikmalaya', '2025-02-05', 3, 2, 'Anak', 'Cineam', 'Cineam', NULL, NULL, 'Fuji Yochien', 'Jepang', '2033', '8373828832', 'Jojon susanto', 'Mizuhara', 'Islam', 'Cineam', 'Politikus', 'Lainnya', 'S2 (Magister)', 'S1 (Sarjana)', 'Lebih dari Rp.5.000.001', 'Mizuhara', 'Islam', 'Cineam', 'S1 (Sarjana)', 'Lainnya', '2025/2026');
 
 -- Dumping structure for table condong.guru
 CREATE TABLE IF NOT EXISTS `guru` (
@@ -233,8 +242,7 @@ CREATE TABLE IF NOT EXISTS `sekolah` (
 
 -- Dumping data for table condong.sekolah: ~2 rows (approximately)
 INSERT INTO `sekolah` (`npsn`, `nama_sekolah`, `alamat`, `status`) VALUES
-	('20402445', 'Mi Condong', 'Komplek Pst.Condong, Setianagara, Cibeureum, Kota ', 1),
-	('69977331', 'SD N KERDONMIRI II', 'Jl. Karangwetan,Rongkop,Gunungkidul', 1);
+	('20402445', 'Mi Condong', 'Komplek Pst.Condong, Setianagara, Cibeureum, Kota ', 1);
 
 -- Dumping structure for table condong.setting
 CREATE TABLE IF NOT EXISTS `setting` (
@@ -271,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `setting` (
 
 -- Dumping data for table condong.setting: ~1 rows (approximately)
 INSERT INTO `setting` (`id_setting`, `nama_sekolah`, `jenjang`, `nsm`, `npsn`, `status`, `alamat`, `kota`, `provinsi`, `logo`, `favicon`, `email`, `no_telp`, `klikchat`, `livechat`, `nolivechat`, `infobayar`, `syarat`, `kab`, `kec`, `web`, `kepala`, `nip`, `ppdb`, `kop`, `logo_ppdb`, `tgl_pengumuman`, `tgl_tutup`) VALUES
-	(1, 'MI CONDONG', 0, '-', '20402448', 'Swasta', 'Komplek Pst. Condong, Setianagara, Cibeureum', 'Tasikmalaya', 'Jawa Barat', 'assets/img/logo/logo518.png', NULL, 'micondong@gmail.com', '-', 'Assalamu Alaikum\r\n\r\nMohon informasi PPDB', 'Assalamu Alaikum\r\n\r\nMohon informasi PPDB', '087828116091', '<h5><b>Pembayaran bisa di transfer melalui :</b></h5><ul><li>BRI - 12353435 - MI Condong</li><li>BCA - 123513 - MI Condong</li></ul>', '<p><br></p><ol><li>Surat Keterangan Lulus</li><li>Akta Kelahiran</li><li>Kartu Keluarga</li></ol>', '', '', '-', 'Cece Insan Kamil S.Ag', '-', '1', 'assets/img/kop/kop458.png', 'assets/img/logo/logo_ppdb430.png', '2025-06-30', '2021-05-20');
+	(1, 'MI CONDONG', 0, '-', '20402448', 'Swasta', 'Komplek Pst. Condong, Setianagara, Cibeureum', 'Tasikmalaya', 'Jawa Barat', 'assets/img/logo/logo518.png', NULL, 'micondong@gmail.com', '-', 'Assalamu Alaikum\r\n\r\nMohon informasi PPDB', 'Assalamu Alaikum\r\n\r\nMohon informasi PPDB', '087828116091', '<h5><b>Pembayaran bisa di transfer melalui :</b></h5><ul><li>BRI - 12353435 - MI Condong</li><li>BCA - 123513 - MI Condong</li></ul>', '<p><br></p><ol><li>Surat Keterangan Lulus</li><li>Akta Kelahiran</li><li>Kartu Keluarga</li></ol>', '', '', '-', 'Cece Insan Kamil S.Ag', '-', '1', 'assets/img/kop/kop458.png', 'assets/img/logo/logo_ppdb430.png', '2025-07-26', '2021-05-20');
 
 -- Dumping structure for table condong.tahun_ajaran
 CREATE TABLE IF NOT EXISTS `tahun_ajaran` (

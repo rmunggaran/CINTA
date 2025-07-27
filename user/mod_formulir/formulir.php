@@ -149,6 +149,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if (in_array($ext, $ekstensi)) {
             $query = mysqli_query($koneksi, "SELECT akta FROM daftar WHERE id_daftar = '$id'");
+            if (!$query) {
+                die("Query error: " . mysqli_error($koneksi));
+            }
             $lama = mysqli_fetch_assoc($query);
             if (!empty($lama['akta'])) {
                 $file_lama = realpath(__DIR__ . '/../../' . $lama['akta']);
@@ -175,6 +178,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if (in_array($ext, $ekstensi)) {
             $query = mysqli_query($koneksi, "SELECT kk FROM daftar WHERE id_daftar = '$id'");
+            if (!$query) {
+                die("Query error: " . mysqli_error($koneksi));
+            }
             $lama = mysqli_fetch_assoc($query);
             if (!empty($lama['kk'])) {
                 $file_lama = realpath(__DIR__ . '/../../' . $lama['kk']);
@@ -202,6 +208,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if (in_array($ext, $ekstensi)) {
             $query = mysqli_query($koneksi, "SELECT ktp_ortu FROM daftar WHERE id_daftar = '$id'");
+            if (!$query) {
+                die("Query error: " . mysqli_error($koneksi));
+            }
             $lama = mysqli_fetch_assoc($query);
 
             if (!empty($lama['ktp_ortu'])) {
@@ -230,6 +239,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if (in_array($ext, $ekstensi)) {
             $query = mysqli_query($koneksi, "SELECT kps_pkh FROM daftar WHERE id_daftar = '$id'");
+            if (!$query) {
+                die("Query error: " . mysqli_error($koneksi));
+            }
             $lama = mysqli_fetch_assoc($query);
 
             if (!empty($lama['kps_pkh'])) {
@@ -258,6 +270,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if (in_array($ext, $ekstensi)) {
             $query = mysqli_query($koneksi, "SELECT ijazah FROM daftar WHERE id_daftar = '$id'");
+            if (!$query) {
+                die("Query error: " . mysqli_error($koneksi));
+            }
             $lama = mysqli_fetch_assoc($query);
 
             if (!empty($lama['ijazah'])) {
