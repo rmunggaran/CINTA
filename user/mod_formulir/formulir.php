@@ -517,7 +517,7 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
                     <label for="nomor_induk">Nomor Induk Kependudukan (NIK):</label>
                     <input type="number" id="nomor_induk" name="nomor_induk"
                         value="<?= htmlspecialchars($data['nomor_induk'] ?? '') ?>"
-                        required oninput="cekNIK()">
+                        required maxlength="16" oninput="cekNIK()">
                     <small id="error-nik" style="color: red; display: none;">NIK tidak boleh lebih dari 16 karakter</small>
                 </div>
                 <div class="form-group">
