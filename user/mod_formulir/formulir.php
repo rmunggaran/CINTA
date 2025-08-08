@@ -515,7 +515,10 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
             <div class="form-row">
                 <div class="form-group">
                     <label for="nomor_induk">Nomor Induk Kependudukan (NIK):</label>
-                    <input type="text" id="nomor_induk" name="nomor_induk" value="<?= htmlspecialchars($data['nomor_induk'] ?? '') ?>" required>
+                    <input type="number" id="nomor_induk" name="nomor_induk"
+                        value="<?= htmlspecialchars($data['nomor_induk'] ?? '') ?>"
+                        required oninput="cekNIK()">
+                    <small id="error-nik" style="color: red; display: none;">NIK tidak boleh lebih dari 16 karakter</small>
                 </div>
                 <div class="form-group">
                     <label for="jenis_kelamin">Jenis Kelamin:</label>
@@ -825,6 +828,20 @@ $no_daftarr = isset($_SESSION['id_daftar']) ? $_SESSION['id_daftar'] : '';
     </div>
 
     <script>
+        function cekNIK() {
+            const input = document.getElementById("nomor_induk");
+            const error = document.getElementById("error-nik");
+            const submitBtn = document.getElementById("submit-all");
+
+            if (input.value.length > 16) {
+                error.style.display = "block";
+                submitBtn.disabled = true;
+            } else {
+                error.style.display = "none";
+                submitBtn.disabled = false;
+            }
+        }
+
         function isiDataWali() {
             const waliDari = document.getElementById('wali_dari').value;
 

@@ -91,7 +91,8 @@
                                     <div class="form-group row mb-2">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
                                         <div class="col-sm-12 col-md-7">
-                                            <input type="text" name="nomor_induk" class="form-control" value="<?= $formulir['nomor_induk'] ?>">
+                                            <input type="text" name="nomor_induk" id="nomor_induk" class="form-control" value="<?= $formulir['nomor_induk'] ?>" oninput="cekNIK()">
+                                            <small id="error-nik" style="color: red; display: none;">NIK tidak boleh lebih dari 16 karakter</small>
                                         </div>
                                     </div>
                                     <div class="form-group row mb-2">
@@ -368,6 +369,20 @@
 
 
 <script>
+    function cekNIK() {
+        const input = document.getElementById("nomor_induk");
+        const error = document.getElementById("error-nik");
+        const submitBtn = document.getElementById("btnsimpan");
+
+        if (input.value.length > 16) {
+            error.style.display = "block";
+            submitBtn.disabled = true;
+        } else {
+            error.style.display = "none";
+            submitBtn.disabled = false;
+        }
+    }
+
     $('.form-control').keyup(function(event) {
 
         $(this).val($(this).val().toUpperCase());
