@@ -199,7 +199,7 @@
                                     <form id="form-login">
                                         <div class="form-group">
                                             <span class="fa fa-user"></span>
-                                            <input type="text" onkeyup="this.value = this.value.toUpperCase()" class="form-control" name="username" placeholder="Masukkan Username atau Nama" required autocomplete="off">
+                                            <input type="text" class="form-control" name="username" placeholder="Masukkan Username atau Nama" required autocomplete="off">
                                         </div>
                                         <div class="form-group">
                                             <span class="fa fa-key"></span>
@@ -351,7 +351,7 @@
                                                         <input type="hidden" class="form-control datepicker" name="tgl_daftar" required>
                                                         <div class="form-group col-md-6">
                                                             <label for="nisn">Username</label>
-                                                            <input type="text" maxlength="10" class="form-control" name="nisn" placeholder="Username" autocomplete="off" required>
+                                                            <input type="text" class="form-control" name="nisn" placeholder="Username" autocomplete="off" required>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="inputPassword4">PASSWORD (Mohon Diingat!)</label>
